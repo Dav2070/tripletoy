@@ -1,0 +1,48 @@
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 0 16px 32px;
+}
+
+.back-link {
+	display: inline-block;
+	margin-bottom: 16px;
+	color: var(--dav-color-primary);
+}
+
+.toy-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 32px;
+}
+
+.toy-image {
+	flex: 1 1 320px;
+	min-width: 0;
+	max-width: 480px;
+	aspect-ratio: 1;
+	object-fit: cover;
+	border-radius: 16px;
+}
+
+.toy-details {
+	flex: 1 1 320px;
+	color: var(--dav-color-on-surface);
+}
+
+.toy-price {
+	margin: 0 0 16px;
+	font-size: 28px;
+	font-weight: 700;
+	color: var(--dav-color-primary);
+}
+
+.toy-description {
+	white-space: pre-wrap;
+	line-height: 1.5;
+}
+
+.toy-listed-on,
+.not-found {
+	color: var(--dav-color-on-surface-variant);
+}

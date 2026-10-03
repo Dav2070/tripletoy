@@ -1,0 +1,27 @@
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 16px 32px;
+}
+
+.subhead {
+	margin: 0 0 24px;
+	font-size: 18px;
+	color: var(--dav-color-on-surface-variant);
+}
+
+.toys-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 16px;
+}
+
+.load-more-container,
+.empty-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	margin-top: 32px;
+	color: var(--dav-color-on-surface-variant);
+}

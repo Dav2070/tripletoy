@@ -1,0 +1,39 @@
+<div class="container slide-up-in">
+	<dav-header size="lg">{{ locale.title }}</dav-header>
+
+	@if (!dataService.dav.isLoggedIn) {
+	<p class="info">{{ locale.text1 }}</p>
+
+	<div class="buttons-container">
+		<dav-button tonal (click)="showLoginPage()">
+			{{ locale.login }}
+		</dav-button>
+
+		<dav-button color="secondary" tonal (click)="showSignupPage()">
+			{{ locale.signup }}
+		</dav-button>
+	</div>
+	} @else {
+	<div class="profile-container">
+		<img
+			class="profile-image"
+			[src]="dataService.profileImageUrl"
+			width="96"
+			height="96"
+			alt=""
+		/>
+
+		<h2 class="username">{{ dataService.dav.user.FirstName }}</h2>
+	</div>
+
+	<div class="buttons-container">
+		<dav-button (click)="navigateToNewToyPage()">
+			{{ locale.sellToy }}
+		</dav-button>
+
+		<dav-button color="secondary" tonal (click)="logout()">
+			{{ locale.logout }}
+		</dav-button>
+	</div>
+	}
+</div>

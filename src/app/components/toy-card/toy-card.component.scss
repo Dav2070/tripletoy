@@ -1,0 +1,41 @@
+.toy-card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	color: var(--dav-color-on-surface);
+	background-color: var(--dav-color-surface-container-low);
+	border-radius: 16px;
+	text-decoration: none;
+	transition: background-color 100ms;
+}
+
+.toy-card:hover {
+	background-color: var(--dav-color-surface-container-high);
+	text-decoration: none;
+}
+
+.toy-image {
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.toy-info {
+	padding: 12px 16px 16px;
+}
+
+.toy-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 500;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.toy-price {
+	margin: 4px 0 0;
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--dav-color-primary);
+}

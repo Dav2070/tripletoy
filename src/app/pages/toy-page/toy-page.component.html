@@ -1,0 +1,20 @@
+<div class="container slide-up-in">
+	<a class="back-link" routerLink="/">← {{ locale.back }}</a>
+
+	@if (toy != null) {
+	<div class="toy-container">
+		<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
+
+		<div class="toy-details">
+			<dav-header size="lg">{{ toy.title }}</dav-header>
+			<p class="toy-price">{{ price }}</p>
+			<p class="toy-description">
+				{{ toy.description || locale.noDescription }}
+			</p>
+			<p class="toy-listed-on">{{ listedOn }}</p>
+		</div>
+	</div>
+	} @else if (!loading) {
+	<p class="not-found">{{ notFoundLocale.message }}</p>
+	}
+</div>

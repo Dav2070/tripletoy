@@ -1,0 +1,8 @@
+<a class="toy-card" [routerLink]="['/toy', toy.uuid]">
+	<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
+
+	<div class="toy-info">
+		<h3 class="toy-title">{{ toy.title }}</h3>
+		<p class="toy-price">{{ price }}</p>
+	</div>
+</a>
