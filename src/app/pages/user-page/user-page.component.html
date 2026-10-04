@@ -86,7 +86,7 @@
 	@if (toys.length > 0) {
 	<div class="toys-grid">
 		@for (toy of toys; track toy.uuid) {
-		<app-toy-card [toy]="toy"></app-toy-card>
+		<app-toy-card [toy]="toy" [showMine]="false"></app-toy-card>
 		}
 	</div>
 

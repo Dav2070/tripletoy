@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { ToyMapComponent } from "src/app/components/toy-map/toy-map.component"
 import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
+import { DataService } from "src/app/services/data-service"
 import { ApiService } from "src/app/services/api-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
@@ -51,6 +52,7 @@ export class StartPageComponent {
 	@ViewChild("toysSection") toysSection: ElementRef<HTMLElement>
 
 	constructor(
+		private dataService: DataService,
 		private apiService: ApiService,
 		private localizationService: LocalizationService,
 		private routingService: RoutingService
@@ -58,6 +60,28 @@ export class StartPageComponent {
 
 	async ngOnInit() {
 		await Promise.all([this.loadToys(), this.loadLocations()])
+
+		// The toys are loaded again with the access token to mark the toys of the user
+		await this.dataService.userPromiseHolder.AwaitResult()
+
+		if (this.dataService.dav.isLoggedIn) {
+			await this.reloadToys()
+		}
+	}
+
+	/** Loads the toys that are shown again, without losing the pages that were loaded */
+	private async reloadToys() {
+		try {
+			const list = await this.apiService.listToys(
+				Math.max(this.toys.length, toysPageSize),
+				0
+			)
+
+			this.toys = list.items
+			this.total = list.total
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	private async loadLocations() {

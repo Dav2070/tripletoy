@@ -5,6 +5,8 @@ import {
 	ChangeDetectionStrategy
 } from "@angular/core"
 import { RouterLink } from "@angular/router"
+import { FaIconComponent } from "@fortawesome/angular-fontawesome"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { Toy } from "src/app/misc/types"
 import { formatPrice, getToyPhotoUrl } from "src/app/misc/utils"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -15,13 +17,16 @@ import { defaultToyImageUrl } from "src/constants/constants"
 	templateUrl: "./toy-card.component.html",
 	styleUrl: "./toy-card.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [RouterLink],
+	imports: [RouterLink, FaIconComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ToyCardComponent {
 	@Input() toy: Toy
 	/** Shows the card as a toy the user has bought */
 	@Input() purchased: boolean = false
+	/** Shows a badge if the toy belongs to the logged in user */
+	@Input() showMine: boolean = true
+	faUser = faUser
 	locale = this.localizationService.locale.toyPage
 
 	constructor(private localizationService: LocalizationService) {}

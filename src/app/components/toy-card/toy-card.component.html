@@ -2,6 +2,13 @@
 	<div class="image-frame">
 		<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
 
+		@if (toy.mine && showMine) {
+		<span class="toy-mine">
+			<fa-icon [icon]="faUser"></fa-icon>
+			{{ locale.mine }}
+		</span>
+		}
+
 		@if (purchased) {
 		<span class="toy-sold purchased">{{ locale.bought }}</span>
 		} @else if (toy.sold) {

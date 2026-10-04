@@ -101,3 +101,22 @@
 	background-color: var(--toy-green);
 	color: #0b3d2e;
 }
+
+// Badge for the toys of the logged in user
+.toy-mine {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px 4px 10px;
+	font-family: var(--toy-font-display);
+	font-size: 14px;
+	font-weight: 600;
+	color: white;
+	background-color: var(--toy-purple);
+	border-radius: 999px;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+	transform: rotate(-4deg);
+}
