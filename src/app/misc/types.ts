@@ -52,6 +52,8 @@ export interface ToyStats {
 	active: number
 	sold: number
 	bought: number
+	/** Collected coins: 15 per purchase and 10 per sale */
+	coins: number
 }
 
 export interface Profile {

@@ -10,7 +10,7 @@ import { ApiService } from "src/app/services/api-service"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
-import { Toy, ToyPhoto } from "src/app/misc/types"
+import { Address, Toy, ToyPhoto } from "src/app/misc/types"
 import { getToyPhotoUrl, parsePriceToCents } from "src/app/misc/utils"
 import {
 	toyPriceMax,
@@ -33,6 +33,7 @@ interface SelectedPhoto {
 })
 export class NewToyPageComponent implements OnDestroy {
 	locale = this.localizationService.locale.newToyPage
+	profileLocale = this.localizationService.locale.profileEditPage
 	userLocale = this.localizationService.locale.userPage
 	title: string = ""
 	titleError: string = ""
@@ -42,6 +43,17 @@ export class NewToyPageComponent implements OnDestroy {
 	photos: SelectedPhoto[] = []
 	photoTypes = toyPhotoTypes.join(",")
 	photoError: string = ""
+	// The address is needed to sell toys, it is asked for if the profile has none
+	needsAddress: boolean = false
+	address: Address = {
+		name: "",
+		line1: "",
+		line2: "",
+		postalCode: "",
+		city: "",
+		country: "Deutschland"
+	}
+	addressError: string = ""
 	// Set when an existing toy is edited
 	editUuid: string = null
 	existingPhotos: ToyPhoto[] = []
@@ -73,9 +85,38 @@ export class NewToyPageComponent implements OnDestroy {
 
 		await this.dataService.userPromiseHolder.AwaitResult()
 
-		if (this.isEdit && this.dataService.dav.isLoggedIn) {
+		if (!this.dataService.dav.isLoggedIn) return
+
+		if (this.isEdit) {
 			await this.loadToy()
+		} else {
+			await this.loadProfile()
 		}
+	}
+
+	private async loadProfile() {
+		try {
+			const profile = await this.apiService.retrieveMyProfile()
+
+			this.needsAddress = !this.isAddressComplete(profile.address)
+		} catch (error) {
+			console.error(error)
+
+			// The API ignores the address if the profile already has one
+			this.needsAddress = true
+		}
+	}
+
+	/** A shipping address needs everything except the second address line */
+	private isAddressComplete(address: Partial<Address> | null): boolean {
+		return (["name", "line1", "postalCode", "city", "country"] as const).every(
+			key => (address?.[key] ?? "").trim().length > 0
+		)
+	}
+
+	addressChange(field: keyof Address, event: Event) {
+		this.address[field] = (event as CustomEvent).detail.value
+		this.addressError = ""
 	}
 
 	private async loadToy() {
@@ -177,6 +218,12 @@ export class NewToyPageComponent implements OnDestroy {
 			this.titleError = this.locale.titleInvalid
 		}
 
+		if (codes.includes("ADDRESS_REQUIRED")) {
+			this.addressError = this.locale.addressRequired
+		} else if (codes.includes("ADDRESS_INVALID")) {
+			this.addressError = this.profileLocale.addressTooLong
+		}
+
 		if (codes.includes("PRICE_INVALID")) {
 			this.priceError = this.locale.priceInvalid
 		}
@@ -206,7 +253,13 @@ export class NewToyPageComponent implements OnDestroy {
 			price == null || price < toyPriceMin || price > toyPriceMax
 				? this.locale.priceInvalid
 				: ""
-		if (this.titleError || this.priceError) return
+
+		this.addressError =
+			this.needsAddress && !this.isAddressComplete(this.address)
+				? this.locale.addressRequired
+				: ""
+
+		if (this.titleError || this.priceError || this.addressError) return
 
 		this.loading = true
 
@@ -224,7 +277,8 @@ export class NewToyPageComponent implements OnDestroy {
 				this.createdToy = await this.apiService.createToy({
 					title,
 					description: this.description.trim() || undefined,
-					price
+					price,
+					address: this.needsAddress ? this.address : undefined
 				})
 
 				if (this.createdToy == null) throw new Error("No toy returned")

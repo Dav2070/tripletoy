@@ -9,6 +9,7 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import {
 	faBagShopping,
 	faBoxOpen,
+	faCoins,
 	faTag
 } from "@fortawesome/free-solid-svg-icons"
 import { ApiService } from "src/app/services/api-service"
@@ -39,6 +40,7 @@ export class UserPageComponent {
 	stats: ToyStats = null
 	faBoxOpen = faBoxOpen
 	faTag = faTag
+	faCoins = faCoins
 	faBagShopping = faBagShopping
 
 	constructor(
@@ -93,6 +95,12 @@ export class UserPageComponent {
 		} catch (error) {
 			console.error(error)
 		}
+	}
+
+	get coinsText(): string {
+		return this.stats?.coins == 1
+			? this.locale.coinsOne
+			: this.locale.coins.replace("{0}", (this.stats?.coins ?? 0).toString())
 	}
 
 	get ageText(): string {

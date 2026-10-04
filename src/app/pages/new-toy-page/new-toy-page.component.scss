@@ -79,3 +79,27 @@
 	border-radius: 50%;
 	cursor: pointer;
 }
+
+.address-form {
+	--accent: var(--toy-yellow);
+	margin-bottom: 24px;
+}
+
+.form-title {
+	margin: 0;
+	font-family: var(--toy-font-display);
+	font-size: 22px;
+	font-weight: 500;
+	color: var(--dav-color-on-surface);
+}
+
+.form-info {
+	margin: -8px 0 0;
+	color: var(--dav-color-on-surface-variant);
+}
+
+.address-row {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 16px;
+}

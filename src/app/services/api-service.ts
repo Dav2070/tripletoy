@@ -81,6 +81,7 @@ export class ApiService {
 							active
 							sold
 							bought
+							coins
 						}
 					}
 				`,
@@ -88,7 +89,7 @@ export class ApiService {
 			})
 		)
 
-		return result.data?.retrieveMyToyStats ?? { active: 0, sold: 0, bought: 0 }
+		return result.data?.retrieveMyToyStats ?? { active: 0, sold: 0, bought: 0, coins: 0 }
 	}
 
 	/** Lists the toys the logged in user has bought */
@@ -149,6 +150,8 @@ export class ApiService {
 		title: string
 		description?: string
 		price: number
+		/** Needed if the profile has no address yet, it is saved to the profile */
+		address?: Address
 	}): Promise<Toy | null> {
 		const result = await firstValueFrom(
 			this.apollo.mutate<{ createToy: Toy }>({
@@ -157,11 +160,13 @@ export class ApiService {
 						$title: String!
 						$description: String
 						$price: Int!
+						$address: AddressInput
 					) {
 						createToy(
 							title: $title
 							description: $description
 							price: $price
+							address: $address
 						) {
 							${toyFields}
 						}

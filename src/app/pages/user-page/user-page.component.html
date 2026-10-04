@@ -26,7 +26,16 @@
 		</span>
 
 		<div class="profile-info">
-			<h2 class="username">{{ dataService.dav.user.FirstName }}</h2>
+			<div class="name-row">
+				<h2 class="username">{{ dataService.dav.user.FirstName }}</h2>
+
+				@if (stats) {
+				<span class="coins" [attr.title]="locale.coinsInfo">
+					<fa-icon [icon]="faCoins"></fa-icon>
+					{{ coinsText }}
+				</span>
+				}
+			</div>
 
 			@if (ageText) {
 			<p class="profile-age">{{ ageText }}</p>

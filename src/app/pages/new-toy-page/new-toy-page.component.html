@@ -12,6 +12,55 @@
 	} @else if (notEditable) {
 	<p class="info">{{ locale.notEditable }}</p>
 	} @else {
+	@if (needsAddress) {
+	<div class="form address-form toy-box">
+		<h2 class="form-title">{{ locale.addressTitle }}</h2>
+		<p class="form-info">{{ locale.addressInfo }}</p>
+
+		<dav-textfield
+			[label]="profileLocale.addressNameLabel"
+			[value]="address.name"
+			(change)="addressChange('name', $event)"
+		></dav-textfield>
+
+		<dav-textfield
+			[label]="profileLocale.addressLine1Label"
+			[value]="address.line1"
+			(change)="addressChange('line1', $event)"
+		></dav-textfield>
+
+		<dav-textfield
+			[label]="profileLocale.addressLine2Label"
+			[value]="address.line2"
+			(change)="addressChange('line2', $event)"
+		></dav-textfield>
+
+		<div class="address-row">
+			<dav-textfield
+				[label]="profileLocale.addressPostalCodeLabel"
+				[value]="address.postalCode"
+				(change)="addressChange('postalCode', $event)"
+			></dav-textfield>
+
+			<dav-textfield
+				[label]="profileLocale.addressCityLabel"
+				[value]="address.city"
+				(change)="addressChange('city', $event)"
+			></dav-textfield>
+		</div>
+
+		<dav-textfield
+			[label]="profileLocale.addressCountryLabel"
+			[value]="address.country"
+			(change)="addressChange('country', $event)"
+		></dav-textfield>
+
+		@if (addressError) {
+		<p class="error">{{ addressError }}</p>
+		}
+	</div>
+	}
+
 	<div class="form toy-box">
 		<dav-textfield
 			[label]="locale.titleLabel"
