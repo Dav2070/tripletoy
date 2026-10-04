@@ -17,23 +17,25 @@ import {
 	faStar,
 	faTruckFast
 } from "@fortawesome/free-solid-svg-icons"
+import { ToyMapComponent } from "src/app/components/toy-map/toy-map.component"
 import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
 import { ApiService } from "src/app/services/api-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
-import { Toy } from "src/app/misc/types"
+import { Toy, ToyLocation } from "src/app/misc/types"
 import { toysPageSize } from "src/constants/constants"
 
 @Component({
 	templateUrl: "./start-page.component.html",
 	styleUrl: "./start-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [ToyCardComponent, FaIconComponent],
+	imports: [ToyCardComponent, ToyMapComponent, FaIconComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StartPageComponent {
 	locale = this.localizationService.locale.startPage
 	toys: Toy[] = []
+	locations: ToyLocation[] = []
 	total: number = 0
 	loading: boolean = true
 	faCamera = faCamera
@@ -55,7 +57,15 @@ export class StartPageComponent {
 	) {}
 
 	async ngOnInit() {
-		await this.loadToys()
+		await Promise.all([this.loadToys(), this.loadLocations()])
+	}
+
+	private async loadLocations() {
+		try {
+			this.locations = await this.apiService.listToyLocations()
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	async loadToys() {

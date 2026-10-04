@@ -32,6 +32,11 @@ export const enUS = {
 		benefit3Title: "Easy",
 		benefit3Text:
 			"No complicated sign-up: one dav account is enough for buying and selling.",
+		mapTitle: "Toys on the map",
+		mapSubtitle:
+			"The approximate position is based on the postal code area of the sellers, never on the exact address.",
+		mapToys: "{0} toys",
+		mapViewToy: "View toy",
 		latestTitle: "Find your next toy",
 		ctaTitle: "Time to tidy up the toy room?",
 		ctaText: "List your first toy in just a few minutes.",
@@ -173,6 +178,11 @@ export const deDE: typeof enUS = {
 		benefit3Title: "Einfach",
 		benefit3Text:
 			"Ohne komplizierte Anmeldung: Ein dav-Account genügt zum Kaufen und Verkaufen.",
+		mapTitle: "Spielzeuge auf der Karte",
+		mapSubtitle:
+			"Die ungefähre Position beruht auf dem Postleitzahl-Bereich der Verkäufer, nie auf der genauen Adresse.",
+		mapToys: "{0} Spielzeuge",
+		mapViewToy: "Spielzeug ansehen",
 		latestTitle: "Finde dein nächstes Spielzeug",
 		ctaTitle: "Zeit, das Kinderzimmer auszumisten?",
 		ctaText: "Stelle dein erstes Spielzeug in wenigen Minuten ein.",

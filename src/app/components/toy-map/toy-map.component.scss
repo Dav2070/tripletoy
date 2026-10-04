@@ -1,0 +1,140 @@
+.toy-map {
+	height: 420px;
+	overflow: hidden;
+	border: 3px solid var(--toy-green);
+	border-radius: 28px;
+	box-shadow: 6px 6px 0 var(--toy-green);
+	// Keep the map below the navbar
+	z-index: 0;
+}
+
+.toy-map.leaflet-container {
+	font-family: var(--dav-font);
+	background-color: var(--dav-color-surface-container);
+}
+
+// Dark map tiles in the dark theme
+body[theme="dark"] .toy-map .leaflet-tile-pane {
+	filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+}
+
+.toy-pin-container {
+	background: none;
+	border: none;
+}
+
+// Marker like a toy block
+.toy-pin {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	font-family: var(--toy-font-display);
+	font-size: 16px;
+	font-weight: 700;
+	color: white;
+	background-color: var(--pin, var(--toy-blue));
+	border: 3px solid white;
+	border-radius: 12px;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+	transform: rotate(-8deg);
+	transition: transform 150ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.toy-pin:empty::after {
+	content: "";
+	width: 10px;
+	height: 10px;
+	background-color: white;
+	border-radius: 50%;
+}
+
+.toy-pin-container:hover .toy-pin {
+	transform: rotate(4deg) scale(1.15);
+}
+
+.toy-map .leaflet-popup-content-wrapper {
+	color: var(--dav-color-on-surface);
+	background-color: var(--dav-color-surface-container-lowest);
+	border-radius: 18px;
+}
+
+.toy-map .leaflet-popup-tip {
+	background-color: var(--dav-color-surface-container-lowest);
+}
+
+.toy-map .leaflet-popup-content {
+	margin: 10px 12px;
+}
+
+.toy-popup {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.toy-popup p {
+	margin: 0;
+}
+
+.toy-popup-heading {
+	font-family: var(--toy-font-display);
+	font-weight: 600;
+	color: var(--dav-color-on-surface-variant);
+}
+
+.toy-popup-more {
+	color: var(--dav-color-on-surface-variant);
+}
+
+// Leaflet colors all links, so the selectors need a higher specificity
+.toy-map .toy-popup-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--dav-color-on-surface);
+	text-decoration: none;
+}
+
+.toy-map .toy-popup-item:hover {
+	text-decoration: none;
+}
+
+.toy-popup-item img {
+	flex: none;
+	width: 48px;
+	height: 48px;
+	object-fit: cover;
+	border-radius: 12px;
+}
+
+.toy-popup-item span {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.toy-popup-item strong {
+	font-family: var(--toy-font-display);
+	font-weight: 500;
+}
+
+.toy-map .toy-popup-item span span {
+	font-weight: 700;
+	color: var(--dav-color-primary);
+}
+
+body[theme="dark"] .toy-map .leaflet-control-attribution {
+	color: #ddd;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+// Keep the controls and the attribution away from the rounded corners
+.toy-map .leaflet-top.leaflet-left {
+	margin: 6px 0 0 6px;
+}
+
+.toy-map .leaflet-bottom.leaflet-right {
+	margin: 0 12px 4px 0;
+}

@@ -84,6 +84,18 @@
 		</div>
 	</section>
 
+	<!-- Map, only if there are toys with a known position -->
+	@if (locations.length > 0) {
+	<section class="section">
+		<h2 class="section-title">{{ locale.mapTitle }}</h2>
+		<p class="section-subtitle">{{ locale.mapSubtitle }}</p>
+
+		<div class="map-container">
+			<app-toy-map [locations]="locations"></app-toy-map>
+		</div>
+	</section>
+	}
+
 	<!-- Toys -->
 	<section class="section" #toysSection>
 		<h2 class="section-title">{{ locale.latestTitle }}</h2>

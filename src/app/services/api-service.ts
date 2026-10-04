@@ -3,7 +3,15 @@ import { Apollo, gql } from "apollo-angular"
 import { HttpClient } from "@angular/common/http"
 import { firstValueFrom } from "rxjs"
 import { Dav } from "dav-js"
-import { Address, List, Profile, Toy, ToyPhoto, ToyStats } from "src/app/misc/types"
+import {
+	Address,
+	List,
+	Profile,
+	Toy,
+	ToyLocation,
+	ToyPhoto,
+	ToyStats
+} from "src/app/misc/types"
 import { environment } from "src/environments/environment"
 
 const toyFields = `
@@ -47,6 +55,32 @@ export class ApiService {
 		)
 
 		return result.data?.listToys ?? { total: 0, items: [] }
+	}
+
+	/** Lists the approximate positions of the toys that are for sale */
+	async listToyLocations(): Promise<ToyLocation[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listToyLocations: ToyLocation[] }>({
+				query: gql`
+					query ListToyLocations {
+						listToyLocations {
+							uuid
+							title
+							price
+							latitude
+							longitude
+							photo {
+								uuid
+								url
+							}
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listToyLocations ?? []
 	}
 
 	/** Lists the toys of the logged in user */

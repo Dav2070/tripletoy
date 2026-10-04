@@ -65,3 +65,13 @@ export interface Profile {
 	phone: string | null
 	address: Address
 }
+
+/** A toy for sale at the approximate position of its seller */
+export interface ToyLocation {
+	uuid: string
+	title: string
+	price: number
+	latitude: number
+	longitude: number
+	photo: ToyPhoto | null
+}
