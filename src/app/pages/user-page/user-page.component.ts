@@ -31,6 +31,9 @@ export class UserPageComponent {
 	total: number = 0
 	loadingToys: boolean = false
 	toysLoaded: boolean = false
+	purchases: Toy[] = []
+	purchasesTotal: number = 0
+	loadingPurchases: boolean = false
 	age: string = ""
 	ageError: string = ""
 	profileDescription: string = ""
@@ -50,8 +53,30 @@ export class UserPageComponent {
 		await this.dataService.userPromiseHolder.AwaitResult()
 
 		if (this.dataService.dav.isLoggedIn) {
-			await Promise.all([this.loadProfile(), this.loadToys()])
+			await Promise.all([
+				this.loadProfile(),
+				this.loadToys(),
+				this.loadPurchases()
+			])
 		}
+	}
+
+	async loadPurchases() {
+		this.loadingPurchases = true
+
+		try {
+			const list = await this.apiService.listMyPurchases(
+				toysPageSize,
+				this.purchases.length
+			)
+
+			this.purchases = this.purchases.concat(list.items)
+			this.purchasesTotal = list.total
+		} catch (error) {
+			console.error(error)
+		}
+
+		this.loadingPurchases = false
 	}
 
 	async loadProfile() {

@@ -71,6 +71,28 @@ export class ApiService {
 		return result.data?.listMyToys ?? { total: 0, items: [] }
 	}
 
+	/** Lists the toys the logged in user has bought */
+	async listMyPurchases(limit: number, offset: number): Promise<List<Toy>> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listMyPurchases: List<Toy> }>({
+				query: gql`
+					query ListMyPurchases($limit: Int, $offset: Int) {
+						listMyPurchases(limit: $limit, offset: $offset) {
+							total
+							items {
+								${toyFields}
+							}
+						}
+					}
+				`,
+				variables: { limit, offset },
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listMyPurchases ?? { total: 0, items: [] }
+	}
+
 	async retrieveToy(uuid: string): Promise<Toy | null> {
 		const result = await firstValueFrom(
 			this.apollo.query<{ retrieveToy: Toy | null }>({
@@ -78,6 +100,7 @@ export class ApiService {
 					query RetrieveToy($uuid: String!) {
 						retrieveToy(uuid: $uuid) {
 							${toyFields}
+							bought
 							order {
 								name
 								email

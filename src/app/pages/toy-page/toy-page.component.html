@@ -39,7 +39,9 @@
 				}
 
 				@if (toy.sold) {
-					<p class="notice">{{ locale.soldInfo }}</p>
+					<p class="notice">
+						{{ toy.bought ? locale.boughtInfo : locale.soldInfo }}
+					</p>
 				} @else if (toy.mine) {
 					<p class="notice">{{ locale.yourToy }}</p>
 

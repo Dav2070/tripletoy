@@ -1,8 +1,10 @@
-<a class="toy-card" [class.sold]="toy.sold" [routerLink]="['/toy', toy.uuid]">
+<a class="toy-card" [class.sold]="toy.sold && !purchased" [routerLink]="['/toy', toy.uuid]">
 	<div class="image-frame">
 		<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
 
-		@if (toy.sold) {
+		@if (purchased) {
+		<span class="toy-sold purchased">{{ locale.bought }}</span>
+		} @else if (toy.sold) {
 		<span class="toy-sold">{{ locale.sold }}</span>
 		} @else if (price) {
 		<span class="toy-price">{{ price }}</span>

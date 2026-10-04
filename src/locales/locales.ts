@@ -20,6 +20,8 @@ export const enUS = {
 		login: "Log in to buy",
 		buying: "Redirecting to checkout…",
 		sold: "Sold",
+		bought: "Bought",
+		boughtInfo: "You have bought this toy",
 		soldInfo: "This toy has already been sold",
 		yourToy: "This is your toy",
 		purchased: "Thank you for your purchase! The seller will ship the toy to your address.",
@@ -73,6 +75,7 @@ export const enUS = {
 		descriptionTooLong: "The description must not exceed 1000 characters",
 		profileError: "The profile could not be saved. Please try again.",
 		yourToys: "Your toys",
+		yourPurchases: "Your purchases",
 		noToys: "You have not listed any toys yet",
 		loadMore: "Load more"
 	},
@@ -104,6 +107,8 @@ export const deDE: typeof enUS = {
 		login: "Anmelden, um zu kaufen",
 		buying: "Weiterleitung zum Checkout…",
 		sold: "Verkauft",
+		bought: "Gekauft",
+		boughtInfo: "Du hast dieses Spielzeug gekauft",
 		soldInfo: "Dieses Spielzeug wurde bereits verkauft",
 		yourToy: "Das ist dein Spielzeug",
 		purchased: "Danke für deinen Kauf! Der Verkäufer schickt das Spielzeug an deine Adresse.",
@@ -157,6 +162,7 @@ export const deDE: typeof enUS = {
 		descriptionTooLong: "Die Beschreibung darf höchstens 1000 Zeichen lang sein",
 		profileError: "Das Profil konnte nicht gespeichert werden. Bitte versuche es erneut.",
 		yourToys: "Deine Spielzeuge",
+		yourPurchases: "Deine Käufe",
 		noToys: "Du hast noch keine Spielzeuge eingestellt",
 		loadMore: "Mehr laden"
 	},

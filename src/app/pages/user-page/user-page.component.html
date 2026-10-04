@@ -85,5 +85,25 @@
 	</div>
 	} } @else if (toysLoaded) {
 	<p class="info">{{ locale.noToys }}</p>
+	}
+
+	@if (purchases.length > 0) {
+	<dav-header class="section-header" size="md" alignment="start">
+		{{ locale.yourPurchases }}
+	</dav-header>
+
+	<div class="toys-grid">
+		@for (toy of purchases; track toy.uuid) {
+		<app-toy-card [toy]="toy" [purchased]="true"></app-toy-card>
+		}
+	</div>
+
+	@if (purchases.length < purchasesTotal) {
+	<div class="load-more-container">
+		<dav-button tonal [disabled]="loadingPurchases" (click)="loadPurchases()">
+			{{ locale.loadMore }}
+		</dav-button>
+	</div>
 	} }
+	}
 </div>

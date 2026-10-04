@@ -26,6 +26,8 @@ export interface Toy {
 	sold: boolean
 	/** Whether the logged in user is the seller */
 	mine: boolean
+	/** Whether the logged in user has bought the toy */
+	bought?: boolean
 	/** The order of the toy, only returned to the seller */
 	order?: ToyOrder | null
 	createdAt: string

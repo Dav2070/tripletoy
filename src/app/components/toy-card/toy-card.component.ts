@@ -20,6 +20,8 @@ import { defaultToyImageUrl } from "src/constants/constants"
 })
 export class ToyCardComponent {
 	@Input() toy: Toy
+	/** Shows the card as a toy the user has bought */
+	@Input() purchased: boolean = false
 	locale = this.localizationService.locale.toyPage
 
 	constructor(private localizationService: LocalizationService) {}
