@@ -91,7 +91,7 @@
 		<p class="section-subtitle">{{ locale.mapSubtitle }}</p>
 
 		<div class="map-container">
-			<app-toy-map [locations]="locations"></app-toy-map>
+			<app-toy-map [locations]="locations" [position]="position"></app-toy-map>
 		</div>
 	</section>
 	}
@@ -99,6 +99,33 @@
 	<!-- Toys -->
 	<section class="section" #toysSection>
 		<h2 class="section-title">{{ locale.latestTitle }}</h2>
+
+		<div class="sort-bar">
+			<dav-button
+				[tonal]="position != null"
+				size="sm"
+				(click)="sortBy(false)"
+			>
+				<fa-icon [icon]="faClock"></fa-icon>
+				{{ locale.sortNewest }}
+			</dav-button>
+
+			<dav-button
+				[tonal]="position == null"
+				size="sm"
+				[disabled]="locating"
+				(click)="sortBy(true)"
+			>
+				<fa-icon [icon]="faLocationDot"></fa-icon>
+				{{ locating ? locale.locating : locale.sortDistance }}
+			</dav-button>
+		</div>
+
+		@if (locationError) {
+		<p class="sort-message error">{{ locale.locationError }}</p>
+		} @else if (position) {
+		<p class="sort-message">{{ locale.sortInfo }}</p>
+		}
 
 		@if (toys.length > 0) {
 		<div class="toys-grid">

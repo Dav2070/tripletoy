@@ -24,6 +24,8 @@ export interface Toy {
 	price: number
 	photos: ToyPhoto[]
 	sold: boolean
+	/** Distance in km to the seller, only set when the list is sorted by distance */
+	distance?: number | null
 	/** Whether the logged in user is the seller */
 	mine: boolean
 	/** Whether the logged in user has bought the toy */
@@ -64,6 +66,12 @@ export interface Profile {
 	description: string | null
 	phone: string | null
 	address: Address
+}
+
+/** A position on the map */
+export interface Position {
+	latitude: number
+	longitude: number
 }
 
 /** A toy for sale at the approximate position of its seller */

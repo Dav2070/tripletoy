@@ -468,3 +468,24 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.sort-bar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.sort-message {
+	max-width: 560px;
+	margin: 12px auto 0;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--dav-color-on-surface-variant);
+}
+
+.sort-message.error {
+	color: var(--dav-color-error);
+}

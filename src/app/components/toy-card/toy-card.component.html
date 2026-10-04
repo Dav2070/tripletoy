@@ -20,5 +20,12 @@
 
 	<div class="toy-info">
 		<h3 class="toy-title">{{ toy.title }}</h3>
+
+		@if (distanceText) {
+		<p class="toy-distance">
+			<fa-icon [icon]="faLocationDot"></fa-icon>
+			{{ distanceText }}
+		</p>
+		}
 	</div>
 </a>

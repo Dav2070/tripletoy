@@ -6,6 +6,7 @@ import { Dav } from "dav-js"
 import {
 	Address,
 	List,
+	Position,
 	Profile,
 	Toy,
 	ToyLocation,
@@ -25,6 +26,7 @@ const toyFields = `
 	}
 	sold
 	mine
+	distance
 	createdAt
 	updatedAt
 `
@@ -36,12 +38,27 @@ export class ApiService {
 		private http: HttpClient
 	) {}
 
-	async listToys(limit: number, offset: number): Promise<List<Toy>> {
+	/** Lists the toys, sorted by the distance to the position if one is given */
+	async listToys(
+		limit: number,
+		offset: number,
+		position?: Position
+	): Promise<List<Toy>> {
 		const result = await firstValueFrom(
 			this.apollo.query<{ listToys: List<Toy> }>({
 				query: gql`
-					query ListToys($limit: Int, $offset: Int) {
-						listToys(limit: $limit, offset: $offset) {
+					query ListToys(
+						$limit: Int
+						$offset: Int
+						$latitude: Float
+						$longitude: Float
+					) {
+						listToys(
+							limit: $limit
+							offset: $offset
+							latitude: $latitude
+							longitude: $longitude
+						) {
 							total
 							items {
 								${toyFields}
@@ -49,7 +66,12 @@ export class ApiService {
 						}
 					}
 				`,
-				variables: { limit, offset },
+				variables: {
+					limit,
+					offset,
+					latitude: position?.latitude,
+					longitude: position?.longitude
+				},
 				fetchPolicy: "no-cache"
 			})
 		)

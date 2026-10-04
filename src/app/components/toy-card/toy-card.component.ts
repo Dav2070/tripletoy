@@ -6,7 +6,7 @@ import {
 } from "@angular/core"
 import { RouterLink } from "@angular/router"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
-import { faUser } from "@fortawesome/free-solid-svg-icons"
+import { faLocationDot, faUser } from "@fortawesome/free-solid-svg-icons"
 import { Toy } from "src/app/misc/types"
 import { formatPrice, getToyPhotoUrl } from "src/app/misc/utils"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -27,6 +27,7 @@ export class ToyCardComponent {
 	/** Shows a badge if the toy belongs to the logged in user */
 	@Input() showMine: boolean = true
 	faUser = faUser
+	faLocationDot = faLocationDot
 	locale = this.localizationService.locale.toyPage
 
 	constructor(private localizationService: LocalizationService) {}
@@ -35,6 +36,19 @@ export class ToyCardComponent {
 		return this.toy.photos?.length > 0
 			? getToyPhotoUrl(this.toy.photos[0])
 			: defaultToyImageUrl
+	}
+
+	get distanceText(): string {
+		if (this.toy.distance == null) return ""
+
+		return this.toy.distance < 1
+			? this.locale.distanceLess
+			: this.locale.distance.replace(
+					"{0}",
+					Math.round(this.toy.distance).toLocaleString(
+						this.localizationService.language
+					)
+				)
 	}
 
 	get price(): string {

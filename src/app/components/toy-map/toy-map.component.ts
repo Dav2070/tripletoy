@@ -12,7 +12,7 @@ import {
 } from "@angular/core"
 import { Router } from "@angular/router"
 import * as L from "leaflet"
-import { ToyLocation } from "src/app/misc/types"
+import { Position, ToyLocation } from "src/app/misc/types"
 import { formatPrice, getToyPhotoUrl } from "src/app/misc/utils"
 import { LocalizationService } from "src/app/services/localization-service"
 import { defaultToyImageUrl } from "src/constants/constants"
@@ -35,10 +35,13 @@ const pinColors = [
 })
 export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 	@Input() locations: ToyLocation[] = []
+	/** The position of the user, shown as its own marker */
+	@Input() position: Position = null
 	@ViewChild("map") mapElement: ElementRef<HTMLDivElement>
 
 	private map: L.Map = null
 	private markers = L.layerGroup()
+	private userLayer = L.layerGroup()
 	locale = this.localizationService.locale.startPage
 
 	constructor(
@@ -61,11 +64,14 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 		}).addTo(this.map)
 
 		this.markers.addTo(this.map)
+		this.userLayer.addTo(this.map)
 		this.showLocations()
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes["locations"] && this.map != null) this.showLocations()
+		if ((changes["locations"] || changes["position"]) && this.map != null) {
+			this.showLocations()
+		}
 	}
 
 	ngOnDestroy() {
@@ -74,6 +80,7 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
 	private showLocations() {
 		this.markers.clearLayers()
+		this.userLayer.clearLayers()
 		if (this.locations.length == 0) return
 
 		// Toys with the same position share one marker
@@ -96,11 +103,48 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 				.addTo(this.markers)
 		}
 
-		if (groups.size == 1) {
+		if (this.position != null) {
+			const userPosition = L.latLng(
+				this.position.latitude,
+				this.position.longitude
+			)
+			bounds.extend(userPosition)
+			this.showUserPosition(userPosition)
+		}
+
+		if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
 			this.map.setView(bounds.getCenter(), 11)
 		} else {
 			this.map.fitBounds(bounds, { padding: [40, 40], maxZoom: 11 })
 		}
+	}
+
+	/** The position is rounded, so the circle shows how exact it is */
+	private showUserPosition(position: L.LatLng) {
+		L.circle(position, {
+			radius: 1000,
+			color: "#3454f5",
+			weight: 2,
+			fillColor: "#3454f5",
+			fillOpacity: 0.15,
+			interactive: false
+		}).addTo(this.userLayer)
+
+		const dot = document.createElement("div")
+		dot.className = "user-position"
+
+		L.marker(position, {
+			icon: L.divIcon({
+				html: dot,
+				className: "toy-pin-container",
+				iconSize: [22, 22],
+				iconAnchor: [11, 11]
+			}),
+			zIndexOffset: 1000,
+			keyboard: false
+		})
+			.bindTooltip(this.locale.mapYourLocation, { direction: "top" })
+			.addTo(this.userLayer)
 	}
 
 	private createIcon(count: number, index: number): L.DivIcon {

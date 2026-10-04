@@ -9,7 +9,9 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import {
 	faCamera,
 	faCartShopping,
+	faClock,
 	faHeart,
+	faLocationDot,
 	faPiggyBank,
 	faPuzzlePiece,
 	faRecycle,
@@ -23,7 +25,7 @@ import { DataService } from "src/app/services/data-service"
 import { ApiService } from "src/app/services/api-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
-import { Toy, ToyLocation } from "src/app/misc/types"
+import { Position, Toy, ToyLocation } from "src/app/misc/types"
 import { toysPageSize } from "src/constants/constants"
 
 @Component({
@@ -37,6 +39,10 @@ export class StartPageComponent {
 	locale = this.localizationService.locale.startPage
 	toys: Toy[] = []
 	locations: ToyLocation[] = []
+	// The position of the user, set when the toys are sorted by distance
+	position: Position = null
+	locating: boolean = false
+	locationError: boolean = false
 	total: number = 0
 	loading: boolean = true
 	faCamera = faCamera
@@ -47,6 +53,8 @@ export class StartPageComponent {
 	faRecycle = faRecycle
 	faHeart = faHeart
 	faStar = faStar
+	faClock = faClock
+	faLocationDot = faLocationDot
 	faPuzzlePiece = faPuzzlePiece
 
 	@ViewChild("toysSection") toysSection: ElementRef<HTMLElement>
@@ -74,7 +82,8 @@ export class StartPageComponent {
 		try {
 			const list = await this.apiService.listToys(
 				Math.max(this.toys.length, toysPageSize),
-				0
+				0,
+				this.position ?? undefined
 			)
 
 			this.toys = list.items
@@ -98,7 +107,8 @@ export class StartPageComponent {
 		try {
 			const list = await this.apiService.listToys(
 				toysPageSize,
-				this.toys.length
+				this.toys.length,
+				this.position ?? undefined
 			)
 
 			this.toys = this.toys.concat(list.items)
@@ -108,6 +118,54 @@ export class StartPageComponent {
 		}
 
 		this.loading = false
+	}
+
+	/** Sorts the toys by the newest or by the distance to the current location of the user */
+	async sortBy(distance: boolean) {
+		this.locationError = false
+
+		if (distance == (this.position != null) || this.locating) return
+
+		if (distance) {
+			this.locating = true
+
+			try {
+				this.position = await this.getCurrentPosition()
+			} catch (error) {
+				console.error(error)
+				this.locationError = true
+				this.locating = false
+				return
+			}
+
+			this.locating = false
+		} else {
+			this.position = null
+		}
+
+		this.toys = []
+		this.total = 0
+		await this.loadToys()
+	}
+
+	/** The position is rounded to about one kilometer, that is enough for the approximate positions */
+	private getCurrentPosition(): Promise<Position> {
+		return new Promise((resolve, reject) => {
+			if (!navigator.geolocation) {
+				reject(new Error("Geolocation is not supported"))
+				return
+			}
+
+			navigator.geolocation.getCurrentPosition(
+				result =>
+					resolve({
+						latitude: Math.round(result.coords.latitude * 100) / 100,
+						longitude: Math.round(result.coords.longitude * 100) / 100
+					}),
+				error => reject(error),
+				{ timeout: 10000, maximumAge: 5 * 60 * 1000 }
+			)
+		})
 	}
 
 	scrollToToys() {

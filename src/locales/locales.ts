@@ -32,10 +32,18 @@ export const enUS = {
 		benefit3Title: "Easy",
 		benefit3Text:
 			"No complicated sign-up: one dav account is enough for buying and selling.",
+		sortNewest: "Newest",
+		sortDistance: "Near me",
+		locating: "Finding your location…",
+		locationError:
+			"Your location could not be determined. Please allow access to your location.",
+		sortInfo:
+			"Sorted by distance. Your location is not stored. Toys without a known position come last.",
 		mapTitle: "Toys on the map",
 		mapSubtitle:
 			"The approximate position is based on the postal code area of the sellers, never on the exact address.",
 		mapToys: "{0} toys",
+		mapYourLocation: "Your location (about 1 km accurate)",
 		mapViewToy: "View toy",
 		latestTitle: "Find your next toy",
 		ctaTitle: "Time to tidy up the toy room?",
@@ -53,6 +61,8 @@ export const enUS = {
 		buying: "Redirecting to checkout…",
 		sold: "Sold",
 		mine: "Yours",
+		distanceLess: "less than 1 km away",
+		distance: "about {0} km away",
 		bought: "Bought",
 		boughtInfo: "You have bought this toy",
 		soldInfo: "This toy has already been sold",
@@ -179,10 +189,18 @@ export const deDE: typeof enUS = {
 		benefit3Title: "Einfach",
 		benefit3Text:
 			"Ohne komplizierte Anmeldung: Ein dav-Account genügt zum Kaufen und Verkaufen.",
+		sortNewest: "Neueste",
+		sortDistance: "In meiner Nähe",
+		locating: "Standort wird ermittelt…",
+		locationError:
+			"Dein Standort konnte nicht ermittelt werden. Bitte erlaube den Zugriff auf deinen Standort.",
+		sortInfo:
+			"Nach Entfernung sortiert. Dein Standort wird nicht gespeichert. Spielzeuge ohne bekannte Position stehen am Ende.",
 		mapTitle: "Spielzeuge auf der Karte",
 		mapSubtitle:
 			"Die ungefähre Position beruht auf dem Postleitzahl-Bereich der Verkäufer, nie auf der genauen Adresse.",
 		mapToys: "{0} Spielzeuge",
+		mapYourLocation: "Dein Standort (ca. 1 km genau)",
 		mapViewToy: "Spielzeug ansehen",
 		latestTitle: "Finde dein nächstes Spielzeug",
 		ctaTitle: "Zeit, das Kinderzimmer auszumisten?",
@@ -200,6 +218,8 @@ export const deDE: typeof enUS = {
 		buying: "Weiterleitung zum Checkout…",
 		sold: "Verkauft",
 		mine: "Von dir",
+		distanceLess: "weniger als 1 km entfernt",
+		distance: "ca. {0} km entfernt",
 		bought: "Gekauft",
 		boughtInfo: "Du hast dieses Spielzeug gekauft",
 		soldInfo: "Dieses Spielzeug wurde bereits verkauft",
