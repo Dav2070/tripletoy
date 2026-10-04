@@ -1,8 +1,22 @@
 import {
 	Component,
 	CUSTOM_ELEMENTS_SCHEMA,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	ElementRef,
+	ViewChild
 } from "@angular/core"
+import { FaIconComponent } from "@fortawesome/angular-fontawesome"
+import {
+	faCamera,
+	faCartShopping,
+	faHeart,
+	faPiggyBank,
+	faPuzzlePiece,
+	faRecycle,
+	faSeedling,
+	faStar,
+	faTruckFast
+} from "@fortawesome/free-solid-svg-icons"
 import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
 import { ApiService } from "src/app/services/api-service"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -14,7 +28,7 @@ import { toysPageSize } from "src/constants/constants"
 	templateUrl: "./start-page.component.html",
 	styleUrl: "./start-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [ToyCardComponent],
+	imports: [ToyCardComponent, FaIconComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StartPageComponent {
@@ -22,6 +36,17 @@ export class StartPageComponent {
 	toys: Toy[] = []
 	total: number = 0
 	loading: boolean = true
+	faCamera = faCamera
+	faCartShopping = faCartShopping
+	faTruckFast = faTruckFast
+	faSeedling = faSeedling
+	faPiggyBank = faPiggyBank
+	faRecycle = faRecycle
+	faHeart = faHeart
+	faStar = faStar
+	faPuzzlePiece = faPuzzlePiece
+
+	@ViewChild("toysSection") toysSection: ElementRef<HTMLElement>
 
 	constructor(
 		private apiService: ApiService,
@@ -49,6 +74,10 @@ export class StartPageComponent {
 		}
 
 		this.loading = false
+	}
+
+	scrollToToys() {
+		this.toysSection?.nativeElement.scrollIntoView({ behavior: "smooth" })
 	}
 
 	navigateToNewToyPage() {

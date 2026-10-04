@@ -6,8 +6,35 @@ export const enUS = {
 		account: "Account"
 	},
 	startPage: {
-		headline: "Find your next toy",
-		subhead: "The marketplace for used toys",
+		headline: "Toys that make kids happy twice",
+		subhead:
+			"3pletoy is the marketplace for used toys. Give teddy bears, bricks and board games a second home and find little treasures for a small price.",
+		browse: "Discover toys",
+		sell: "Sell a toy",
+		howTitle: "How it works",
+		howSubtitle: "From the toy box to the new owner in three steps",
+		step1Title: "List it",
+		step1Text:
+			"Take a few photos, write a short description and set your price. Your toy is visible to everyone right away.",
+		step2Title: "Discover & buy",
+		step2Text:
+			"Browse the toys and pay conveniently and securely with the Stripe checkout.",
+		step3Title: "Ship & enjoy",
+		step3Text:
+			"The delivery address comes straight from the checkout. The seller ships the toy and a child is happy.",
+		whyTitle: "Why 3pletoy?",
+		benefit1Title: "Sustainable",
+		benefit1Text:
+			"Well-kept toys are passed on instead of thrown away. That saves resources and clutter.",
+		benefit2Title: "Affordable",
+		benefit2Text:
+			"Used treasures at fair prices that the sellers set themselves.",
+		benefit3Title: "Easy",
+		benefit3Text:
+			"No complicated sign-up: one dav account is enough for buying and selling.",
+		latestTitle: "Find your next toy",
+		ctaTitle: "Time to tidy up the toy room?",
+		ctaText: "List your first toy in just a few minutes.",
 		noToys: "No toys have been listed yet",
 		loadMore: "Load more",
 		sellFirst: "List the first toy"
@@ -93,8 +120,35 @@ export const deDE: typeof enUS = {
 		account: "Konto"
 	},
 	startPage: {
-		headline: "Finde dein nächstes Spielzeug",
-		subhead: "Der Marktplatz für gebrauchte Spielzeuge",
+		headline: "Spielzeug, das zweimal Freude macht",
+		subhead:
+			"3pletoy ist der Marktplatz für gebrauchte Spielzeuge. Gib Teddy, Bausteinen und Gesellschaftsspielen ein zweites Zuhause und finde kleine Schätze für wenig Geld.",
+		browse: "Spielzeuge entdecken",
+		sell: "Spielzeug verkaufen",
+		howTitle: "So funktioniert’s",
+		howSubtitle: "Vom Spielzeugkorb zum neuen Besitzer in drei Schritten",
+		step1Title: "Einstellen",
+		step1Text:
+			"Mach ein paar Fotos, schreibe eine kurze Beschreibung und lege deinen Preis fest. Dein Spielzeug ist sofort für alle sichtbar.",
+		step2Title: "Entdecken & kaufen",
+		step2Text:
+			"Stöbere durch die Spielzeuge und bezahle bequem und sicher über den Stripe-Checkout.",
+		step3Title: "Verschicken & freuen",
+		step3Text:
+			"Die Lieferadresse kommt direkt aus dem Checkout. Der Verkäufer verschickt das Spielzeug, und ein Kind freut sich.",
+		whyTitle: "Warum 3pletoy?",
+		benefit1Title: "Nachhaltig",
+		benefit1Text:
+			"Gut erhaltene Spielzeuge werden weitergegeben statt weggeworfen. Das spart Ressourcen und schafft Platz.",
+		benefit2Title: "Günstig",
+		benefit2Text:
+			"Gebrauchte Schätze zu fairen Preisen, die die Verkäufer selbst festlegen.",
+		benefit3Title: "Einfach",
+		benefit3Text:
+			"Ohne komplizierte Anmeldung: Ein dav-Account genügt zum Kaufen und Verkaufen.",
+		latestTitle: "Finde dein nächstes Spielzeug",
+		ctaTitle: "Zeit, das Kinderzimmer auszumisten?",
+		ctaText: "Stelle dein erstes Spielzeug in wenigen Minuten ein.",
 		noToys: "Es wurden noch keine Spielzeuge eingestellt",
 		loadMore: "Mehr laden",
 		sellFirst: "Erstes Spielzeug einstellen"

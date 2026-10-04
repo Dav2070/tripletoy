@@ -1,35 +1,125 @@
-<div class="container slide-up-in">
+<div class="landing slide-up-in">
+	<!-- Hero -->
 	<section class="hero">
 		<span class="shape shape-circle" aria-hidden="true"></span>
 		<span class="shape shape-square" aria-hidden="true"></span>
 		<span class="shape shape-triangle" aria-hidden="true"></span>
+		<span class="shape shape-ring" aria-hidden="true"></span>
+
+		<div class="hero-text">
+			<h1 class="hero-title">{{ locale.headline }}</h1>
+			<p class="hero-subhead">{{ locale.subhead }}</p>
+
+			<div class="hero-buttons">
+				<dav-button (click)="scrollToToys()">{{ locale.browse }}</dav-button>
+				<dav-button color="secondary" tonal (click)="navigateToNewToyPage()">
+					{{ locale.sell }}
+				</dav-button>
+			</div>
+		</div>
+
+		<div class="hero-art" aria-hidden="true">
+			<div class="art-card">
+				<img src="/assets/images/toy-placeholder.svg" alt="" />
+				<span class="art-sticker"><fa-icon [icon]="faHeart"></fa-icon></span>
+			</div>
+
+			<span class="block block-blue"><fa-icon [icon]="faPuzzlePiece"></fa-icon></span>
+			<span class="block block-yellow"><fa-icon [icon]="faStar"></fa-icon></span>
+			<span class="block block-green"><fa-icon [icon]="faRecycle"></fa-icon></span>
+		</div>
+	</section>
+
+	<!-- How it works -->
+	<section class="section">
+		<h2 class="section-title">{{ locale.howTitle }}</h2>
+		<p class="section-subtitle">{{ locale.howSubtitle }}</p>
+
+		<div class="steps">
+			<article class="step toy-box step-blue">
+				<span class="step-number">1</span>
+				<span class="step-icon"><fa-icon [icon]="faCamera"></fa-icon></span>
+				<h3>{{ locale.step1Title }}</h3>
+				<p>{{ locale.step1Text }}</p>
+			</article>
+
+			<article class="step toy-box step-red">
+				<span class="step-number">2</span>
+				<span class="step-icon"><fa-icon [icon]="faCartShopping"></fa-icon></span>
+				<h3>{{ locale.step2Title }}</h3>
+				<p>{{ locale.step2Text }}</p>
+			</article>
+
+			<article class="step toy-box step-green">
+				<span class="step-number">3</span>
+				<span class="step-icon"><fa-icon [icon]="faTruckFast"></fa-icon></span>
+				<h3>{{ locale.step3Title }}</h3>
+				<p>{{ locale.step3Text }}</p>
+			</article>
+		</div>
+	</section>
+
+	<!-- Why -->
+	<section class="section why">
+		<h2 class="section-title">{{ locale.whyTitle }}</h2>
+
+		<div class="benefits">
+			<article class="benefit">
+				<span class="benefit-icon blue"><fa-icon [icon]="faSeedling"></fa-icon></span>
+				<h3>{{ locale.benefit1Title }}</h3>
+				<p>{{ locale.benefit1Text }}</p>
+			</article>
+
+			<article class="benefit">
+				<span class="benefit-icon yellow"><fa-icon [icon]="faPiggyBank"></fa-icon></span>
+				<h3>{{ locale.benefit2Title }}</h3>
+				<p>{{ locale.benefit2Text }}</p>
+			</article>
+
+			<article class="benefit">
+				<span class="benefit-icon purple"><fa-icon [icon]="faHeart"></fa-icon></span>
+				<h3>{{ locale.benefit3Title }}</h3>
+				<p>{{ locale.benefit3Text }}</p>
+			</article>
+		</div>
+	</section>
+
+	<!-- Toys -->
+	<section class="section" #toysSection>
+		<h2 class="section-title">{{ locale.latestTitle }}</h2>
+
+		@if (toys.length > 0) {
+		<div class="toys-grid">
+			@for (toy of toys; track toy.uuid) {
+			<app-toy-card [toy]="toy"></app-toy-card>
+			}
+		</div>
+
+		@if (toys.length < total) {
+		<div class="load-more-container">
+			<dav-button tonal [disabled]="loading" (click)="loadToys()">
+				{{ locale.loadMore }}
+			</dav-button>
+		</div>
+		} } @else if (!loading) {
+		<div class="empty-container">
+			<p>{{ locale.noToys }}</p>
+
+			<dav-button (click)="navigateToNewToyPage()">
+				{{ locale.sellFirst }}
+			</dav-button>
+		</div>
+		}
+	</section>
+
+	<!-- Call to action -->
+	<section class="cta">
 		<span class="shape shape-star" aria-hidden="true"></span>
 		<span class="shape shape-ring" aria-hidden="true"></span>
 
-		<dav-header size="lg">{{ locale.headline }}</dav-header>
-		<p class="subhead">{{ locale.subhead }}</p>
+		<h2>{{ locale.ctaTitle }}</h2>
+		<p>{{ locale.ctaText }}</p>
+
+		<dav-button (click)="navigateToNewToyPage()">{{ locale.sell }}</dav-button>
 	</section>
-
-	@if (toys.length > 0) {
-	<div class="toys-grid">
-		@for (toy of toys; track toy.uuid) {
-		<app-toy-card [toy]="toy"></app-toy-card>
-		}
-	</div>
-
-	@if (toys.length < total) {
-	<div class="load-more-container">
-		<dav-button tonal [disabled]="loading" (click)="loadToys()">
-			{{ locale.loadMore }}
-		</dav-button>
-	</div>
-	} } @else if (!loading) {
-	<div class="empty-container">
-		<p>{{ locale.noToys }}</p>
-
-		<dav-button (click)="navigateToNewToyPage()">
-			{{ locale.sellFirst }}
-		</dav-button>
-	</div>
-	}
 </div>
