@@ -32,13 +32,10 @@ export const enUS = {
 		benefit3Title: "Easy",
 		benefit3Text:
 			"No complicated sign-up: one dav account is enough for buying and selling.",
-		sortNewest: "Newest",
-		sortDistance: "Near me",
-		locating: "Finding your location…",
-		locationError:
-			"Your location could not be determined. Please allow access to your location.",
 		sortInfo:
 			"Sorted by distance. Your location is not stored. Toys without a known position come last.",
+		sortNewestInfo:
+			"Showing the newest toys. Allow access to your location to sort the toys by distance.",
 		mapTitle: "Toys on the map",
 		mapSubtitle:
 			"The approximate position is based on the postal code area of the sellers, never on the exact address.",
@@ -189,13 +186,10 @@ export const deDE: typeof enUS = {
 		benefit3Title: "Einfach",
 		benefit3Text:
 			"Ohne komplizierte Anmeldung: Ein dav-Account genügt zum Kaufen und Verkaufen.",
-		sortNewest: "Neueste",
-		sortDistance: "In meiner Nähe",
-		locating: "Standort wird ermittelt…",
-		locationError:
-			"Dein Standort konnte nicht ermittelt werden. Bitte erlaube den Zugriff auf deinen Standort.",
 		sortInfo:
 			"Nach Entfernung sortiert. Dein Standort wird nicht gespeichert. Spielzeuge ohne bekannte Position stehen am Ende.",
+		sortNewestInfo:
+			"Es werden die neuesten Spielzeuge angezeigt. Erlaube den Zugriff auf deinen Standort, um die Spielzeuge nach Entfernung zu sortieren.",
 		mapTitle: "Spielzeuge auf der Karte",
 		mapSubtitle:
 			"Die ungefähre Position beruht auf dem Postleitzahl-Bereich der Verkäufer, nie auf der genauen Adresse.",

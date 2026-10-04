@@ -30,6 +30,52 @@
 		</div>
 	</section>
 
+	<!-- Map, only if there are toys with a known position -->
+	@if (locations.length > 0) {
+	<section class="section">
+		<h2 class="section-title">{{ locale.mapTitle }}</h2>
+		<p class="section-subtitle">{{ locale.mapSubtitle }}</p>
+
+		<div class="map-container">
+			<app-toy-map [locations]="locations" [position]="position"></app-toy-map>
+		</div>
+	</section>
+	}
+
+	<!-- Toys -->
+	<section class="section" #toysSection>
+		<h2 class="section-title">{{ locale.latestTitle }}</h2>
+
+		@if (position) {
+		<p class="sort-message">{{ locale.sortInfo }}</p>
+		} @else if (locationUnavailable) {
+		<p class="sort-message">{{ locale.sortNewestInfo }}</p>
+		}
+
+		@if (toys.length > 0) {
+		<div class="toys-grid">
+			@for (toy of toys; track toy.uuid) {
+			<app-toy-card [toy]="toy"></app-toy-card>
+			}
+		</div>
+
+		@if (toys.length < total) {
+		<div class="load-more-container">
+			<dav-button tonal [disabled]="loading" (click)="loadToys()">
+				{{ locale.loadMore }}
+			</dav-button>
+		</div>
+		} } @else if (!loading) {
+		<div class="empty-container">
+			<p>{{ locale.noToys }}</p>
+
+			<dav-button (click)="navigateToNewToyPage()">
+				{{ locale.sellFirst }}
+			</dav-button>
+		</div>
+		}
+	</section>
+
 	<!-- How it works -->
 	<section class="section">
 		<h2 class="section-title">{{ locale.howTitle }}</h2>
@@ -82,73 +128,6 @@
 				<p>{{ locale.benefit3Text }}</p>
 			</article>
 		</div>
-	</section>
-
-	<!-- Map, only if there are toys with a known position -->
-	@if (locations.length > 0) {
-	<section class="section">
-		<h2 class="section-title">{{ locale.mapTitle }}</h2>
-		<p class="section-subtitle">{{ locale.mapSubtitle }}</p>
-
-		<div class="map-container">
-			<app-toy-map [locations]="locations" [position]="position"></app-toy-map>
-		</div>
-	</section>
-	}
-
-	<!-- Toys -->
-	<section class="section" #toysSection>
-		<h2 class="section-title">{{ locale.latestTitle }}</h2>
-
-		<div class="sort-bar">
-			<dav-button
-				[tonal]="position != null"
-				size="sm"
-				(click)="sortBy(false)"
-			>
-				<fa-icon [icon]="faClock"></fa-icon>
-				{{ locale.sortNewest }}
-			</dav-button>
-
-			<dav-button
-				[tonal]="position == null"
-				size="sm"
-				[disabled]="locating"
-				(click)="sortBy(true)"
-			>
-				<fa-icon [icon]="faLocationDot"></fa-icon>
-				{{ locating ? locale.locating : locale.sortDistance }}
-			</dav-button>
-		</div>
-
-		@if (locationError) {
-		<p class="sort-message error">{{ locale.locationError }}</p>
-		} @else if (position) {
-		<p class="sort-message">{{ locale.sortInfo }}</p>
-		}
-
-		@if (toys.length > 0) {
-		<div class="toys-grid">
-			@for (toy of toys; track toy.uuid) {
-			<app-toy-card [toy]="toy"></app-toy-card>
-			}
-		</div>
-
-		@if (toys.length < total) {
-		<div class="load-more-container">
-			<dav-button tonal [disabled]="loading" (click)="loadToys()">
-				{{ locale.loadMore }}
-			</dav-button>
-		</div>
-		} } @else if (!loading) {
-		<div class="empty-container">
-			<p>{{ locale.noToys }}</p>
-
-			<dav-button (click)="navigateToNewToyPage()">
-				{{ locale.sellFirst }}
-			</dav-button>
-		</div>
-		}
 	</section>
 
 	<!-- Call to action -->
