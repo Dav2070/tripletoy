@@ -13,6 +13,10 @@ export class RoutingService {
 		this.router.navigate(["user"])
 	}
 
+	navigateToEditProfilePage() {
+		this.router.navigate(["user", "edit"])
+	}
+
 	navigateToNewToyPage() {
 		this.router.navigate(["toy", "new"])
 	}

@@ -73,20 +73,19 @@
 	margin-top: 32px;
 }
 
-.profile-form {
-	--accent: var(--toy-blue);
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	max-width: 600px;
-	margin: 0 6px 6px 0;
-	padding: 24px;
+.profile-info {
+	min-width: 0;
 }
 
-.profile-form p {
-	margin: 0;
+.profile-age {
+	margin: 4px 0 0;
+	font-weight: 700;
+	color: var(--dav-color-on-surface-variant);
 }
 
-.error {
-	color: var(--dav-color-error);
+.profile-description {
+	margin: 8px 0 0;
+	white-space: pre-wrap;
+	line-height: 1.5;
+	color: var(--dav-color-on-surface);
 }

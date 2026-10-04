@@ -1,0 +1,90 @@
+<div class="container slide-up-in">
+	<a class="back-link" routerLink="/user">← {{ locale.back }}</a>
+
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
+
+	@if (!dataService.dav.isLoggedIn) {
+		<p class="info">{{ locale.loginRequired }}</p>
+
+		<dav-button tonal (click)="navigateToUserPage()">
+			{{ userLocale.login }}
+		</dav-button>
+	} @else {
+		<div class="form toy-box">
+			<dav-textfield
+				[label]="locale.ageLabel"
+				[value]="age"
+				[errorMessage]="ageError"
+				(change)="ageChange($event)"
+			></dav-textfield>
+
+			<dav-textarea
+				[label]="locale.descriptionLabel"
+				[value]="description"
+				[errorMessage]="descriptionError"
+				(change)="descriptionChange($event)"
+			></dav-textarea>
+
+			<h3 class="form-section-title">{{ locale.addressTitle }}</h3>
+			<p class="form-section-info">{{ locale.addressInfo }}</p>
+
+			<dav-textfield
+				[label]="locale.addressNameLabel"
+				[value]="address.name"
+				(change)="addressChange('name', $event)"
+			></dav-textfield>
+
+			<dav-textfield
+				[label]="locale.addressLine1Label"
+				[value]="address.line1"
+				(change)="addressChange('line1', $event)"
+			></dav-textfield>
+
+			<dav-textfield
+				[label]="locale.addressLine2Label"
+				[value]="address.line2"
+				(change)="addressChange('line2', $event)"
+			></dav-textfield>
+
+			<div class="address-row">
+				<dav-textfield
+					[label]="locale.addressPostalCodeLabel"
+					[value]="address.postalCode"
+					(change)="addressChange('postalCode', $event)"
+				></dav-textfield>
+
+				<dav-textfield
+					[label]="locale.addressCityLabel"
+					[value]="address.city"
+					(change)="addressChange('city', $event)"
+				></dav-textfield>
+			</div>
+
+			<dav-textfield
+				[label]="locale.addressCountryLabel"
+				[value]="address.country"
+				(change)="addressChange('country', $event)"
+			></dav-textfield>
+
+			<dav-textfield
+			[label]="locale.phoneLabel"
+			[value]="phone"
+			[errorMessage]="phoneError"
+			(change)="phoneChange($event)"
+		></dav-textfield>
+
+		@if (addressError) {
+				<p class="error">{{ addressError }}</p>
+			}
+			@if (error) {
+				<p class="error">{{ error }}</p>
+			}
+
+			<div>
+				<dav-button [disabled]="loading" (click)="save()">
+					{{ locale.save }}
+				</dav-button>
+			</div>
+		</div>
+	}
+</div>

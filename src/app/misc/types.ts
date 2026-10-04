@@ -39,7 +39,18 @@ export interface List<T> {
 	items: T[]
 }
 
+export interface Address {
+	name: string | null
+	line1: string | null
+	line2: string | null
+	postalCode: string | null
+	city: string | null
+	country: string | null
+}
+
 export interface Profile {
 	age: number | null
 	description: string | null
+	phone: string | null
+	address: Address
 }

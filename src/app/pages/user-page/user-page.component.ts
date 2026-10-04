@@ -3,16 +3,11 @@ import {
 	CUSTOM_ELEMENTS_SCHEMA,
 	ChangeDetectionStrategy
 } from "@angular/core"
-import { CombinedGraphQLErrors } from "@apollo/client/errors"
 import { Dav } from "dav-js"
 import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
 import { ApiService } from "src/app/services/api-service"
-import { Toy } from "src/app/misc/types"
-import {
-	profileAgeMax,
-	profileAgeMin,
-	toysPageSize
-} from "src/constants/constants"
+import { Profile, Toy } from "src/app/misc/types"
+import { toysPageSize } from "src/constants/constants"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
@@ -34,13 +29,7 @@ export class UserPageComponent {
 	purchases: Toy[] = []
 	purchasesTotal: number = 0
 	loadingPurchases: boolean = false
-	age: string = ""
-	ageError: string = ""
-	profileDescription: string = ""
-	profileDescriptionError: string = ""
-	profileError: string = ""
-	profileSaved: boolean = false
-	savingProfile: boolean = false
+	profile: Profile = null
 
 	constructor(
 		public dataService: DataService,
@@ -81,69 +70,16 @@ export class UserPageComponent {
 
 	async loadProfile() {
 		try {
-			const profile = await this.apiService.retrieveMyProfile()
-
-			this.age = profile.age?.toString() ?? ""
-			this.profileDescription = profile.description ?? ""
+			this.profile = await this.apiService.retrieveMyProfile()
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	ageChange(event: Event) {
-		this.age = (event as CustomEvent).detail.value
-		this.ageError = ""
-		this.profileSaved = false
-	}
-
-	profileDescriptionChange(event: Event) {
-		this.profileDescription = (event as CustomEvent).detail.value
-		this.profileDescriptionError = ""
-		this.profileSaved = false
-	}
-
-	async saveProfile() {
-		this.profileError = ""
-		this.profileSaved = false
-
-		const ageText = this.age.trim()
-		const age = ageText == "" ? null : Number(ageText)
-
-		this.ageError =
-			age != null &&
-			(!Number.isInteger(age) || age < profileAgeMin || age > profileAgeMax)
-				? this.locale.ageInvalid
-				: ""
-		if (this.ageError) return
-
-		this.savingProfile = true
-
-		try {
-			await this.apiService.updateMyProfile({
-				age,
-				description: this.profileDescription.trim() || null
-			})
-
-			this.profileSaved = true
-		} catch (error) {
-			console.error(error)
-
-			const codes: string[] = CombinedGraphQLErrors.is(error)
-				? error.errors.flatMap(
-						e => (e.extensions?.["errors"] as string[]) ?? []
-					)
-				: []
-
-			if (codes.includes("AGE_INVALID")) {
-				this.ageError = this.locale.ageInvalid
-			} else if (codes.includes("PROFILE_DESCRIPTION_TOO_LONG")) {
-				this.profileDescriptionError = this.locale.descriptionTooLong
-			} else {
-				this.profileError = this.locale.profileError
-			}
-		}
-
-		this.savingProfile = false
+	get ageText(): string {
+		return this.profile?.age != null
+			? this.locale.ageYears.replace("{0}", this.profile.age.toString())
+			: ""
 	}
 
 	async loadToys() {
@@ -179,5 +115,9 @@ export class UserPageComponent {
 
 	navigateToNewToyPage() {
 		this.routingService.navigateToNewToyPage()
+	}
+
+	navigateToEditProfilePage() {
+		this.routingService.navigateToEditProfilePage()
 	}
 }

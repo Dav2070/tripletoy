@@ -25,7 +25,15 @@
 			/>
 		</span>
 
-		<h2 class="username">{{ dataService.dav.user.FirstName }}</h2>
+		<div class="profile-info">
+			<h2 class="username">{{ dataService.dav.user.FirstName }}</h2>
+
+			@if (ageText) {
+			<p class="profile-age">{{ ageText }}</p>
+			} @if (profile?.description) {
+			<p class="profile-description">{{ profile.description }}</p>
+			}
+		</div>
 	</div>
 
 	<div class="buttons-container">
@@ -33,39 +41,13 @@
 			{{ locale.sellToy }}
 		</dav-button>
 
+		<dav-button tonal (click)="navigateToEditProfilePage()">
+			{{ locale.editProfile }}
+		</dav-button>
+
 		<dav-button color="secondary" tonal (click)="logout()">
 			{{ locale.logout }}
 		</dav-button>
-	</div>
-
-	<dav-header class="section-header" size="md" alignment="start">{{ locale.aboutYou }}</dav-header>
-
-	<div class="profile-form toy-box">
-		<dav-textfield
-			[label]="locale.ageLabel"
-			[value]="age"
-			[errorMessage]="ageError"
-			(change)="ageChange($event)"
-		></dav-textfield>
-
-		<dav-textarea
-			[label]="locale.descriptionLabel"
-			[value]="profileDescription"
-			[errorMessage]="profileDescriptionError"
-			(change)="profileDescriptionChange($event)"
-		></dav-textarea>
-
-		@if (profileError) {
-		<p class="error">{{ profileError }}</p>
-		} @else if (profileSaved) {
-		<p class="info">{{ locale.profileSaved }}</p>
-		}
-
-		<div>
-			<dav-button [disabled]="savingProfile" (click)="saveProfile()">
-				{{ locale.saveProfile }}
-			</dav-button>
-		</div>
 	</div>
 
 	<dav-header class="section-header" size="md" alignment="start">{{ locale.yourToys }}</dav-header>

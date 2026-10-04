@@ -3,7 +3,7 @@ import { Apollo, gql } from "apollo-angular"
 import { HttpClient } from "@angular/common/http"
 import { firstValueFrom } from "rxjs"
 import { Dav } from "dav-js"
-import { List, Profile, Toy, ToyPhoto } from "src/app/misc/types"
+import { Address, List, Profile, Toy, ToyPhoto } from "src/app/misc/types"
 import { environment } from "src/environments/environment"
 
 const toyFields = `
@@ -243,6 +243,15 @@ export class ApiService {
 						retrieveMyProfile {
 							age
 							description
+							phone
+							address {
+								name
+								line1
+								line2
+								postalCode
+								city
+								country
+							}
 						}
 					}
 				`,
@@ -250,19 +259,45 @@ export class ApiService {
 			})
 		)
 
-		return result.data?.retrieveMyProfile ?? { age: null, description: null }
+		return (
+			result.data?.retrieveMyProfile ?? {
+				age: null,
+				description: null,
+				phone: null,
+				address: {
+					name: null,
+					line1: null,
+					line2: null,
+					postalCode: null,
+					city: null,
+					country: null
+				}
+			}
+		)
 	}
 
 	/** Saves the profile of the logged in user, empty values are cleared */
 	async updateMyProfile(params: {
 		age: number | null
 		description: string | null
+		phone: string | null
+		address: Address
 	}): Promise<Profile | null> {
 		const result = await firstValueFrom(
 			this.apollo.mutate<{ updateMyProfile: Profile }>({
 				mutation: gql`
-					mutation UpdateMyProfile($age: Int, $description: String) {
-						updateMyProfile(age: $age, description: $description) {
+					mutation UpdateMyProfile(
+						$age: Int
+						$description: String
+						$phone: String
+						$address: AddressInput
+					) {
+						updateMyProfile(
+							age: $age
+							description: $description
+							phone: $phone
+							address: $address
+						) {
 							age
 							description
 						}
