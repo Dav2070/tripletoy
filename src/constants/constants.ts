@@ -1,7 +1,6 @@
 export const smallWindowMaxSize = 576
 export const navbarHeight = 76
 export const toysPageSize = 24
-export const profileAgeMin = 1
 export const profileAgeMax = 120
 export const profileDescriptionMaxLength = 1000
 // Price limits in cents, same as in the API

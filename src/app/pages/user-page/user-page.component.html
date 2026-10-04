@@ -36,6 +36,28 @@
 		</div>
 	</div>
 
+	@if (stats) {
+	<section class="stats toy-box" [attr.aria-label]="locale.statsTitle">
+		<div class="stat stat-active">
+			<span class="stat-icon"><fa-icon [icon]="faBoxOpen"></fa-icon></span>
+			<span class="stat-number">{{ stats.active }}</span>
+			<span class="stat-label">{{ locale.statsActive }}</span>
+		</div>
+
+		<div class="stat stat-sold">
+			<span class="stat-icon"><fa-icon [icon]="faTag"></fa-icon></span>
+			<span class="stat-number">{{ stats.sold }}</span>
+			<span class="stat-label">{{ locale.statsSold }}</span>
+		</div>
+
+		<div class="stat stat-bought">
+			<span class="stat-icon"><fa-icon [icon]="faBagShopping"></fa-icon></span>
+			<span class="stat-number">{{ stats.bought }}</span>
+			<span class="stat-label">{{ locale.statsBought }}</span>
+		</div>
+	</section>
+	}
+
 	<div class="buttons-container">
 		<dav-button (click)="navigateToNewToyPage()">
 			{{ locale.sellToy }}

@@ -12,10 +12,11 @@
 	} @else {
 		<div class="form toy-box">
 			<dav-textfield
-				[label]="locale.ageLabel"
-				[value]="age"
-				[errorMessage]="ageError"
-				(change)="ageChange($event)"
+				type="date"
+				[label]="locale.birthDateLabel"
+				[value]="birthDate"
+				[errorMessage]="birthDateError"
+				(change)="birthDateChange($event)"
 			></dav-textfield>
 
 			<dav-textarea

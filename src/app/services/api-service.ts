@@ -3,7 +3,7 @@ import { Apollo, gql } from "apollo-angular"
 import { HttpClient } from "@angular/common/http"
 import { firstValueFrom } from "rxjs"
 import { Dav } from "dav-js"
-import { Address, List, Profile, Toy, ToyPhoto } from "src/app/misc/types"
+import { Address, List, Profile, Toy, ToyPhoto, ToyStats } from "src/app/misc/types"
 import { environment } from "src/environments/environment"
 
 const toyFields = `
@@ -69,6 +69,26 @@ export class ApiService {
 		)
 
 		return result.data?.listMyToys ?? { total: 0, items: [] }
+	}
+
+	/** Counts the active, sold and bought toys of the logged in user */
+	async retrieveMyToyStats(): Promise<ToyStats> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ retrieveMyToyStats: ToyStats }>({
+				query: gql`
+					query RetrieveMyToyStats {
+						retrieveMyToyStats {
+							active
+							sold
+							bought
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.retrieveMyToyStats ?? { active: 0, sold: 0, bought: 0 }
 	}
 
 	/** Lists the toys the logged in user has bought */
@@ -242,6 +262,7 @@ export class ApiService {
 					query RetrieveMyProfile {
 						retrieveMyProfile {
 							age
+							birthDate
 							description
 							phone
 							address {
@@ -262,6 +283,7 @@ export class ApiService {
 		return (
 			result.data?.retrieveMyProfile ?? {
 				age: null,
+				birthDate: null,
 				description: null,
 				phone: null,
 				address: {
@@ -278,7 +300,7 @@ export class ApiService {
 
 	/** Saves the profile of the logged in user, empty values are cleared */
 	async updateMyProfile(params: {
-		age: number | null
+		birthDate: string | null
 		description: string | null
 		phone: string | null
 		address: Address
@@ -287,13 +309,13 @@ export class ApiService {
 			this.apollo.mutate<{ updateMyProfile: Profile }>({
 				mutation: gql`
 					mutation UpdateMyProfile(
-						$age: Int
+						$birthDate: String
 						$description: String
 						$phone: String
 						$address: AddressInput
 					) {
 						updateMyProfile(
-							age: $age
+							birthDate: $birthDate
 							description: $description
 							phone: $phone
 							address: $address

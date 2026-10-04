@@ -13,7 +13,6 @@ import { Address } from "src/app/misc/types"
 import {
 	profileAddressFieldMaxLength,
 	profileAgeMax,
-	profileAgeMin,
 	profilePhoneRegex
 } from "src/constants/constants"
 
@@ -27,8 +26,8 @@ import {
 export class ProfileEditPageComponent {
 	locale = this.localizationService.locale.profileEditPage
 	userLocale = this.localizationService.locale.userPage
-	age: string = ""
-	ageError: string = ""
+	birthDate: string = ""
+	birthDateError: string = ""
 	description: string = ""
 	descriptionError: string = ""
 	address: Address = {
@@ -66,7 +65,7 @@ export class ProfileEditPageComponent {
 		try {
 			const profile = await this.apiService.retrieveMyProfile()
 
-			this.age = profile.age?.toString() ?? ""
+			this.birthDate = profile.birthDate ?? ""
 			this.description = profile.description ?? ""
 			this.phone = profile.phone ?? ""
 
@@ -80,9 +79,34 @@ export class ProfileEditPageComponent {
 		this.loading = false
 	}
 
-	ageChange(event: Event) {
-		this.age = (event as CustomEvent).detail.value
-		this.ageError = ""
+	birthDateChange(event: Event) {
+		this.birthDate = (event as CustomEvent).detail.value
+		this.birthDateError = ""
+	}
+
+	/** Checks that the date exists, is not in the future and not unrealistically long ago */
+	private isBirthDateValid(value: string): boolean {
+		const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
+		if (match == null) return false
+
+		const [year, month, day] = match.slice(1).map(Number)
+		const date = new Date(year, month - 1, day)
+
+		if (
+			date.getFullYear() != year ||
+			date.getMonth() != month - 1 ||
+			date.getDate() != day
+		)
+			return false
+
+		const today = new Date()
+		const oldest = new Date(
+			today.getFullYear() - profileAgeMax,
+			today.getMonth(),
+			today.getDate()
+		)
+
+		return date <= today && date >= oldest
 	}
 
 	descriptionChange(event: Event) {
@@ -107,8 +131,7 @@ export class ProfileEditPageComponent {
 	async save() {
 		this.error = ""
 
-		const ageText = this.age.trim()
-		const age = ageText == "" ? null : Number(ageText)
+		const birthDate = this.birthDate.trim()
 
 		this.addressError = Object.values(this.address).some(
 			v => (v ?? "").trim().length > profileAddressFieldMaxLength
@@ -116,11 +139,11 @@ export class ProfileEditPageComponent {
 			? this.locale.addressTooLong
 			: ""
 
-		this.ageError =
-			age != null &&
-			(!Number.isInteger(age) || age < profileAgeMin || age > profileAgeMax)
-				? this.locale.ageInvalid
+		this.birthDateError =
+			birthDate != "" && !this.isBirthDateValid(birthDate)
+				? this.locale.birthDateInvalid
 				: ""
+
 		const phone = this.phone.trim()
 
 		this.phoneError =
@@ -128,13 +151,13 @@ export class ProfileEditPageComponent {
 				? this.locale.phoneInvalid
 				: ""
 
-		if (this.ageError || this.addressError || this.phoneError) return
+		if (this.birthDateError || this.addressError || this.phoneError) return
 
 		this.loading = true
 
 		try {
 			await this.apiService.updateMyProfile({
-				age,
+				birthDate: birthDate || null,
 				description: this.description.trim() || null,
 				phone: phone || null,
 				address: Object.fromEntries(
@@ -156,8 +179,8 @@ export class ProfileEditPageComponent {
 					)
 				: []
 
-			if (codes.includes("AGE_INVALID")) {
-				this.ageError = this.locale.ageInvalid
+			if (codes.includes("BIRTH_DATE_INVALID")) {
+				this.birthDateError = this.locale.birthDateInvalid
 			} else if (codes.includes("PHONE_INVALID")) {
 				this.phoneError = this.locale.phoneInvalid
 			} else if (codes.includes("ADDRESS_INVALID")) {

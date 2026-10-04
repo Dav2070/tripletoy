@@ -48,8 +48,17 @@ export interface Address {
 	country: string | null
 }
 
+export interface ToyStats {
+	active: number
+	sold: number
+	bought: number
+}
+
 export interface Profile {
+	/** The age in years, calculated by the API from the birth date */
 	age: number | null
+	/** The birth date as YYYY-MM-DD */
+	birthDate: string | null
 	description: string | null
 	phone: string | null
 	address: Address

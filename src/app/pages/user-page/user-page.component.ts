@@ -5,8 +5,14 @@ import {
 } from "@angular/core"
 import { Dav } from "dav-js"
 import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
+import { FaIconComponent } from "@fortawesome/angular-fontawesome"
+import {
+	faBagShopping,
+	faBoxOpen,
+	faTag
+} from "@fortawesome/free-solid-svg-icons"
 import { ApiService } from "src/app/services/api-service"
-import { Profile, Toy } from "src/app/misc/types"
+import { Profile, Toy, ToyStats } from "src/app/misc/types"
 import { toysPageSize } from "src/constants/constants"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -17,7 +23,7 @@ import { environment } from "src/environments/environment"
 	templateUrl: "./user-page.component.html",
 	styleUrl: "./user-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [ToyCardComponent],
+	imports: [ToyCardComponent, FaIconComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UserPageComponent {
@@ -30,6 +36,10 @@ export class UserPageComponent {
 	purchasesTotal: number = 0
 	loadingPurchases: boolean = false
 	profile: Profile = null
+	stats: ToyStats = null
+	faBoxOpen = faBoxOpen
+	faTag = faTag
+	faBagShopping = faBagShopping
 
 	constructor(
 		public dataService: DataService,
@@ -44,6 +54,7 @@ export class UserPageComponent {
 		if (this.dataService.dav.isLoggedIn) {
 			await Promise.all([
 				this.loadProfile(),
+				this.loadStats(),
 				this.loadToys(),
 				this.loadPurchases()
 			])
@@ -66,6 +77,14 @@ export class UserPageComponent {
 		}
 
 		this.loadingPurchases = false
+	}
+
+	async loadStats() {
+		try {
+			this.stats = await this.apiService.retrieveMyToyStats()
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	async loadProfile() {

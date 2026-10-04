@@ -89,3 +89,69 @@
 	line-height: 1.5;
 	color: var(--dav-color-on-surface);
 }
+
+// Overview of the active, sold and bought toys
+.stats {
+	--accent: var(--toy-yellow);
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+	max-width: 600px;
+	margin: 0 6px 24px 0;
+	padding: 16px;
+}
+
+.stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 12px 8px;
+	background-color: color-mix(in srgb, var(--stat-color) 16%, transparent);
+	border-radius: 20px;
+	transition: transform 200ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.stat:hover {
+	transform: translateY(-3px) rotate(-1.5deg);
+}
+
+.stat-active {
+	--stat-color: var(--toy-blue);
+}
+
+.stat-sold {
+	--stat-color: var(--toy-red);
+}
+
+.stat-bought {
+	--stat-color: var(--toy-green);
+}
+
+.stat-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	font-size: 18px;
+	color: white;
+	background-color: var(--stat-color);
+	border-radius: 14px;
+	transform: rotate(-6deg);
+}
+
+.stat-number {
+	margin-top: 6px;
+	font-family: var(--toy-font-display);
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--dav-color-on-surface);
+}
+
+.stat-label {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--dav-color-on-surface-variant);
+}
