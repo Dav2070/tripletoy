@@ -2,19 +2,118 @@
 	<a class="back-link" routerLink="/">← {{ locale.back }}</a>
 
 	@if (toy != null) {
-	<div class="toy-container">
-		<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
+		<div class="toy-container">
+			<div class="toy-images">
+				<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
 
-		<div class="toy-details">
-			<dav-header size="lg">{{ toy.title }}</dav-header>
-			<p class="toy-price">{{ price }}</p>
-			<p class="toy-description">
-				{{ toy.description || locale.noDescription }}
-			</p>
-			<p class="toy-listed-on">{{ listedOn }}</p>
+				@if (toy.photos.length > 1) {
+					<div class="toy-thumbnails">
+						@for (photo of toy.photos; track photo.uuid; let i = $index) {
+							<button
+								type="button"
+								class="toy-thumbnail"
+								[class.selected]="i == selectedPhotoIndex"
+								(click)="selectedPhotoIndex = i"
+							>
+								<img [src]="getPhotoUrl(photo)" alt="" />
+							</button>
+						}
+					</div>
+				}
+			</div>
+
+			<div class="toy-details toy-box">
+				<dav-header size="lg" alignment="start">{{ toy.title }}</dav-header>
+				@if (toy.sold) {
+					<p class="toy-price sold">{{ locale.sold }}</p>
+				} @else if (price) {
+					<p class="toy-price">{{ price }}</p>
+				}
+
+				<!-- prettier-ignore -->
+				<p class="toy-description">{{ toy.description || locale.noDescription }}</p>
+				<p class="toy-listed-on">{{ listedOn }}</p>
+
+				@if (purchased) {
+					<p class="notice success">{{ locale.purchased }}</p>
+				}
+
+				@if (toy.sold) {
+					<p class="notice">{{ locale.soldInfo }}</p>
+				} @else if (toy.mine) {
+					<p class="notice">{{ locale.yourToy }}</p>
+
+					<div class="owner-buttons">
+						<dav-button tonal (click)="navigateToEditPage()">
+							{{ locale.edit }}
+						</dav-button>
+						<dav-button
+							color="secondary"
+							tonal
+							(click)="showDeleteDialog()"
+						>
+							{{ locale.delete }}
+						</dav-button>
+					</div>
+				} @else if (!purchased) {
+					<div class="buy-container">
+						<dav-button [disabled]="checkoutLoading" (click)="buy()">
+							@if (checkoutLoading) {
+								{{ locale.buying }}
+							} @else if (!dataService.dav.isLoggedIn) {
+								{{ locale.login }}
+							} @else {
+								{{ buyLabel }}
+							}
+						</dav-button>
+					</div>
+
+					@if (checkoutError) {
+						<p class="notice error">{{ checkoutError }}</p>
+					}
+				}
+				@if (toy.order; as order) {
+					<div class="order-box">
+						<h3>{{ locale.soldTo }} {{ order.name }}</h3>
+						<p>{{ locale.soldToInfo }}</p>
+						<address>
+							{{ order.name }}<br />
+							{{ order.line1 }}<br />
+							@if (order.line2) {
+								{{ order.line2 }}<br />
+							}
+							{{ order.postalCode }} {{ order.city }}<br />
+							{{ order.country }}<br />
+							{{ order.email }}
+							@if (order.phone) {
+								· {{ order.phone }}
+							}
+						</address>
+					</div>
+				}
+			</div>
 		</div>
-	</div>
 	} @else if (!loading) {
-	<p class="not-found">{{ notFoundLocale.message }}</p>
+		<p class="not-found">{{ notFoundLocale.message }}</p>
 	}
 </div>
+
+@if (toy != null) {
+	<dav-dialog
+		[headline]="locale.deleteTitle"
+		[primaryButtonText]="locale.delete"
+		primaryButtonColor="secondary"
+		[defaultButtonText]="locale.cancel"
+		[visible]="deleteDialogVisible"
+		[loading]="deleteLoading"
+		(dismiss)="deleteDialogVisible = false"
+		(defaultButtonClick)="deleteDialogVisible = false"
+		(primaryButtonClick)="deleteToy()"
+	>
+		<p>{{ locale.deleteText }}</p>
+
+		@if (deleteError) {
+			<p class="delete-error">{{ deleteError }}</p>
+		}
+	</dav-dialog>
+}

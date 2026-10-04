@@ -3,39 +3,96 @@
 	flex-direction: column;
 	overflow: hidden;
 	color: var(--dav-color-on-surface);
-	background-color: var(--dav-color-surface-container-low);
-	border-radius: 16px;
+	background-color: var(--dav-color-surface-container-lowest);
+	border: 3px solid var(--accent, var(--toy-blue));
+	border-radius: 28px;
+	box-shadow: 6px 6px 0 var(--accent, var(--toy-blue));
 	text-decoration: none;
-	transition: background-color 100ms;
+	transition: transform 220ms cubic-bezier(0.3, 1.6, 0.5, 1),
+		box-shadow 220ms cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 
 .toy-card:hover {
-	background-color: var(--dav-color-surface-container-high);
 	text-decoration: none;
+	transform: translate(-3px, -5px) rotate(-1.5deg);
+	box-shadow: 10px 10px 0 var(--accent, var(--toy-blue));
+}
+
+.toy-card:active {
+	transform: translate(3px, 3px);
+	box-shadow: 2px 2px 0 var(--accent, var(--toy-blue));
+}
+
+.image-frame {
+	position: relative;
+	margin: 8px 8px 0;
+	overflow: hidden;
+	background-color: color-mix(
+		in srgb,
+		var(--accent, var(--toy-blue)) 20%,
+		transparent
+	);
+	border-radius: 20px;
 }
 
 .toy-image {
+	display: block;
 	width: 100%;
 	aspect-ratio: 1;
 	object-fit: cover;
+	transition: transform 300ms;
+}
+
+.toy-card:hover .toy-image {
+	transform: scale(1.06);
+}
+
+// Price tag sticker
+.toy-price {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+	padding: 4px 12px;
+	font-family: var(--toy-font-display);
+	font-size: 17px;
+	font-weight: 600;
+	color: #2a2140;
+	background-color: var(--toy-yellow);
+	border-radius: 999px;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+	transform: rotate(-5deg);
 }
 
 .toy-info {
-	padding: 12px 16px 16px;
+	padding: 10px 16px 14px;
 }
 
 .toy-title {
 	margin: 0;
-	font-size: 16px;
+	font-family: var(--toy-font-display);
+	font-size: 18px;
 	font-weight: 500;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-.toy-price {
-	margin: 4px 0 0;
-	font-size: 18px;
-	font-weight: 700;
-	color: var(--dav-color-primary);
+.toy-card.sold .toy-image {
+	filter: grayscale(0.8);
+	opacity: 0.7;
+}
+
+.toy-sold {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+	padding: 4px 12px;
+	font-family: var(--toy-font-display);
+	font-size: 16px;
+	font-weight: 600;
+	color: white;
+	background-color: var(--toy-red);
+	border-radius: 999px;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+	transform: rotate(-5deg);
 }

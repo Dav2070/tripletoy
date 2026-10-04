@@ -9,7 +9,6 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { faCircleUser as faCircleUserRegular } from "@fortawesome/free-regular-svg-icons"
 import {
 	faCircleUser as faCircleUserSolid,
-	faPlus,
 	faPuzzlePiece
 } from "@fortawesome/free-solid-svg-icons"
 import { Dav, Environment } from "dav-js"
@@ -30,10 +29,11 @@ import { environment } from "src/environments/environment"
 })
 export class AppComponent {
 	locale = this.localizationService.locale.misc
+	appNameLetters = this.locale.appName.split("")
 	faCircleUserRegular = faCircleUserRegular
 	faCircleUserSolid = faCircleUserSolid
-	faPlus = faPlus
 	faPuzzlePiece = faPuzzlePiece
+	startTabActive: boolean = false
 	userButtonSelected: boolean = false
 
 	constructor(
@@ -46,8 +46,11 @@ export class AppComponent {
 
 		this.router.events.forEach(event => {
 			if (event instanceof NavigationEnd) {
-				this.userButtonSelected =
-					event.urlAfterRedirects.split("?")[0] == "/user"
+				const url = event.urlAfterRedirects.split("?")[0]
+
+				// The toy pages belong to the toys tab
+				this.startTabActive = url == "/" || url.startsWith("/toy/")
+				this.userButtonSelected = url == "/user"
 			}
 		})
 	}
@@ -83,8 +86,8 @@ export class AppComponent {
 		this.dataService.isMobile = window.innerWidth <= smallWindowMaxSize
 	}
 
-	navigateToNewToyPage() {
-		this.routingService.navigateToNewToyPage()
+	navigateToStartPage() {
+		this.routingService.navigateToStartPage()
 	}
 
 	navigateToUserPage() {

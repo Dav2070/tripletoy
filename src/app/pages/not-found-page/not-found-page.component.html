@@ -1,8 +1,13 @@
 <div class="container slide-up-in">
-	<dav-header size="lg">404</dav-header>
+	<div class="digits" aria-label="404">
+		<span>4</span>
+		<img src="/assets/images/toy-placeholder.svg" alt="" />
+		<span>4</span>
+	</div>
+
 	<p>{{ locale.message }}</p>
 
-	<dav-button tonal (click)="navigateToStartPage()">
+	<dav-button (click)="navigateToStartPage()">
 		{{ locale.home }}
 	</dav-button>
 </div>

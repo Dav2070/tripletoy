@@ -1,5 +1,5 @@
 <div class="container slide-up-in">
-	<dav-header size="lg">{{ locale.title }}</dav-header>
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
 
 	@if (!dataService.dav.isLoggedIn) {
 	<p class="info">{{ locale.text1 }}</p>
@@ -14,14 +14,16 @@
 		</dav-button>
 	</div>
 	} @else {
-	<div class="profile-container">
-		<img
-			class="profile-image"
-			[src]="dataService.profileImageUrl"
-			width="96"
-			height="96"
-			alt=""
-		/>
+	<div class="profile-container toy-box">
+		<span class="profile-ring">
+			<img
+				class="profile-image"
+				[src]="dataService.profileImageUrl"
+				width="96"
+				height="96"
+				alt=""
+			/>
+		</span>
 
 		<h2 class="username">{{ dataService.dav.user.FirstName }}</h2>
 	</div>
@@ -35,5 +37,53 @@
 			{{ locale.logout }}
 		</dav-button>
 	</div>
-	}
+
+	<dav-header class="section-header" size="md" alignment="start">{{ locale.aboutYou }}</dav-header>
+
+	<div class="profile-form toy-box">
+		<dav-textfield
+			[label]="locale.ageLabel"
+			[value]="age"
+			[errorMessage]="ageError"
+			(change)="ageChange($event)"
+		></dav-textfield>
+
+		<dav-textarea
+			[label]="locale.descriptionLabel"
+			[value]="profileDescription"
+			[errorMessage]="profileDescriptionError"
+			(change)="profileDescriptionChange($event)"
+		></dav-textarea>
+
+		@if (profileError) {
+		<p class="error">{{ profileError }}</p>
+		} @else if (profileSaved) {
+		<p class="info">{{ locale.profileSaved }}</p>
+		}
+
+		<div>
+			<dav-button [disabled]="savingProfile" (click)="saveProfile()">
+				{{ locale.saveProfile }}
+			</dav-button>
+		</div>
+	</div>
+
+	<dav-header class="section-header" size="md" alignment="start">{{ locale.yourToys }}</dav-header>
+
+	@if (toys.length > 0) {
+	<div class="toys-grid">
+		@for (toy of toys; track toy.uuid) {
+		<app-toy-card [toy]="toy"></app-toy-card>
+		}
+	</div>
+
+	@if (toys.length < total) {
+	<div class="load-more-container">
+		<dav-button tonal [disabled]="loadingToys" (click)="loadToys()">
+			{{ locale.loadMore }}
+		</dav-button>
+	</div>
+	} } @else if (toysLoaded) {
+	<p class="info">{{ locale.noToys }}</p>
+	} }
 </div>

@@ -6,7 +6,7 @@ import {
 } from "@angular/core"
 import { RouterLink } from "@angular/router"
 import { Toy } from "src/app/misc/types"
-import { formatPrice } from "src/app/misc/utils"
+import { formatPrice, getToyPhotoUrl } from "src/app/misc/utils"
 import { LocalizationService } from "src/app/services/localization-service"
 import { defaultToyImageUrl } from "src/constants/constants"
 
@@ -20,11 +20,20 @@ import { defaultToyImageUrl } from "src/constants/constants"
 })
 export class ToyCardComponent {
 	@Input() toy: Toy
-	imageUrl = defaultToyImageUrl
+	locale = this.localizationService.locale.toyPage
 
 	constructor(private localizationService: LocalizationService) {}
 
+	get imageUrl(): string {
+		return this.toy.photos?.length > 0
+			? getToyPhotoUrl(this.toy.photos[0])
+			: defaultToyImageUrl
+	}
+
 	get price(): string {
-		return formatPrice(this.toy.price, this.localizationService.language)
+		// Toys are listed without a price
+		return this.toy.price > 0
+			? formatPrice(this.toy.price, this.localizationService.language)
+			: ""
 	}
 }

@@ -1,14 +1,29 @@
 import {
 	Component,
 	CUSTOM_ELEMENTS_SCHEMA,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	OnDestroy
 } from "@angular/core"
+import { ActivatedRoute } from "@angular/router"
 import { CombinedGraphQLErrors } from "@apollo/client/errors"
 import { ApiService } from "src/app/services/api-service"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
-import { parsePriceToCents } from "src/app/misc/utils"
+import { Toy, ToyPhoto } from "src/app/misc/types"
+import { getToyPhotoUrl, parsePriceToCents } from "src/app/misc/utils"
+import {
+	toyPriceMax,
+	toyPriceMin,
+	toyPhotoMaxBytes,
+	toyPhotoMaxCount,
+	toyPhotoTypes
+} from "src/constants/constants"
+
+interface SelectedPhoto {
+	file: File
+	previewUrl: string
+}
 
 @Component({
 	templateUrl: "./new-toy-page.component.html",
@@ -16,7 +31,7 @@ import { parsePriceToCents } from "src/app/misc/utils"
 	changeDetection: ChangeDetectionStrategy.Eager,
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class NewToyPageComponent {
+export class NewToyPageComponent implements OnDestroy {
 	locale = this.localizationService.locale.newToyPage
 	userLocale = this.localizationService.locale.userPage
 	title: string = ""
@@ -24,18 +39,65 @@ export class NewToyPageComponent {
 	description: string = ""
 	price: string = ""
 	priceError: string = ""
+	photos: SelectedPhoto[] = []
+	photoTypes = toyPhotoTypes.join(",")
+	photoError: string = ""
+	// Set when an existing toy is edited
+	editUuid: string = null
+	existingPhotos: ToyPhoto[] = []
+	notEditable: boolean = false
+	getPhotoUrl = getToyPhotoUrl
+	// The toy is created only once, even if uploading the photos has to be retried
+	createdToy: Toy = null
 	error: string = ""
 	loading: boolean = false
 
 	constructor(
 		public dataService: DataService,
+		private activatedRoute: ActivatedRoute,
 		private apiService: ApiService,
 		private localizationService: LocalizationService,
 		private routingService: RoutingService
 	) {}
 
+	get isEdit(): boolean {
+		return this.editUuid != null
+	}
+
+	get photoCount(): number {
+		return this.existingPhotos.length + this.photos.length
+	}
+
 	async ngOnInit() {
+		this.editUuid = this.activatedRoute.snapshot.paramMap.get("uuid")
+
 		await this.dataService.userPromiseHolder.AwaitResult()
+
+		if (this.isEdit && this.dataService.dav.isLoggedIn) {
+			await this.loadToy()
+		}
+	}
+
+	private async loadToy() {
+		this.loading = true
+		let toy: Toy = null
+
+		try {
+			toy = await this.apiService.retrieveToy(this.editUuid)
+		} catch (error) {
+			console.error(error)
+		}
+
+		if (toy == null || !toy.mine || toy.sold) {
+			this.notEditable = true
+		} else {
+			this.title = toy.title
+			this.description = toy.description ?? ""
+			this.price = (toy.price / 100).toString().replace(".", ",")
+			this.existingPhotos = toy.photos
+		}
+
+		this.loading = false
 	}
 
 	titleChange(event: Event) {
@@ -50,6 +112,56 @@ export class NewToyPageComponent {
 	priceChange(event: Event) {
 		this.price = (event as CustomEvent).detail.value
 		this.priceError = ""
+	}
+
+	photosSelected(event: Event) {
+		const input = event.target as HTMLInputElement
+		this.photoError = ""
+
+		for (const file of Array.from(input.files ?? [])) {
+			if (this.photoCount >= toyPhotoMaxCount) {
+				this.photoError = this.locale.tooManyPhotos
+				break
+			}
+
+			if (
+				!toyPhotoTypes.includes(file.type) ||
+				file.size > toyPhotoMaxBytes
+			) {
+				this.photoError = this.locale.photoInvalid
+				continue
+			}
+
+			this.photos.push({ file, previewUrl: URL.createObjectURL(file) })
+		}
+
+		// Allow selecting the same file again
+		input.value = ""
+	}
+
+	removePhoto(photo: SelectedPhoto) {
+		URL.revokeObjectURL(photo.previewUrl)
+		this.photos = this.photos.filter(p => p != photo)
+		this.photoError = ""
+	}
+
+	async removeExistingPhoto(photo: ToyPhoto) {
+		this.photoError = ""
+		this.loading = true
+
+		try {
+			await this.apiService.deleteToyPhoto(this.editUuid, photo.uuid)
+			this.existingPhotos = this.existingPhotos.filter(p => p != photo)
+		} catch (error) {
+			console.error(error)
+			this.photoError = this.locale.saveError
+		}
+
+		this.loading = false
+	}
+
+	ngOnDestroy() {
+		this.photos.forEach(p => URL.revokeObjectURL(p.previewUrl))
 	}
 
 	navigateToUserPage() {
@@ -69,10 +181,16 @@ export class NewToyPageComponent {
 			this.priceError = this.locale.priceInvalid
 		}
 
-		if (codes.includes("DESCRIPTION_TOO_LONG")) {
+		const apiCodes: string[] = CombinedGraphQLErrors.is(error)
+			? error.errors.map(e => e.extensions?.["code"] as string)
+			: []
+
+		if (apiCodes.includes("TOY_ALREADY_SOLD")) {
+			this.notEditable = true
+		} else if (codes.includes("DESCRIPTION_TOO_LONG")) {
 			this.error = this.locale.descriptionTooLong
 		} else if (codes.length == 0) {
-			this.error = this.locale.error
+			this.error = this.isEdit ? this.locale.saveError : this.locale.error
 		}
 	}
 
@@ -80,28 +198,58 @@ export class NewToyPageComponent {
 		this.error = ""
 
 		const title = this.title.trim()
+
 		const price = parsePriceToCents(this.price)
 
 		this.titleError = title.length == 0 ? this.locale.titleRequired : ""
-		this.priceError = price == null ? this.locale.priceInvalid : ""
+		this.priceError =
+			price == null || price < toyPriceMin || price > toyPriceMax
+				? this.locale.priceInvalid
+				: ""
 		if (this.titleError || this.priceError) return
 
 		this.loading = true
 
 		try {
-			const toy = await this.apiService.createToy({
-				title,
-				description: this.description.trim() || undefined,
-				price
-			})
+			if (this.isEdit) {
+				this.createdToy = await this.apiService.updateToy({
+					uuid: this.editUuid,
+					title,
+					description: this.description.trim() || undefined,
+					price
+				})
 
-			if (toy == null) throw new Error("No toy returned")
-			this.routingService.navigateToToyPage(toy.uuid)
+				if (this.createdToy == null) throw new Error("No toy returned")
+			} else if (this.createdToy == null) {
+				this.createdToy = await this.apiService.createToy({
+					title,
+					description: this.description.trim() || undefined,
+					price
+				})
+
+				if (this.createdToy == null) throw new Error("No toy returned")
+			}
 		} catch (error) {
 			console.error(error)
 			this.handleError(error)
+			this.loading = false
+			return
 		}
 
+		// Upload the photos one by one, uploaded photos are removed from the list
+		for (const photo of [...this.photos]) {
+			try {
+				await this.apiService.uploadToyPhoto(this.createdToy.uuid, photo.file)
+				this.removePhoto(photo)
+			} catch (error) {
+				console.error(error)
+				this.error = this.locale.photoUploadError
+				this.loading = false
+				return
+			}
+		}
+
+		this.routingService.navigateToToyPage(this.createdToy.uuid)
 		this.loading = false
 	}
 }

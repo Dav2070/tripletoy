@@ -17,6 +17,10 @@ export class RoutingService {
 		this.router.navigate(["toy", "new"])
 	}
 
+	navigateToEditToyPage(uuid: string) {
+		this.router.navigate(["toy", uuid, "edit"])
+	}
+
 	navigateToToyPage(uuid: string) {
 		this.router.navigate(["toy", uuid])
 	}

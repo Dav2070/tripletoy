@@ -8,6 +8,7 @@ import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.com
 export const routes: Routes = [
 	{ path: "", component: StartPageComponent },
 	{ path: "toy/new", component: NewToyPageComponent },
+	{ path: "toy/:uuid/edit", component: NewToyPageComponent },
 	{ path: "toy/:uuid", component: ToyPageComponent },
 	{ path: "user", component: UserPageComponent },
 	{ path: "**", component: NotFoundPageComponent }

@@ -1,5 +1,7 @@
 <div class="container slide-up-in">
-	<dav-header size="lg">{{ locale.title }}</dav-header>
+	<dav-header size="lg" alignment="start">
+		{{ isEdit ? locale.editTitle : locale.title }}
+	</dav-header>
 
 	@if (!dataService.dav.isLoggedIn) {
 	<p class="info">{{ locale.loginRequired }}</p>
@@ -7,8 +9,10 @@
 	<dav-button tonal (click)="navigateToUserPage()">
 		{{ userLocale.login }}
 	</dav-button>
+	} @else if (notEditable) {
+	<p class="info">{{ locale.notEditable }}</p>
 	} @else {
-	<div class="form">
+	<div class="form toy-box">
 		<dav-textfield
 			[label]="locale.titleLabel"
 			[value]="title"
@@ -27,8 +31,63 @@
 			[value]="price"
 			[errorMessage]="priceError"
 			(change)="priceChange($event)"
-			(enter)="submit()"
 		></dav-textfield>
+
+		<div class="photos">
+			<span class="photos-label">{{ locale.photosLabel }}</span>
+
+			@if (photoCount > 0) {
+			<div class="photo-list">
+				@for (photo of existingPhotos; track photo.uuid) {
+				<div class="photo">
+					<img [src]="getPhotoUrl(photo)" alt="" />
+					<button
+						type="button"
+						class="photo-remove"
+						[attr.aria-label]="locale.removePhoto"
+						[disabled]="loading"
+						(click)="removeExistingPhoto(photo)"
+					>
+						×
+					</button>
+				</div>
+				}
+				@for (photo of photos; track photo.previewUrl) {
+				<div class="photo">
+					<img [src]="photo.previewUrl" alt="" />
+					<button
+						type="button"
+						class="photo-remove"
+						[attr.aria-label]="locale.removePhoto"
+						[disabled]="loading"
+						(click)="removePhoto(photo)"
+					>
+						×
+					</button>
+				</div>
+				}
+			</div>
+			}
+
+			<input
+				#fileInput
+				type="file"
+				hidden
+				multiple
+				[accept]="photoTypes"
+				(change)="photosSelected($event)"
+			/>
+
+			<div>
+				<dav-button tonal (click)="fileInput.click()">
+					{{ locale.addPhotos }}
+				</dav-button>
+			</div>
+
+			@if (photoError) {
+			<p class="error">{{ photoError }}</p>
+			}
+		</div>
 
 		@if (error) {
 		<p class="error">{{ error }}</p>
@@ -36,7 +95,7 @@
 
 		<div>
 			<dav-button [disabled]="loading" (click)="submit()">
-				{{ locale.submit }}
+				{{ isEdit ? locale.save : locale.submit }}
 			</dav-button>
 		</div>
 	</div>

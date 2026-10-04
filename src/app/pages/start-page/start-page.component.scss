@@ -4,15 +4,120 @@
 	padding: 0 16px 32px;
 }
 
+.hero {
+	position: relative;
+	overflow: hidden;
+	margin: 16px 6px 36px 0;
+	padding: 40px 24px;
+	text-align: center;
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--toy-yellow) 35%, var(--dav-color-surface)),
+		color-mix(in srgb, var(--toy-red) 22%, var(--dav-color-surface))
+	);
+	border: 3px solid var(--toy-red);
+	border-radius: 36px;
+	box-shadow: 8px 8px 0 var(--toy-red);
+}
+
+.hero dav-header {
+	position: relative;
+	z-index: 1;
+	display: block;
+	--dav-font: var(--toy-font-display);
+	font-size: 44px;
+}
+
 .subhead {
-	margin: 0 0 24px;
-	font-size: 18px;
+	position: relative;
+	z-index: 1;
+	margin: 8px 0 0;
+	font-size: 20px;
+	font-weight: 700;
 	color: var(--dav-color-on-surface-variant);
+}
+
+.shape {
+	position: absolute;
+	animation: float 6s ease-in-out infinite;
+}
+
+.shape-circle {
+	top: 18%;
+	left: 6%;
+	width: 44px;
+	height: 44px;
+	background: var(--toy-blue);
+	border-radius: 50%;
+}
+
+.shape-square {
+	bottom: 14%;
+	left: 16%;
+	width: 36px;
+	height: 36px;
+	background: var(--toy-green);
+	border-radius: 8px;
+	--rotate: 14deg;
+	animation-delay: -2s;
+}
+
+.shape-triangle {
+	top: 14%;
+	right: 12%;
+	width: 48px;
+	height: 44px;
+	background: var(--toy-purple);
+	clip-path: polygon(50% 0, 100% 100%, 0 100%);
+	animation-delay: -1s;
+}
+
+.shape-star {
+	bottom: 16%;
+	right: 6%;
+	width: 46px;
+	height: 46px;
+	background: var(--toy-yellow);
+	clip-path: polygon(
+		50% 0,
+		62% 35%,
+		98% 38%,
+		70% 60%,
+		80% 95%,
+		50% 75%,
+		20% 95%,
+		30% 60%,
+		2% 38%,
+		38% 35%
+	);
+	animation-delay: -3s;
+}
+
+.shape-ring {
+	top: 20%;
+	left: 26%;
+	width: 26px;
+	height: 26px;
+	border: 6px solid var(--toy-red);
+	border-radius: 50%;
+	opacity: 0.55;
+	animation-delay: -4s;
+}
+
+@media only screen and (max-width: 576px) {
+	.hero dav-header {
+		font-size: 32px;
+	}
+
+	.shape {
+		display: none;
+	}
 }
 
 .toys-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	padding: 0 6px 6px 0;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 	gap: 16px;
 }
 

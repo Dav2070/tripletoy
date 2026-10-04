@@ -1,8 +1,15 @@
-<a class="toy-card" [routerLink]="['/toy', toy.uuid]">
-	<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
+<a class="toy-card" [class.sold]="toy.sold" [routerLink]="['/toy', toy.uuid]">
+	<div class="image-frame">
+		<img class="toy-image" [src]="imageUrl" [alt]="toy.title" />
+
+		@if (toy.sold) {
+		<span class="toy-sold">{{ locale.sold }}</span>
+		} @else if (price) {
+		<span class="toy-price">{{ price }}</span>
+		}
+	</div>
 
 	<div class="toy-info">
 		<h3 class="toy-title">{{ toy.title }}</h3>
-		<p class="toy-price">{{ price }}</p>
 	</div>
 </a>

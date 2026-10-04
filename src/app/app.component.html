@@ -1,39 +1,44 @@
-<div class="navbar acrylic">
+<div class="navbar">
 	<!-- Logo + name -->
 	<a class="navbar-header" routerLink="/">
-		<fa-icon [icon]="faPuzzlePiece"></fa-icon>
-		<span>{{ locale.appName }}</span>
+		<span class="logo-badge"><fa-icon [icon]="faPuzzlePiece"></fa-icon></span>
+		<span class="logo-name" [attr.aria-label]="locale.appName">
+			@for (letter of appNameLetters; track $index) {
+			<span class="logo-letter" aria-hidden="true">{{ letter }}</span>
+			}
+		</span>
 	</a>
+
+	<div class="navbar-tab-bar-container">
+		<dav-tab-bar>
+			<dav-tab-bar-item
+				[active]="startTabActive"
+				(click)="navigateToStartPage()"
+			>
+				{{ locale.toys }}
+			</dav-tab-bar-item>
+		</dav-tab-bar>
+	</div>
 
 	<div class="navbar-spacer"></div>
 
 	<div class="navbar-icon-buttons-container">
-		@if (!dataService.isMobile) {
-		<dav-button (click)="navigateToNewToyPage()">
-			{{ locale.sell }}
-		</dav-button>
-		} @else {
-		<dav-icon-button (click)="navigateToNewToyPage()">
-			<fa-icon [icon]="faPlus"></fa-icon>
-		</dav-icon-button>
-		}
-
 		<dav-icon-button
 			[selected]="userButtonSelected"
 			(click)="navigateToUserPage()"
 		>
 			@if (dataService.dav.isLoggedIn) {
-			<img
-				[src]="dataService.profileImageUrl"
-				class="profile-image"
-				height="28"
-				width="28"
-				alt=""
-			/>
+				<img
+					[src]="dataService.profileImageUrl"
+					class="profile-image"
+					height="28"
+					width="28"
+					alt=""
+				/>
 			} @else if (userButtonSelected) {
-			<fa-icon [icon]="faCircleUserSolid"></fa-icon>
+				<fa-icon [icon]="faCircleUserSolid"></fa-icon>
 			} @else {
-			<fa-icon [icon]="faCircleUserRegular"></fa-icon>
+				<fa-icon [icon]="faCircleUserRegular"></fa-icon>
 			}
 		</dav-icon-button>
 	</div>

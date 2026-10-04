@@ -1,48 +1,191 @@
 .container {
 	max-width: 1000px;
 	margin: 0 auto;
-	padding: 0 16px 32px;
+	padding: 0 16px 40px;
 }
 
 .back-link {
 	display: inline-block;
-	margin-bottom: 16px;
-	color: var(--dav-color-primary);
+	margin: 16px 0 20px;
+	padding: 6px 16px;
+	font-weight: 700;
+	color: var(--dav-color-on-primary-container);
+	background-color: var(--dav-color-primary-container);
+	border-radius: 999px;
+	transition: transform 200ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.back-link:hover {
+	text-decoration: none;
+	transform: translateX(-4px) rotate(-2deg);
 }
 
 .toy-container {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 32px;
+	gap: 36px;
+	padding: 0 8px 8px 0;
 }
 
-.toy-image {
+.toy-images {
+	display: flex;
 	flex: 1 1 320px;
+	flex-direction: column;
+	gap: 16px;
 	min-width: 0;
 	max-width: 480px;
+}
+
+// Photo in a tilted frame, like a polaroid
+.toy-image {
+	width: 100%;
 	aspect-ratio: 1;
 	object-fit: cover;
+	padding: 10px;
+	box-sizing: border-box;
+	background-color: var(--dav-color-surface-container-lowest);
+	border: 3px solid var(--toy-yellow);
+	border-radius: 28px;
+	box-shadow: 8px 8px 0 var(--toy-yellow);
+	transform: rotate(-1.5deg);
+	animation: popIn 400ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+.toy-thumbnails {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding-left: 6px;
+}
+
+.toy-thumbnail {
+	width: 68px;
+	height: 68px;
+	padding: 0;
+	overflow: hidden;
+	background: none;
+	border: 3px solid transparent;
 	border-radius: 16px;
+	cursor: pointer;
+	transition: transform 200ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.toy-thumbnail:nth-child(odd) {
+	transform: rotate(-3deg);
+}
+
+.toy-thumbnail:nth-child(even) {
+	transform: rotate(3deg);
+}
+
+.toy-thumbnail:hover {
+	transform: scale(1.1) rotate(0);
+}
+
+.toy-thumbnail.selected {
+	border-color: var(--toy-red);
+}
+
+.toy-thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .toy-details {
+	--accent: var(--toy-red);
 	flex: 1 1 320px;
+	align-self: flex-start;
+	padding: 24px 28px;
 	color: var(--dav-color-on-surface);
 }
 
 .toy-price {
+	display: inline-block;
 	margin: 0 0 16px;
+	padding: 4px 18px;
+	font-family: var(--toy-font-display);
 	font-size: 28px;
-	font-weight: 700;
-	color: var(--dav-color-primary);
+	font-weight: 600;
+	color: #2a2140;
+	background-color: var(--toy-yellow);
+	border-radius: 999px;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+	transform: rotate(-3deg);
 }
 
 .toy-description {
 	white-space: pre-wrap;
-	line-height: 1.5;
+	font-size: 17px;
+	line-height: 1.6;
 }
 
 .toy-listed-on,
 .not-found {
 	color: var(--dav-color-on-surface-variant);
+}
+
+.toy-listed-on {
+	margin-bottom: 0;
+	font-weight: 700;
+}
+
+.toy-price.sold {
+	color: white;
+	background-color: var(--toy-red);
+}
+
+.buy-container {
+	margin-top: 20px;
+}
+
+.notice {
+	margin: 20px 0 0;
+	padding: 12px 16px;
+	font-weight: 700;
+	color: var(--dav-color-on-surface);
+	background-color: color-mix(in srgb, var(--toy-yellow) 30%, transparent);
+	border-radius: 16px;
+}
+
+.notice.success {
+	background-color: color-mix(in srgb, var(--toy-green) 30%, transparent);
+}
+
+.notice.error {
+	color: var(--dav-color-error);
+	background-color: var(--dav-color-error-container);
+}
+
+.order-box {
+	margin-top: 24px;
+	padding: 16px 20px;
+	background-color: color-mix(in srgb, var(--toy-green) 18%, transparent);
+	border: 3px dashed var(--toy-green);
+	border-radius: 20px;
+}
+
+.order-box h3 {
+	margin: 0 0 8px;
+	font-family: var(--toy-font-display);
+}
+
+.order-box p {
+	margin: 0 0 8px;
+}
+
+.order-box address {
+	font-style: normal;
+	line-height: 1.5;
+}
+
+.owner-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 16px;
+}
+
+.delete-error {
+	color: var(--dav-color-error);
 }

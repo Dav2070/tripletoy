@@ -1,6 +1,14 @@
 <div class="container slide-up-in">
-	<dav-header size="lg">{{ locale.headline }}</dav-header>
-	<p class="subhead">{{ locale.subhead }}</p>
+	<section class="hero">
+		<span class="shape shape-circle" aria-hidden="true"></span>
+		<span class="shape shape-square" aria-hidden="true"></span>
+		<span class="shape shape-triangle" aria-hidden="true"></span>
+		<span class="shape shape-star" aria-hidden="true"></span>
+		<span class="shape shape-ring" aria-hidden="true"></span>
+
+		<dav-header size="lg">{{ locale.headline }}</dav-header>
+		<p class="subhead">{{ locale.subhead }}</p>
+	</section>
 
 	@if (toys.length > 0) {
 	<div class="toys-grid">
