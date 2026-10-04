@@ -9,6 +9,10 @@ export class RoutingService {
 		this.router.navigate(["/"])
 	}
 
+	navigateToToysPage() {
+		this.router.navigate(["toys"])
+	}
+
 	navigateToUserPage() {
 		this.router.navigate(["user"])
 	}

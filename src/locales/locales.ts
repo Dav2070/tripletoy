@@ -1,6 +1,7 @@
 export const enUS = {
 	misc: {
 		appName: "3pletoy",
+		home: "Home",
 		toys: "Toys",
 		sell: "Sell a toy",
 		account: "Account"
@@ -47,7 +48,12 @@ export const enUS = {
 		ctaText: "List your first toy in just a few minutes.",
 		noToys: "No toys have been listed yet",
 		loadMore: "Load more",
+		allToys: "View all toys",
 		sellFirst: "List the first toy"
+	},
+	toysPage: {
+		title: "All toys",
+		subtitle: "Everything that is for sale right now"
 	},
 	toyPage: {
 		noDescription: "No description provided",
@@ -155,6 +161,7 @@ export const enUS = {
 export const deDE: typeof enUS = {
 	misc: {
 		appName: "3pletoy",
+		home: "Start",
 		toys: "Spielzeuge",
 		sell: "Spielzeug verkaufen",
 		account: "Konto"
@@ -201,7 +208,12 @@ export const deDE: typeof enUS = {
 		ctaText: "Stelle dein erstes Spielzeug in wenigen Minuten ein.",
 		noToys: "Es wurden noch keine Spielzeuge eingestellt",
 		loadMore: "Mehr laden",
+		allToys: "Alle Spielzeuge ansehen",
 		sellFirst: "Erstes Spielzeug einstellen"
+	},
+	toysPage: {
+		title: "Alle Spielzeuge",
+		subtitle: "Alles, was gerade zum Verkauf steht"
 	},
 	toyPage: {
 		noDescription: "Keine Beschreibung vorhanden",

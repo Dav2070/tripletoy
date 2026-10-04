@@ -1,0 +1,34 @@
+@if (locationService.position) {
+<p class="sort-message">{{ locale.sortInfo }}</p>
+} @else if (locationService.unavailable) {
+<p class="sort-message">{{ locale.sortNewestInfo }}</p>
+}
+
+@if (toys.length > 0) {
+<div class="toys-grid" #toysGrid>
+	@for (toy of visibleToys; track toy.uuid) {
+	<app-toy-card [toy]="toy"></app-toy-card>
+	}
+</div>
+
+@if (hasMoreToys) {
+<div class="list-actions">
+	<dav-button tonal [disabled]="loading" (click)="loadToys()">
+		{{ locale.loadMore }}
+	</dav-button>
+</div>
+} @else if (hasMoreRows) {
+<div class="list-actions">
+	<dav-button (click)="navigateToToysPage()">
+		{{ locale.allToys }}
+	</dav-button>
+</div>
+} } @else if (!loading) {
+<div class="list-actions empty">
+	<p>{{ locale.noToys }}</p>
+
+	<dav-button (click)="navigateToNewToyPage()">
+		{{ locale.sellFirst }}
+	</dav-button>
+</div>
+}

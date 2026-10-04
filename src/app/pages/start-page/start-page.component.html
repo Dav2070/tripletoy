@@ -37,7 +37,7 @@
 		<p class="section-subtitle">{{ locale.mapSubtitle }}</p>
 
 		<div class="map-container">
-			<app-toy-map [locations]="locations" [position]="position"></app-toy-map>
+			<app-toy-map [locations]="locations" [position]="locationService.position"></app-toy-map>
 		</div>
 	</section>
 	}
@@ -46,34 +46,7 @@
 	<section class="section" #toysSection>
 		<h2 class="section-title">{{ locale.latestTitle }}</h2>
 
-		@if (position) {
-		<p class="sort-message">{{ locale.sortInfo }}</p>
-		} @else if (locationUnavailable) {
-		<p class="sort-message">{{ locale.sortNewestInfo }}</p>
-		}
-
-		@if (toys.length > 0) {
-		<div class="toys-grid">
-			@for (toy of toys; track toy.uuid) {
-			<app-toy-card [toy]="toy"></app-toy-card>
-			}
-		</div>
-
-		@if (toys.length < total) {
-		<div class="load-more-container">
-			<dav-button tonal [disabled]="loading" (click)="loadToys()">
-				{{ locale.loadMore }}
-			</dav-button>
-		</div>
-		} } @else if (!loading) {
-		<div class="empty-container">
-			<p>{{ locale.noToys }}</p>
-
-			<dav-button (click)="navigateToNewToyPage()">
-				{{ locale.sellFirst }}
-			</dav-button>
-		</div>
-		}
+		<app-toy-list [maxRows]="2"></app-toy-list>
 	</section>
 
 	<!-- How it works -->

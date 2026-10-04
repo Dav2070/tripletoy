@@ -34,6 +34,7 @@ export class AppComponent {
 	faCircleUserSolid = faCircleUserSolid
 	faPuzzlePiece = faPuzzlePiece
 	startTabActive: boolean = false
+	toysTabActive: boolean = false
 	userButtonSelected: boolean = false
 
 	constructor(
@@ -49,7 +50,8 @@ export class AppComponent {
 				const url = event.urlAfterRedirects.split("?")[0]
 
 				// The toy pages belong to the toys tab
-				this.startTabActive = url == "/" || url.startsWith("/toy/")
+				this.startTabActive = url == "/"
+				this.toysTabActive = url == "/toys" || url.startsWith("/toy/")
 				this.userButtonSelected = url == "/user" || url.startsWith("/user/")
 			}
 		})
@@ -84,6 +86,10 @@ export class AppComponent {
 	@HostListener("window:resize")
 	setSize() {
 		this.dataService.isMobile = window.innerWidth <= smallWindowMaxSize
+	}
+
+	navigateToToysPage() {
+		this.routingService.navigateToToysPage()
 	}
 
 	navigateToStartPage() {

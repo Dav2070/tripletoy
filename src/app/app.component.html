@@ -15,6 +15,13 @@
 				[active]="startTabActive"
 				(click)="navigateToStartPage()"
 			>
+				{{ locale.home }}
+			</dav-tab-bar-item>
+
+			<dav-tab-bar-item
+				[active]="toysTabActive"
+				(click)="navigateToToysPage()"
+			>
 				{{ locale.toys }}
 			</dav-tab-bar-item>
 		</dav-tab-bar>
