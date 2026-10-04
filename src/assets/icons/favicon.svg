@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+	<defs>
+		<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#3454f5" />
+			<stop offset="1" stop-color="#9b5cf6" />
+		</linearGradient>
+		<mask id="socket">
+			<rect width="64" height="64" fill="#fff" />
+			<circle cx="17" cy="33" r="4.5" fill="#000" />
+		</mask>
+	</defs>
+	<g transform="rotate(-6 32 32)">
+		<rect x="9" y="9" width="48" height="48" rx="14" fill="#ffc61a" />
+		<rect x="5" y="5" width="48" height="48" rx="14" fill="url(#g)" />
+		<g fill="#fff" mask="url(#socket)">
+			<rect x="17" y="22" width="24" height="22" rx="3" />
+			<circle cx="29" cy="19" r="6" />
+			<circle cx="44" cy="33" r="6" />
+		</g>
+	</g>
+</svg>
