@@ -64,6 +64,8 @@ export class ToyListComponent implements OnInit, OnDestroy {
 		this.resizeObserver = null
 		if (element == null) return
 
+		if (typeof ResizeObserver == "undefined") return
+
 		const grid = element.nativeElement
 
 		this.resizeObserver = new ResizeObserver(() =>

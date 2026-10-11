@@ -2,8 +2,11 @@ import {
 	Component,
 	CUSTOM_ELEMENTS_SCHEMA,
 	HostListener,
+	Inject,
+	PLATFORM_ID,
 	ChangeDetectionStrategy
 } from "@angular/core"
+import { isPlatformBrowser } from "@angular/common"
 import { Router, RouterLink, RouterOutlet, NavigationEnd } from "@angular/router"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { faCircleUser as faCircleUserRegular } from "@fortawesome/free-regular-svg-icons"
@@ -41,7 +44,8 @@ export class AppComponent {
 		public dataService: DataService,
 		private localizationService: LocalizationService,
 		private routingService: RoutingService,
-		private router: Router
+		private router: Router,
+		@Inject(PLATFORM_ID) private platformId: object
 	) {
 		DavUIComponents.setLocale(this.localizationService.language)
 
@@ -58,6 +62,8 @@ export class AppComponent {
 	}
 
 	async ngOnInit() {
+		if (!isPlatformBrowser(this.platformId)) return
+
 		this.setSize()
 		this.dataService.applyTheme()
 
@@ -85,6 +91,8 @@ export class AppComponent {
 
 	@HostListener("window:resize")
 	setSize() {
+		if (!isPlatformBrowser(this.platformId)) return
+
 		this.dataService.isMobile = window.innerWidth <= smallWindowMaxSize
 	}
 

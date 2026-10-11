@@ -2,6 +2,8 @@ import {
 	AfterViewInit,
 	Component,
 	ElementRef,
+	Inject,
+	PLATFORM_ID,
 	Input,
 	OnChanges,
 	OnDestroy,
@@ -10,12 +12,16 @@ import {
 	ViewEncapsulation,
 	ChangeDetectionStrategy
 } from "@angular/core"
+import { isPlatformBrowser } from "@angular/common"
 import { Router } from "@angular/router"
-import * as L from "leaflet"
+import type * as Leaflet from "leaflet"
 import { Position, ToyLocation } from "src/app/misc/types"
 import { formatPrice, getToyPhotoUrl } from "src/app/misc/utils"
 import { LocalizationService } from "src/app/services/localization-service"
 import { defaultToyImageUrl } from "src/constants/constants"
+
+// Leaflet needs the window, so it is only loaded in the browser
+let L: typeof Leaflet = null
 
 const pinColors = [
 	"var(--toy-blue)",
@@ -39,17 +45,26 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 	@Input() position: Position = null
 	@ViewChild("map") mapElement: ElementRef<HTMLDivElement>
 
-	private map: L.Map = null
-	private markers = L.layerGroup()
-	private userLayer = L.layerGroup()
+	private map: Leaflet.Map = null
+	private markers: Leaflet.LayerGroup = null
+	private userLayer: Leaflet.LayerGroup = null
+	private destroyed = false
 	locale = this.localizationService.locale.startPage
 
 	constructor(
 		private router: Router,
-		private localizationService: LocalizationService
+		private localizationService: LocalizationService,
+		@Inject(PLATFORM_ID) private platformId: object
 	) {}
 
-	ngAfterViewInit() {
+	async ngAfterViewInit() {
+		if (!isPlatformBrowser(this.platformId)) return
+
+		L ??= await import("leaflet")
+		if (this.destroyed) return
+
+		this.markers = L.layerGroup()
+		this.userLayer = L.layerGroup()
 		this.map = L.map(this.mapElement.nativeElement, {
 			// Zooming with the mouse wheel would block scrolling the page
 			scrollWheelZoom: false,
@@ -75,6 +90,7 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		this.destroyed = true
 		this.map?.remove()
 	}
 
@@ -120,7 +136,7 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 	}
 
 	/** The position is rounded, so the circle shows how exact it is */
-	private showUserPosition(position: L.LatLng) {
+	private showUserPosition(position: Leaflet.LatLng) {
 		L.circle(position, {
 			radius: 1000,
 			color: "#3454f5",
@@ -147,7 +163,7 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 			.addTo(this.userLayer)
 	}
 
-	private createIcon(count: number, index: number): L.DivIcon {
+	private createIcon(count: number, index: number): Leaflet.DivIcon {
 		const pin = document.createElement("div")
 		pin.className = "toy-pin"
 		pin.style.setProperty("--pin", pinColors[index % pinColors.length])

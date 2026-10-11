@@ -1,4 +1,5 @@
-import { Injectable } from "@angular/core"
+import { Injectable, Inject, PLATFORM_ID } from "@angular/core"
+import { isPlatformBrowser } from "@angular/common"
 import { Position } from "src/app/misc/types"
 
 /** Determines the location of the user once and shares it between the pages */
@@ -10,8 +11,13 @@ export class LocationService {
 	unavailable: boolean = false
 	private determination: Promise<void> = null
 
+	constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+
 	/** Returns whether the browser can answer without asking the user */
 	async getPermission(): Promise<PermissionState> {
+		// The server does not know the location of the user
+		if (!isPlatformBrowser(this.platformId)) return "denied"
+
 		try {
 			const status = await navigator.permissions.query({
 				name: "geolocation"

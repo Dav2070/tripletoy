@@ -1,4 +1,5 @@
-import { Injectable } from "@angular/core"
+import { Injectable, Inject, PLATFORM_ID } from "@angular/core"
+import { isPlatformBrowser } from "@angular/common"
 import { Dav, PromiseHolder, defaultProfileImageUrl } from "dav-js"
 import * as DavUIComponents from "dav-ui-components"
 import { keys } from "src/constants/keys"
@@ -14,7 +15,11 @@ export class DataService {
 		return this.dav.user?.ProfileImage || defaultProfileImageUrl
 	}
 
+	constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+
 	applyTheme() {
+		if (!isPlatformBrowser(this.platformId)) return
+
 		const colorScheme = window.matchMedia?.("(prefers-color-scheme: dark)")
 		this.darkTheme = colorScheme?.matches ?? false
 
