@@ -60,7 +60,13 @@ export class ToyMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 	async ngAfterViewInit() {
 		if (!isPlatformBrowser(this.platformId)) return
 
-		L ??= await import("leaflet")
+		if (L == null) {
+			// Leaflet is a UMD module, so in the production build the exports
+			// can be on the default export instead of the namespace
+			const module = await import("leaflet")
+			L = (module as any).default ?? module
+		}
+
 		if (this.destroyed) return
 
 		this.markers = L.layerGroup()
