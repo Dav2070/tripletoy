@@ -17,7 +17,7 @@
 
 .back-link:hover {
 	text-decoration: none;
-	transform: translateX(-4px) rotate(-2deg);
+	transform: translateX(-4px);
 }
 
 .toy-container {
@@ -44,11 +44,9 @@
 	padding: 10px;
 	box-sizing: border-box;
 	background-color: var(--dav-color-surface-container-lowest);
-	border: 3px solid var(--toy-yellow);
-	border-radius: 28px;
-	box-shadow: 8px 8px 0 var(--toy-yellow);
-	transform: rotate(-1.5deg);
-	animation: popIn 400ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 }
 
 .toy-thumbnails {
@@ -71,15 +69,13 @@
 }
 
 .toy-thumbnail:nth-child(odd) {
-	transform: rotate(-3deg);
 }
 
 .toy-thumbnail:nth-child(even) {
-	transform: rotate(3deg);
 }
 
 .toy-thumbnail:hover {
-	transform: scale(1.1) rotate(0);
+	transform: scale(1.1);
 }
 
 .toy-thumbnail.selected {
@@ -104,14 +100,12 @@
 	display: inline-block;
 	margin: 0 0 16px;
 	padding: 4px 18px;
-	font-family: var(--toy-font-display);
 	font-size: 28px;
 	font-weight: 600;
 	color: #2a2140;
 	background-color: var(--toy-yellow);
 	border-radius: 999px;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
-	transform: rotate(-3deg);
+	box-shadow: none;
 }
 
 .toy-description {
@@ -161,13 +155,12 @@
 	margin-top: 24px;
 	padding: 16px 20px;
 	background-color: color-mix(in srgb, var(--toy-green) 18%, transparent);
-	border: 3px dashed var(--toy-green);
+	border: 1px dashed var(--dav-color-outline);
 	border-radius: 20px;
 }
 
 .order-box h3 {
 	margin: 0 0 8px;
-	font-family: var(--toy-font-display);
 }
 
 .order-box p {

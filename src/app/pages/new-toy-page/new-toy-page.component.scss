@@ -29,7 +29,6 @@
 }
 
 .photos-label {
-	font-family: var(--toy-font-display);
 	font-size: 18px;
 	font-weight: 500;
 	color: var(--dav-color-on-surface);
@@ -44,22 +43,19 @@
 .photo {
 	position: relative;
 	aspect-ratio: 1;
-	animation: popIn 300ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
 }
 
 .photo:nth-child(odd) {
-	transform: rotate(-2.5deg);
 }
 
 .photo:nth-child(even) {
-	transform: rotate(2.5deg);
 }
 
 .photo img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	border: 3px dashed var(--toy-green);
+	border: 1px dashed var(--dav-color-outline);
 	border-radius: 16px;
 	box-sizing: border-box;
 }
@@ -87,7 +83,6 @@
 
 .form-title {
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 22px;
 	font-weight: 500;
 	color: var(--dav-color-on-surface);

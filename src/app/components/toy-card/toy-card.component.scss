@@ -4,9 +4,9 @@
 	overflow: hidden;
 	color: var(--dav-color-on-surface);
 	background-color: var(--dav-color-surface-container-lowest);
-	border: 3px solid var(--accent, var(--toy-blue));
-	border-radius: 28px;
-	box-shadow: 6px 6px 0 var(--accent, var(--toy-blue));
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 	text-decoration: none;
 	transition: transform 220ms cubic-bezier(0.3, 1.6, 0.5, 1),
 		box-shadow 220ms cubic-bezier(0.3, 1.6, 0.5, 1);
@@ -14,13 +14,13 @@
 
 .toy-card:hover {
 	text-decoration: none;
-	transform: translate(-3px, -5px) rotate(-1.5deg);
-	box-shadow: 10px 10px 0 var(--accent, var(--toy-blue));
+	transform: translate(-3px, -5px);
+	box-shadow: none;
 }
 
 .toy-card:active {
 	transform: translate(3px, 3px);
-	box-shadow: 2px 2px 0 var(--accent, var(--toy-blue));
+	box-shadow: none;
 }
 
 .image-frame {
@@ -53,14 +53,12 @@
 	right: 8px;
 	bottom: 8px;
 	padding: 4px 12px;
-	font-family: var(--toy-font-display);
 	font-size: 17px;
 	font-weight: 600;
 	color: #2a2140;
 	background-color: var(--toy-yellow);
 	border-radius: 999px;
-	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-	transform: rotate(-5deg);
+	box-shadow: none;
 }
 
 .toy-info {
@@ -69,7 +67,6 @@
 
 .toy-title {
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 18px;
 	font-weight: 500;
 	overflow: hidden;
@@ -87,14 +84,12 @@
 	right: 8px;
 	bottom: 8px;
 	padding: 4px 12px;
-	font-family: var(--toy-font-display);
 	font-size: 16px;
 	font-weight: 600;
 	color: white;
 	background-color: var(--toy-red);
 	border-radius: 999px;
-	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-	transform: rotate(-5deg);
+	box-shadow: none;
 }
 
 .toy-sold.purchased {
@@ -111,14 +106,12 @@
 	align-items: center;
 	gap: 6px;
 	padding: 4px 12px 4px 10px;
-	font-family: var(--toy-font-display);
 	font-size: 14px;
 	font-weight: 600;
 	color: white;
 	background-color: var(--toy-purple);
 	border-radius: 999px;
-	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
-	transform: rotate(-4deg);
+	box-shadow: none;
 }
 
 .toy-distance {

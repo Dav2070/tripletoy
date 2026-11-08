@@ -5,10 +5,7 @@
 	z-index: 5;
 	box-sizing: content-box;
 	height: 72px;
-	background-color: color-mix(in srgb, var(--dav-color-surface) 88%, transparent);
-	backdrop-filter: blur(10px);
-	// Stitched seam like on a plush toy
-	border-bottom: 4px dashed var(--toy-stitch);
+	background-color: transparent;
 	padding-top: env(safe-area-inset-top);
 }
 
@@ -16,7 +13,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 12px;
-	font-family: var(--toy-font-display);
+	font-family: Fredoka, Nunito, Roboto, Arial, sans-serif;
 	font-size: 28px;
 	font-weight: 600;
 	padding: 8px 16px;
@@ -31,9 +28,9 @@
 	height: 44px;
 	font-size: 22px;
 	color: white;
-	background: linear-gradient(135deg, var(--toy-blue), var(--toy-purple));
+	background: linear-gradient(135deg, #3454f5, #9b5cf6);
 	border-radius: 14px;
-	box-shadow: 3px 3px 0 var(--toy-yellow);
+	box-shadow: 3px 3px 0 #ffc61a;
 	transform: rotate(-6deg);
 	transition: transform 200ms cubic-bezier(0.3, 1.6, 0.5, 1);
 }
@@ -52,22 +49,22 @@
 }
 
 .logo-letter:nth-child(6n + 1) {
-	color: var(--toy-red);
+	color: #f0466a;
 }
 .logo-letter:nth-child(6n + 2) {
-	color: var(--toy-blue);
+	color: #3454f5;
 }
 .logo-letter:nth-child(6n + 3) {
-	color: var(--toy-yellow);
+	color: #ffc61a;
 }
 .logo-letter:nth-child(6n + 4) {
-	color: var(--toy-green);
+	color: #14c79a;
 }
 .logo-letter:nth-child(6n + 5) {
-	color: var(--toy-purple);
+	color: #9b5cf6;
 }
 .logo-letter:nth-child(6n) {
-	color: var(--toy-red);
+	color: #f0466a;
 }
 
 .navbar-header:hover .logo-letter {
@@ -80,6 +77,16 @@
 
 .navbar-header:hover {
 	text-decoration: none;
+}
+
+@keyframes wobble {
+	0%,
+	100% {
+		transform: rotate(-4deg);
+	}
+	50% {
+		transform: rotate(4deg);
+	}
 }
 
 .navbar-tab-bar-container {
@@ -119,10 +126,6 @@
 	right: 0;
 	z-index: 5;
 	padding-bottom: env(safe-area-inset-bottom);
-	background-color: color-mix(in srgb, var(--dav-color-surface) 88%, transparent);
-	backdrop-filter: blur(10px);
-	// Same stitched seam as below the top bar
-	border-top: 4px dashed var(--toy-stitch);
 }
 
 dav-navigation-bar {
@@ -131,7 +134,7 @@ dav-navigation-bar {
 
 .profile-image {
 	border-radius: 50%;
-	border: 2px solid var(--toy-yellow);
+	border: 1px solid var(--dav-color-outline-variant);
 }
 
 @media only screen and (max-width: 576px) {

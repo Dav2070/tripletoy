@@ -17,7 +17,7 @@
 
 .back-link:hover {
 	text-decoration: none;
-	transform: translateX(-4px) rotate(-2deg);
+	transform: translateX(-4px);
 }
 
 .info {
@@ -43,7 +43,6 @@
 
 .form-section-title {
 	margin: 12px 0 0;
-	font-family: var(--toy-font-display);
 	font-size: 20px;
 	font-weight: 500;
 	color: var(--dav-color-on-surface);

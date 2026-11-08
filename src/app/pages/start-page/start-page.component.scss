@@ -7,7 +7,6 @@
 
 .shape {
 	position: absolute;
-	animation: float 6s ease-in-out infinite;
 }
 
 // Hero
@@ -20,14 +19,10 @@
 	overflow: hidden;
 	margin: 16px 6px 0 0;
 	padding: 36px 48px;
-	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--toy-yellow) 35%, var(--dav-color-surface)),
-		color-mix(in srgb, var(--toy-red) 22%, var(--dav-color-surface))
-	);
-	border: 3px solid var(--toy-red);
-	border-radius: 40px;
-	box-shadow: 8px 8px 0 var(--toy-red);
+	background-color: var(--dav-color-primary-container);
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 }
 
 .hero-text {
@@ -38,7 +33,6 @@
 
 .hero-title {
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 54px;
 	font-weight: 700;
 	line-height: 1.1;
@@ -62,32 +56,27 @@
 .hero-art {
 	position: relative;
 	flex: 1 1 280px;
-	height: 340px;
+	height: auto;
 	max-width: 420px;
 	margin: 0 auto;
 }
 
-.art-card {
-	position: absolute;
-	top: 20px;
-	left: 50%;
-	width: 240px;
-	margin-left: -130px;
-	padding: 10px;
-	background-color: var(--dav-color-surface-container-lowest);
-	border: 3px solid var(--toy-blue);
-	border-radius: 28px;
-	box-shadow: 8px 8px 0 var(--toy-blue);
-	transform: rotate(5deg);
-	animation: wobble 6s ease-in-out infinite;
-}
-
-.art-card img {
+.hero-teddy {
 	display: block;
 	width: 100%;
-	aspect-ratio: 1;
-	object-fit: cover;
-	border-radius: 18px;
+	max-width: 380px;
+	margin: 0 auto;
+	animation: bob 4s ease-in-out infinite;
+}
+
+@keyframes bob {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-8px);
+	}
 }
 
 .art-sticker {
@@ -103,7 +92,7 @@
 	color: white;
 	background-color: var(--toy-red);
 	border-radius: 50%;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: none;
 }
 
 .block {
@@ -116,15 +105,13 @@
 	font-size: 32px;
 	color: white;
 	border-radius: 20px;
-	box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
-	animation: float 6s ease-in-out infinite;
+	box-shadow: none;
 }
 
 .block-blue {
 	left: 0;
 	bottom: 10px;
 	background-color: var(--toy-blue);
-	--rotate: -12deg;
 }
 
 .block-yellow {
@@ -132,8 +119,6 @@
 	right: 6px;
 	color: #2a2140;
 	background-color: var(--toy-yellow);
-	--rotate: 10deg;
-	animation-delay: -2s;
 }
 
 .block-green {
@@ -141,8 +126,6 @@
 	bottom: 0;
 	color: #0b3d2e;
 	background-color: var(--toy-green);
-	--rotate: 6deg;
-	animation-delay: -4s;
 }
 
 .hero .shape-circle {
@@ -161,8 +144,6 @@
 	height: 28px;
 	background: var(--toy-green);
 	border-radius: 7px;
-	--rotate: 14deg;
-	animation-delay: -2s;
 }
 
 .hero .shape-triangle {
@@ -172,7 +153,6 @@
 	height: 32px;
 	background: var(--toy-purple);
 	clip-path: polygon(50% 0, 100% 100%, 0 100%);
-	animation-delay: -1s;
 }
 
 .hero .shape-ring {
@@ -180,10 +160,9 @@
 	left: 48%;
 	width: 24px;
 	height: 24px;
-	border: 6px solid var(--toy-red);
+	border: 1px solid var(--dav-color-outline-variant);
 	border-radius: 50%;
 	opacity: 0.55;
-	animation-delay: -4s;
 }
 
 // Sections
@@ -194,7 +173,6 @@
 
 .section-title {
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 36px;
 	font-weight: 600;
 	text-align: center;
@@ -234,11 +212,9 @@
 }
 
 .step:nth-child(odd) {
-	transform: rotate(-1deg);
 }
 
 .step:nth-child(even) {
-	transform: rotate(1deg);
 }
 
 .step-number {
@@ -250,32 +226,28 @@
 	justify-content: center;
 	width: 44px;
 	height: 44px;
-	font-family: var(--toy-font-display);
 	font-size: 24px;
 	font-weight: 700;
 	color: #2a2140;
 	background-color: var(--toy-yellow);
 	border-radius: 50%;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: none;
 }
 
 .step-icon {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 60px;
-	height: 60px;
-	font-size: 26px;
-	color: white;
-	background-color: var(--accent);
-	border-radius: 18px;
-	transform: rotate(-6deg);
+	display: block;
+	width: 80px;
+	height: 80px;
+	transition: transform 250ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.step:hover .step-icon {
+	transform: rotate(-6deg) scale(1.08);
 }
 
 .step h3,
 .benefit h3 {
 	margin: 16px 0 8px;
-	font-family: var(--toy-font-display);
 	font-size: 22px;
 	font-weight: 600;
 }
@@ -291,7 +263,7 @@
 .why {
 	padding: 48px 24px;
 	background-color: color-mix(in srgb, var(--toy-blue) 10%, transparent);
-	border-radius: 40px;
+	border-radius: 16px;
 }
 
 .benefits {
@@ -310,33 +282,15 @@
 }
 
 .benefit-icon {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 72px;
-	height: 72px;
-	font-size: 30px;
-	color: white;
-	border-radius: 50%;
-	box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+	display: block;
+	width: 96px;
+	height: 96px;
+	margin: 0 auto;
 	transition: transform 250ms cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 
 .benefit:hover .benefit-icon {
-	transform: rotate(-10deg) scale(1.1);
-}
-
-.benefit-icon.blue {
-	background-color: var(--toy-blue);
-}
-
-.benefit-icon.yellow {
-	color: #2a2140;
-	background-color: var(--toy-yellow);
-}
-
-.benefit-icon.purple {
-	background-color: var(--toy-purple);
+	transform: rotate(-6deg) scale(1.1);
 }
 
 // Toys
@@ -349,20 +303,15 @@
 	margin: 72px 6px 0 0;
 	padding: 48px 24px;
 	text-align: center;
-	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--toy-blue) 30%, var(--dav-color-surface)),
-		color-mix(in srgb, var(--toy-purple) 30%, var(--dav-color-surface))
-	);
-	border: 3px solid var(--toy-purple);
-	border-radius: 40px;
-	box-shadow: 8px 8px 0 var(--toy-purple);
+	background-color: var(--dav-color-primary-container);
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 }
 
 .cta h2 {
 	position: relative;
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 36px;
 	font-weight: 600;
 }
@@ -404,16 +353,15 @@
 	bottom: 20%;
 	width: 28px;
 	height: 28px;
-	border: 6px solid var(--toy-red);
+	border: 1px solid var(--dav-color-outline-variant);
 	border-radius: 50%;
 	opacity: 0.6;
-	animation-delay: -3s;
 }
 
 @media only screen and (max-width: 700px) {
 	.hero {
 		padding: 36px 24px;
-		border-radius: 32px;
+		border-radius: 16px;
 	}
 
 	.hero-title {
@@ -454,3 +402,10 @@
 	margin-right: auto;
 }
 
+
+// Decorative shapes are not used in the calm design
+.shape,
+.block,
+.art-sticker {
+	display: none;
+}

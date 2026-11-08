@@ -6,38 +6,38 @@
 	--white-rgb: 255, 255, 255; /* #ffffff */
 
 	/* primary */
-	--dav-color-palette-primary10-rgb: 10, 16, 41; /* #0a1029 */
-	--dav-color-palette-primary20-rgb: 17, 30, 85; /* #111e55 */
-	--dav-color-palette-primary25-rgb: 19, 37, 108; /* #13256c */
-	--dav-color-palette-primary30-rgb: 21, 43, 132; /* #152b84 */
-	--dav-color-palette-primary35-rgb: 23, 49, 156; /* #17319c */
-	--dav-color-palette-primary40-rgb: 52, 84, 245; /* #3454f5 */
-	--dav-color-palette-primary50-rgb: 23, 65, 232; /* #1741e8 */
-	--dav-color-palette-primary60-rgb: 74, 106, 232; /* #4a6ae8 */
-	--dav-color-palette-primary70-rgb: 123, 145, 234; /* #7b91ea */
-	--dav-color-palette-primary80-rgb: 170, 183, 238; /* #aab7ee */
-	--dav-color-palette-primary85-rgb: 192, 202, 242; /* #c0caf2 */
-	--dav-color-palette-primary90-rgb: 214, 220, 245; /* #d6dcf5 */
-	--dav-color-palette-primary95-rgb: 233, 237, 252; /* #e9edfc */
-	--dav-color-palette-primary98-rgb: 246, 248, 254; /* #f6f8fe */
-	--dav-color-palette-primary99-rgb: 251, 251, 254; /* #fbfbfe */
+	--dav-color-palette-primary10-rgb: 51, 16, 8; /* #331008 */
+	--dav-color-palette-primary20-rgb: 102, 33, 15; /* #66210f */
+	--dav-color-palette-primary25-rgb: 128, 41, 19; /* #802913 */
+	--dav-color-palette-primary30-rgb: 153, 49, 23; /* #993117 */
+	--dav-color-palette-primary35-rgb: 179, 57, 27; /* #b3391b */
+	--dav-color-palette-primary40-rgb: 204, 65, 30; /* #cc411e */
+	--dav-color-palette-primary50-rgb: 221, 92, 60; /* #dd5c3c */
+	--dav-color-palette-primary60-rgb: 224, 127, 103; /* #e07f67 */
+	--dav-color-palette-primary70-rgb: 229, 161, 143; /* #e5a18f */
+	--dav-color-palette-primary80-rgb: 236, 193, 182; /* #ecc1b6 */
+	--dav-color-palette-primary85-rgb: 240, 209, 201; /* #f0d1c9 */
+	--dav-color-palette-primary90-rgb: 244, 225, 220; /* #f4e1dc */
+	--dav-color-palette-primary95-rgb: 249, 240, 238; /* #f9f0ee */
+	--dav-color-palette-primary98-rgb: 253, 249, 248; /* #fdf9f8 */
+	--dav-color-palette-primary99-rgb: 254, 252, 252; /* #fefcfc */
 
 	/* secondary */
-	--dav-color-palette-secondary10-rgb: 42, 9, 13; /* #2a090d */
-	--dav-color-palette-secondary20-rgb: 87, 15, 25; /* #570f19 */
-	--dav-color-palette-secondary25-rgb: 110, 18, 30; /* #6e121e */
-	--dav-color-palette-secondary30-rgb: 134, 19, 35; /* #861323 */
-	--dav-color-palette-secondary35-rgb: 158, 20, 39; /* #9e1427 */
-	--dav-color-palette-secondary40-rgb: 183, 21, 42; /* #b7152a */
-	--dav-color-palette-secondary50-rgb: 236, 19, 48; /* #ec1330 */
-	--dav-color-palette-secondary60-rgb: 234, 72, 93; /* #ea485d */
-	--dav-color-palette-secondary70-rgb: 236, 121, 137; /* #ec7989 */
-	--dav-color-palette-secondary80-rgb: 240, 168, 178; /* #f0a8b2 */
-	--dav-color-palette-secondary85-rgb: 242, 191, 198; /* #f2bfc6 */
-	--dav-color-palette-secondary90-rgb: 246, 213, 217; /* #f6d5d9 */
-	--dav-color-palette-secondary95-rgb: 252, 232, 235; /* #fce8eb */
-	--dav-color-palette-secondary98-rgb: 254, 246, 247; /* #fef6f7 */
-	--dav-color-palette-secondary99-rgb: 254, 250, 251; /* #fefafb */
+	--dav-color-palette-secondary10-rgb: 41, 26, 1; /* #291a01 */
+	--dav-color-palette-secondary20-rgb: 82, 53, 2; /* #523502 */
+	--dav-color-palette-secondary25-rgb: 103, 66, 2; /* #674202 */
+	--dav-color-palette-secondary30-rgb: 124, 79, 3; /* #7c4f03 */
+	--dav-color-palette-secondary35-rgb: 144, 92, 3; /* #905c03 */
+	--dav-color-palette-secondary40-rgb: 165, 106, 3; /* #a56a03 */
+	--dav-color-palette-secondary50-rgb: 216, 140, 9; /* #d88c09 */
+	--dav-color-palette-secondary60-rgb: 241, 168, 41; /* #f1a829 */
+	--dav-color-palette-secondary70-rgb: 241, 189, 98; /* #f1bd62 */
+	--dav-color-palette-secondary80-rgb: 244, 210, 152; /* #f4d298 */
+	--dav-color-palette-secondary85-rgb: 246, 221, 179; /* #f6ddb3 */
+	--dav-color-palette-secondary90-rgb: 248, 232, 205; /* #f8e8cd */
+	--dav-color-palette-secondary95-rgb: 251, 244, 230; /* #fbf4e6 */
+	--dav-color-palette-secondary98-rgb: 253, 250, 245; /* #fdfaf5 */
+	--dav-color-palette-secondary99-rgb: 254, 253, 250; /* #fefdfa */
 
 	/* tertiary */
 	--dav-color-palette-tertiary10-rgb: 10, 41, 33; /* #0a2921 */
@@ -57,49 +57,49 @@
 	--dav-color-palette-tertiary99-rgb: 251, 254, 253; /* #fbfefd */
 
 	/* neutral */
-	--dav-color-palette-neutral4-rgb: 13, 14, 17; /* #0d0e11 */
-	--dav-color-palette-neutral6-rgb: 18, 19, 22; /* #121316 */
-	--dav-color-palette-neutral10-rgb: 27, 27, 31; /* #1b1b1f */
-	--dav-color-palette-neutral12-rgb: 31, 31, 35; /* #1f1f23 */
-	--dav-color-palette-neutral15-rgb: 37, 38, 41; /* #252629 */
-	--dav-color-palette-neutral17-rgb: 41, 42, 45; /* #292a2d */
-	--dav-color-palette-neutral20-rgb: 48, 48, 52; /* #303034 */
-	--dav-color-palette-neutral22-rgb: 52, 52, 56; /* #343438 */
-	--dav-color-palette-neutral24-rgb: 56, 57, 60; /* #38393c */
-	--dav-color-palette-neutral25-rgb: 59, 59, 63; /* #3b3b3f */
-	--dav-color-palette-neutral30-rgb: 70, 70, 74; /* #46464a */
-	--dav-color-palette-neutral35-rgb: 82, 82, 86; /* #525256 */
-	--dav-color-palette-neutral40-rgb: 94, 94, 98; /* #5e5e62 */
-	--dav-color-palette-neutral50-rgb: 119, 119, 122; /* #77777a */
-	--dav-color-palette-neutral60-rgb: 145, 144, 148; /* #919094 */
-	--dav-color-palette-neutral70-rgb: 172, 171, 175; /* #acabaf */
-	--dav-color-palette-neutral80-rgb: 199, 198, 202; /* #c7c6ca */
-	--dav-color-palette-neutral85-rgb: 213, 212, 216; /* #d5d4d8 */
-	--dav-color-palette-neutral87-rgb: 219, 217, 221; /* #dbd9dd */
-	--dav-color-palette-neutral90-rgb: 227, 226, 230; /* #e3e2e6 */
-	--dav-color-palette-neutral92-rgb: 233, 231, 236; /* #e9e7ec */
-	--dav-color-palette-neutral94-rgb: 239, 237, 241; /* #efedf1 */
-	--dav-color-palette-neutral95-rgb: 242, 240, 244; /* #f2f0f4 */
-	--dav-color-palette-neutral96-rgb: 245, 243, 247; /* #f5f3f7 */
-	--dav-color-palette-neutral98-rgb: 251, 248, 253; /* #fbf8fd */
-	--dav-color-palette-neutral99-rgb: 254, 251, 255; /* #fefbff */
+	--dav-color-palette-neutral4-rgb: 11, 10, 10; /* #0b0a0a */
+	--dav-color-palette-neutral6-rgb: 16, 15, 14; /* #100f0e */
+	--dav-color-palette-neutral10-rgb: 27, 26, 24; /* #1b1a18 */
+	--dav-color-palette-neutral12-rgb: 32, 31, 29; /* #201f1d */
+	--dav-color-palette-neutral15-rgb: 41, 38, 36; /* #292624 */
+	--dav-color-palette-neutral17-rgb: 46, 43, 41; /* #2e2b29 */
+	--dav-color-palette-neutral20-rgb: 54, 51, 48; /* #363330 */
+	--dav-color-palette-neutral22-rgb: 59, 56, 53; /* #3b3835 */
+	--dav-color-palette-neutral24-rgb: 65, 61, 58; /* #413d3a */
+	--dav-color-palette-neutral25-rgb: 68, 64, 60; /* #44403c */
+	--dav-color-palette-neutral30-rgb: 81, 76, 72; /* #514c48 */
+	--dav-color-palette-neutral35-rgb: 95, 89, 84; /* #5f5954 */
+	--dav-color-palette-neutral40-rgb: 108, 102, 96; /* #6c6660 */
+	--dav-color-palette-neutral50-rgb: 135, 128, 120; /* #878078 */
+	--dav-color-palette-neutral60-rgb: 159, 153, 147; /* #9f9993 */
+	--dav-color-palette-neutral70-rgb: 183, 178, 174; /* #b7b2ae */
+	--dav-color-palette-neutral80-rgb: 207, 204, 201; /* #cfccc9 */
+	--dav-color-palette-neutral85-rgb: 219, 217, 214; /* #dbd9d6 */
+	--dav-color-palette-neutral87-rgb: 224, 222, 220; /* #e0dedc */
+	--dav-color-palette-neutral90-rgb: 231, 230, 228; /* #e7e6e4 */
+	--dav-color-palette-neutral92-rgb: 236, 235, 233; /* #ecebe9 */
+	--dav-color-palette-neutral94-rgb: 241, 240, 239; /* #f1f0ef */
+	--dav-color-palette-neutral95-rgb: 243, 242, 241; /* #f3f2f1 */
+	--dav-color-palette-neutral96-rgb: 245, 245, 244; /* #f5f5f4 */
+	--dav-color-palette-neutral98-rgb: 250, 250, 250; /* #fafafa */
+	--dav-color-palette-neutral99-rgb: 253, 252, 252; /* #fdfcfc */
 
 	/* neutral-variant */
-	--dav-color-palette-neutral-variant10-rgb: 25, 27, 35; /* #191b23 */
-	--dav-color-palette-neutral-variant20-rgb: 46, 48, 56; /* #2e3038 */
-	--dav-color-palette-neutral-variant25-rgb: 57, 59, 67; /* #393b43 */
-	--dav-color-palette-neutral-variant30-rgb: 68, 70, 79; /* #44464f */
-	--dav-color-palette-neutral-variant35-rgb: 80, 82, 90; /* #50525a */
-	--dav-color-palette-neutral-variant40-rgb: 92, 94, 103; /* #5c5e67 */
-	--dav-color-palette-neutral-variant50-rgb: 117, 119, 128; /* #757780 */
-	--dav-color-palette-neutral-variant60-rgb: 143, 144, 153; /* #8f9099 */
-	--dav-color-palette-neutral-variant70-rgb: 169, 171, 180; /* #a9abb4 */
-	--dav-color-palette-neutral-variant80-rgb: 197, 198, 208; /* #c5c6d0 */
-	--dav-color-palette-neutral-variant85-rgb: 211, 212, 222; /* #d3d4de */
-	--dav-color-palette-neutral-variant90-rgb: 225, 226, 236; /* #e1e2ec */
-	--dav-color-palette-neutral-variant95-rgb: 239, 240, 250; /* #eff0fa */
-	--dav-color-palette-neutral-variant98-rgb: 250, 248, 255; /* #faf8ff */
-	--dav-color-palette-neutral-variant99-rgb: 254, 251, 255; /* #fefbff */
+	--dav-color-palette-neutral-variant10-rgb: 28, 26, 23; /* #1c1a17 */
+	--dav-color-palette-neutral-variant20-rgb: 56, 51, 46; /* #38332e */
+	--dav-color-palette-neutral-variant25-rgb: 70, 64, 57; /* #464039 */
+	--dav-color-palette-neutral-variant30-rgb: 84, 76, 69; /* #544c45 */
+	--dav-color-palette-neutral-variant35-rgb: 98, 89, 80; /* #625950 */
+	--dav-color-palette-neutral-variant40-rgb: 112, 102, 92; /* #70665c */
+	--dav-color-palette-neutral-variant50-rgb: 140, 128, 115; /* #8c8073 */
+	--dav-color-palette-neutral-variant60-rgb: 163, 153, 143; /* #a3998f */
+	--dav-color-palette-neutral-variant70-rgb: 186, 178, 171; /* #bab2ab */
+	--dav-color-palette-neutral-variant80-rgb: 209, 204, 199; /* #d1ccc7 */
+	--dav-color-palette-neutral-variant85-rgb: 221, 217, 213; /* #ddd9d5 */
+	--dav-color-palette-neutral-variant90-rgb: 232, 230, 227; /* #e8e6e3 */
+	--dav-color-palette-neutral-variant95-rgb: 244, 242, 241; /* #f4f2f1 */
+	--dav-color-palette-neutral-variant98-rgb: 250, 250, 249; /* #fafaf9 */
+	--dav-color-palette-neutral-variant99-rgb: 253, 252, 252; /* #fdfcfc */
 
 	/* error */
 	--dav-color-palette-error10-rgb: 65, 0, 2; /* #410002 */
@@ -426,15 +426,15 @@ body {
 	font-family: Nunito, Roboto, Arial, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
-	background-color: var(--dav-color-surface);
+	background-color: var(--toy-bg);
 	// Playful polka dots
-	background-image: radial-gradient(var(--toy-dot) 2.5px, transparent 3px),
-		radial-gradient(var(--toy-dot) 2.5px, transparent 3px);
+	background-image: radial-gradient(var(--toy-dot) 3px, transparent 3.5px),
+		radial-gradient(var(--toy-dot) 3px, transparent 3.5px);
 	background-size: 44px 44px;
 	background-position: 0 0, 22px 22px;
 	overflow: hidden;
 	--dav-font: Nunito, Roboto, Arial, sans-serif;
-	--toy-font-display: Fredoka, Nunito, Roboto, Arial, sans-serif;
+	--toy-font-display: Nunito, Roboto, Arial, sans-serif;
 }
 
 .cursor {
@@ -649,107 +649,33 @@ $alpha: 0.4;
 }
 
 
-// Toy theme: colors used for decoration, cycled through the cards
+// Accent colors of the components: everything uses the primary and secondary color
 body {
-	--toy-blue: #3454f5;
-	--toy-red: #f0466a;
-	--toy-yellow: #ffc61a;
-	--toy-green: #14c79a;
-	--toy-purple: #9b5cf6;
-	--toy-dot: rgba(52, 84, 245, 0.09);
-	--toy-stitch: rgba(52, 84, 245, 0.35);
+	--toy-blue: var(--dav-color-primary);
+	--toy-purple: var(--dav-color-primary);
+	--toy-green: var(--dav-color-primary);
+	--toy-red: var(--dav-color-secondary);
+	--toy-yellow: var(--dav-color-secondary-container);
+	--toy-ink: var(--dav-color-on-surface);
+	--toy-bg: #fff1dc;
+	--toy-dot: rgba(var(--dav-color-palette-primary40-rgb), 0.11);
+	--toy-stitch: var(--dav-color-outline-variant);
 }
 
 body[theme="dark"] {
-	--toy-blue: #7f98ff;
-	--toy-red: #ff7a96;
-	--toy-yellow: #ffd54a;
-	--toy-green: #4fe0b8;
-	--toy-purple: #b78cff;
-	--toy-dot: rgba(255, 255, 255, 0.05);
-	--toy-stitch: rgba(127, 152, 255, 0.4);
+	--toy-bg: #2b211b;
+	--toy-dot: rgba(255, 200, 150, 0.07);
 }
 
 dav-header {
 	--dav-font: var(--toy-font-display);
 }
 
-dav-header,
-.toy-title-font {
-	letter-spacing: 0.2px;
-}
-
-// Cycle the accent color of toy cards
-.toys-grid > app-toy-card:nth-child(5n + 1) {
-	--accent: var(--toy-blue);
-}
-.toys-grid > app-toy-card:nth-child(5n + 2) {
-	--accent: var(--toy-red);
-}
-.toys-grid > app-toy-card:nth-child(5n + 3) {
-	--accent: var(--toy-green);
-}
-.toys-grid > app-toy-card:nth-child(5n + 4) {
-	--accent: var(--toy-purple);
-}
-.toys-grid > app-toy-card:nth-child(5n) {
-	--accent: var(--toy-yellow);
-}
-
-// Sticker-like box with an offset shadow
+// Card with a thin outline, no shadows
 .toy-box {
-	background-color: var(--dav-color-surface-container-lowest);
-	border: 3px solid var(--accent, var(--toy-blue));
-	border-radius: 28px;
-	box-shadow: 6px 6px 0 var(--accent, var(--toy-blue));
-}
-
-// Buttons feel like pressable toy blocks
-dav-button {
-	filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.18));
-	transition: transform 150ms cubic-bezier(0.3, 1.6, 0.5, 1),
-		filter 150ms;
-}
-
-dav-button:hover {
-	transform: translateY(-2px) rotate(-1.5deg);
-}
-
-dav-button:active {
-	transform: translateY(2px);
-	filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.18));
-}
-
-// Playful animations
-@keyframes float {
-	0%,
-	100% {
-		transform: translateY(0) rotate(var(--rotate, 0deg));
-	}
-	50% {
-		transform: translateY(-14px) rotate(calc(var(--rotate, 0deg) + 8deg));
-	}
-}
-
-@keyframes wobble {
-	0%,
-	100% {
-		transform: rotate(-4deg);
-	}
-	50% {
-		transform: rotate(4deg);
-	}
-}
-
-@keyframes popIn {
-	from {
-		opacity: 0;
-		transform: scale(0.7) rotate(-6deg);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1) rotate(0);
-	}
+	background-color: var(--dav-color-surface-container-low);
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
 }
 
 @media (prefers-reduced-motion: reduce) {

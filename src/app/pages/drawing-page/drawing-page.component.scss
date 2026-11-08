@@ -7,7 +7,6 @@
 
 .shape {
 	position: absolute;
-	animation: float 6s ease-in-out infinite;
 }
 
 .hero {
@@ -19,14 +18,10 @@
 	overflow: hidden;
 	margin: 16px 6px 0 0;
 	padding: 36px 48px;
-	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--toy-yellow) 35%, var(--dav-color-surface)),
-		color-mix(in srgb, var(--toy-red) 22%, var(--dav-color-surface))
-	);
-	border: 3px solid var(--toy-red);
-	border-radius: 40px;
-	box-shadow: 8px 8px 0 var(--toy-red);
+	background-color: var(--dav-color-primary-container);
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 }
 
 .hero-text {
@@ -37,7 +32,6 @@
 
 .hero-title {
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 54px;
 	font-weight: 700;
 	line-height: 1.1;
@@ -59,7 +53,6 @@
 
 .section-title {
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 36px;
 	font-weight: 600;
 	text-align: center;
@@ -90,11 +83,9 @@
 }
 
 .step:nth-child(odd) {
-	transform: rotate(-1deg);
 }
 
 .step:nth-child(even) {
-	transform: rotate(1deg);
 }
 
 .step-number {
@@ -106,13 +97,12 @@
 	justify-content: center;
 	width: 44px;
 	height: 44px;
-	font-family: var(--toy-font-display);
 	font-size: 24px;
 	font-weight: 700;
 	color: #2a2140;
 	background-color: var(--toy-yellow);
 	border-radius: 50%;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: none;
 }
 
 .step-icon {
@@ -125,7 +115,6 @@
 	color: white;
 	background-color: var(--accent);
 	border-radius: 18px;
-	transform: rotate(-6deg);
 }
 
 .cta {
@@ -134,20 +123,15 @@
 	margin: 72px 6px 0 0;
 	padding: 48px 24px;
 	text-align: center;
-	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--toy-blue) 30%, var(--dav-color-surface)),
-		color-mix(in srgb, var(--toy-purple) 30%, var(--dav-color-surface))
-	);
-	border: 3px solid var(--toy-purple);
-	border-radius: 40px;
-	box-shadow: 8px 8px 0 var(--toy-purple);
+	background-color: var(--dav-color-primary-container);
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 }
 
 .cta h2 {
 	position: relative;
 	margin: 0;
-	font-family: var(--toy-font-display);
 	font-size: 36px;
 	font-weight: 600;
 }
@@ -198,15 +182,13 @@
 	left: 48%;
 	width: 24px;
 	height: 24px;
-	border: 6px solid var(--toy-red);
+	border: 1px solid var(--dav-color-outline-variant);
 	border-radius: 50%;
 	opacity: 0.55;
-	animation-delay: -4s;
 }
 
 .step h3 {
 	margin: 16px 0 8px;
-	font-family: var(--toy-font-display);
 	font-size: 22px;
 	font-weight: 600;
 }
@@ -241,11 +223,9 @@
 	max-width: 320px;
 	padding: 10px;
 	background-color: var(--dav-color-surface-container-lowest);
-	border: 3px solid var(--toy-blue);
-	border-radius: 28px;
-	box-shadow: 8px 8px 0 var(--toy-blue);
-	transform: rotate(4deg);
-	animation: wobble 6s ease-in-out infinite;
+	border: 1px solid var(--dav-color-outline-variant);
+	border-radius: 16px;
+	box-shadow: none;
 }
 
 .art-card img {
@@ -267,7 +247,7 @@
 	color: white;
 	background-color: var(--toy-red);
 	border-radius: 50%;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: none;
 }
 
 .examples {
@@ -302,7 +282,7 @@
 @media only screen and (max-width: 700px) {
 	.hero {
 		padding: 36px 24px;
-		border-radius: 32px;
+		border-radius: 16px;
 	}
 
 	.hero-title {
@@ -342,4 +322,11 @@
 	font-size: 17px;
 	font-weight: 700;
 	color: var(--dav-color-on-surface);
+}
+
+// Decorative shapes are not used in the calm design
+.shape,
+.block,
+.art-sticker {
+	display: none;
 }

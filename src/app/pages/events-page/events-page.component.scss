@@ -31,14 +31,6 @@
 	padding: 20px;
 }
 
-.event:nth-child(3n + 2) {
-	--accent: var(--toy-green);
-}
-
-.event:nth-child(3n) {
-	--accent: var(--toy-yellow);
-}
-
 .event-date {
 	display: flex;
 	flex-direction: column;
@@ -47,14 +39,13 @@
 	flex-shrink: 0;
 	width: 72px;
 	height: 80px;
-	color: #1b1b1f;
+	color: var(--dav-color-on-primary);
 	background-color: var(--accent);
 	border-radius: 20px;
 	text-transform: uppercase;
 }
 
 .event-day {
-	font-family: var(--toy-font-display);
 	font-size: 30px;
 	font-weight: 600;
 	line-height: 1;
@@ -71,7 +62,6 @@
 
 .event-title {
 	margin: 0 0 6px;
-	font-family: var(--toy-font-display);
 	font-size: 22px;
 	font-weight: 500;
 	color: var(--dav-color-on-surface);
