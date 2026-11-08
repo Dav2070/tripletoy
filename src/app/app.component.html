@@ -34,6 +34,13 @@
 			</dav-tab-bar-item>
 
 			<dav-tab-bar-item
+				[active]="eventsTabActive"
+				(click)="navigateToEventsPage()"
+			>
+				{{ locale.events }}
+			</dav-tab-bar-item>
+
+			<dav-tab-bar-item
 				[active]="drawingTabActive"
 				(click)="navigateToDrawingPage()"
 			>
@@ -99,6 +106,14 @@
 		>
 			<fa-icon slot="icon" [icon]="faGem"></fa-icon>
 			<p slot="label">{{ locale.jewelry }}</p>
+		</dav-navigation-bar-item>
+
+		<dav-navigation-bar-item
+			[active]="eventsTabActive"
+			(click)="navigateToEventsPage()"
+		>
+			<fa-icon slot="icon" [icon]="faCalendarDays"></fa-icon>
+			<p slot="label">{{ locale.events }}</p>
 		</dav-navigation-bar-item>
 
 		<dav-navigation-bar-item

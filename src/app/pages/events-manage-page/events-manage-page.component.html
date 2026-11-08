@@ -1,0 +1,161 @@
+<div class="container slide-up-in">
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
+
+	@if (loading) {
+	} @else if (!dataService.dav.isLoggedIn) {
+	<p class="info">{{ locale.loginRequired }}</p>
+
+	<dav-button tonal (click)="navigateToUserPage()">
+		{{ userLocale.login }}
+	</dav-button>
+	} @else if (!isAdmin) {
+	<p class="info">{{ locale.adminOnly }}</p>
+	} @else {
+	<div class="form toy-box">
+		<h2 class="form-title">
+			{{ editUuid ? locale.editEvent : locale.newEvent }}
+		</h2>
+
+		<dav-textfield
+			[label]="locale.titleLabel"
+			[value]="form.title"
+			[errorMessage]="errors.title ?? ''"
+			(change)="change('title', $event)"
+		></dav-textfield>
+
+		<dav-textarea
+			[label]="locale.descriptionLabel"
+			[value]="form.description"
+			[errorMessage]="errors.description ?? ''"
+			(change)="change('description', $event)"
+		></dav-textarea>
+
+		<div class="datetime-row">
+			<label class="datetime">
+				<span class="datetime-label">{{ locale.startsAtLabel }}</span>
+				<input
+					type="datetime-local"
+					[value]="form.startsAt"
+					(change)="change('startsAt', $event)"
+				/>
+				@if (errors.startsAt) {
+				<span class="error">{{ errors.startsAt }}</span>
+				}
+			</label>
+
+			<label class="datetime">
+				<span class="datetime-label">{{ locale.endsAtLabel }}</span>
+				<input
+					type="datetime-local"
+					[value]="form.endsAt"
+					(change)="change('endsAt', $event)"
+				/>
+				@if (errors.endsAt) {
+				<span class="error">{{ errors.endsAt }}</span>
+				}
+			</label>
+		</div>
+
+		<dav-textfield
+			[label]="locale.venueLabel"
+			[value]="form.venue"
+			(change)="change('venue', $event)"
+		></dav-textfield>
+
+		<dav-textfield
+			[label]="locale.line1Label"
+			[value]="form.line1"
+			[errorMessage]="errors.line1 ?? ''"
+			(change)="change('line1', $event)"
+		></dav-textfield>
+
+		<div class="address-row">
+			<dav-textfield
+				[label]="locale.postalCodeLabel"
+				[value]="form.postalCode"
+				[errorMessage]="errors.postalCode ?? ''"
+				(change)="change('postalCode', $event)"
+			></dav-textfield>
+
+			<dav-textfield
+				[label]="locale.cityLabel"
+				[value]="form.city"
+				(change)="change('city', $event)"
+			></dav-textfield>
+		</div>
+
+		<dav-textfield
+			[label]="locale.countryLabel"
+			[value]="form.country"
+			(change)="change('country', $event)"
+		></dav-textfield>
+
+		<dav-textfield
+			[label]="locale.urlLabel"
+			[value]="form.url"
+			[errorMessage]="errors.url ?? ''"
+			(change)="change('url', $event)"
+		></dav-textfield>
+
+		@if (errors.general) {
+		<p class="error">{{ errors.general }}</p>
+		}
+
+		<div class="buttons">
+			<dav-button [disabled]="saving" (click)="submit()">
+				{{ editUuid ? locale.save : locale.create }}
+			</dav-button>
+
+			@if (editUuid) {
+			<dav-button tonal [disabled]="saving" (click)="resetForm()">
+				{{ locale.cancel }}
+			</dav-button>
+			}
+		</div>
+	</div>
+
+	<dav-header class="section-header" size="md" alignment="start">
+		{{ locale.listTitle }}
+	</dav-header>
+
+	@if (events.length == 0) {
+	<p class="info">{{ locale.noEvents }}</p>
+	} @else {
+	<div class="event-list">
+		@for (event of events; track event.uuid) {
+		<div class="event toy-box" [class.past]="isPast(event)">
+			<div class="event-info">
+				<h3 class="event-title">{{ event.title }}</h3>
+				<p class="event-meta">
+					{{ date(event) }} · {{ event.city }}
+					@if (isPast(event)) {
+					<span class="past-badge">{{ locale.past }}</span>
+					}
+				</p>
+			</div>
+
+			<div class="buttons">
+				@if (confirmDeleteUuid == event.uuid) {
+				<span class="confirm">{{ locale.confirmDelete }}</span>
+				<dav-button color="secondary" (click)="delete(event)">
+					{{ locale.confirmYes }}
+				</dav-button>
+				<dav-button tonal (click)="confirmDeleteUuid = null">
+					{{ locale.cancel }}
+				</dav-button>
+				} @else {
+				<dav-button tonal (click)="edit(event)">{{ locale.edit }}</dav-button>
+				<dav-button
+					color="secondary"
+					tonal
+					(click)="confirmDeleteUuid = event.uuid"
+				>
+					{{ locale.delete }}
+				</dav-button>
+				}
+			</div>
+		</div>
+		}
+	</div>
+	} }
+</div>

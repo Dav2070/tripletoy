@@ -17,3 +17,5 @@ export const toyPhotoTypes = ["image/jpeg", "image/png", "image/webp"]
 export const defaultProfileImageUrl =
 	"/assets/images/profile-image-placeholder.png"
 export const defaultToyImageUrl = "/assets/images/toy-placeholder.svg"
+// Radius in km in which the events are shown, same as the default of the API
+export const eventRadius = 50

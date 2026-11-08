@@ -17,6 +17,14 @@ export class RoutingService {
 		this.router.navigate(["jewelry"])
 	}
 
+	navigateToEventsPage() {
+		this.router.navigate(["events"])
+	}
+
+	navigateToManageEventsPage() {
+		this.router.navigate(["user", "events"])
+	}
+
 	navigateToDrawingPage() {
 		this.router.navigate(["drawing"])
 	}

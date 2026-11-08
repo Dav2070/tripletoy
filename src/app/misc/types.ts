@@ -66,7 +66,29 @@ export interface Profile {
 	description: string | null
 	phone: string | null
 	address: Address
+	/** Whether the user is an admin and can manage the events */
+	isAdmin: boolean
 }
+
+/** An event in the real world for kids */
+export interface KidsEvent {
+	uuid: string
+	title: string
+	description: string | null
+	/** ISO 8601 date and time */
+	startsAt: string
+	endsAt: string | null
+	venue: string | null
+	line1: string
+	postalCode: string
+	city: string
+	country: string
+	url: string | null
+	/** Distance in km, only set for the events nearby */
+	distance: number | null
+}
+
+export type KidsEventInput = Omit<KidsEvent, "uuid" | "distance">
 
 /** A position on the map */
 export interface Position {

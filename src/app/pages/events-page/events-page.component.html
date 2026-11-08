@@ -1,0 +1,46 @@
+<div class="container slide-up-in">
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
+	<p class="subtitle">{{ locale.subtitle }}</p>
+
+	@if (loading) {
+	<p class="info">{{ locale.loading }}</p>
+	} @else if (!locationService.position) {
+	<p class="info">{{ locale.needLocation }}</p>
+	} @else {
+	<p class="info">{{ info }}</p>
+
+	@if (events.length == 0) {
+	<p class="info">{{ noEventsText }}</p>
+	} @else {
+	<div class="events-list">
+		@for (event of events; track event.uuid) {
+		<article class="event toy-box">
+			<div class="event-date">
+				<span class="event-day">{{ day(event) }}</span>
+				<span class="event-month">{{ month(event) }}</span>
+			</div>
+
+			<div class="event-content">
+				<h2 class="event-title">{{ event.title }}</h2>
+				<p class="event-meta">{{ time(event) }}</p>
+				<p class="event-meta">{{ place(event) }}</p>
+				<p class="event-meta event-distance">{{ distance(event) }}</p>
+
+				@if (event.description) {
+				<p class="event-description">{{ event.description }}</p>
+				} @if (event.url) {
+				<a
+					class="event-link"
+					[href]="event.url"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{{ locale.moreInfo }}
+				</a>
+				}
+			</div>
+		</article>
+		}
+	</div>
+	} }
+</div>

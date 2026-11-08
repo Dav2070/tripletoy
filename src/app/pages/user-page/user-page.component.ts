@@ -165,6 +165,10 @@ export class UserPageComponent {
 		this.routingService.navigateToNewToyPage()
 	}
 
+	navigateToManageEventsPage() {
+		this.routingService.navigateToManageEventsPage()
+	}
+
 	navigateToEditProfilePage() {
 		this.routingService.navigateToEditProfilePage()
 	}

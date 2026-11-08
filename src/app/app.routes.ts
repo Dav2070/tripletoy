@@ -2,6 +2,8 @@ import { Routes } from "@angular/router"
 import { StartPageComponent } from "./pages/start-page/start-page.component"
 import { ToysPageComponent } from "./pages/toys-page/toys-page.component"
 import { JewelryPageComponent } from "./pages/jewelry-page/jewelry-page.component"
+import { EventsPageComponent } from "./pages/events-page/events-page.component"
+import { EventsManagePageComponent } from "./pages/events-manage-page/events-manage-page.component"
 import { DrawingPageComponent } from "./pages/drawing-page/drawing-page.component"
 import { DrawingsPageComponent } from "./pages/drawings-page/drawings-page.component"
 import { ToyPageComponent } from "./pages/toy-page/toy-page.component"
@@ -14,6 +16,8 @@ export const routes: Routes = [
 	{ path: "", component: StartPageComponent },
 	{ path: "toys", component: ToysPageComponent },
 	{ path: "jewelry", component: JewelryPageComponent },
+	{ path: "events", component: EventsPageComponent },
+	{ path: "user/events", component: EventsManagePageComponent },
 	{ path: "drawing", component: DrawingPageComponent },
 	{ path: "drawings", component: DrawingsPageComponent },
 	{ path: "toy/new", component: NewToyPageComponent },

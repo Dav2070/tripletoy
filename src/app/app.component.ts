@@ -12,6 +12,7 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { faCircleUser as faCircleUserRegular } from "@fortawesome/free-regular-svg-icons"
 import {
 	faCircleUser as faCircleUserSolid,
+	faCalendarDays,
 	faCubes,
 	faGem,
 	faHouse,
@@ -43,10 +44,12 @@ export class AppComponent {
 	faHouse = faHouse
 	faCubes = faCubes
 	faGem = faGem
+	faCalendarDays = faCalendarDays
 	faPalette = faPalette
 	startTabActive: boolean = false
 	toysTabActive: boolean = false
 	jewelryTabActive: boolean = false
+	eventsTabActive: boolean = false
 	drawingTabActive: boolean = false
 	userButtonSelected: boolean = false
 
@@ -67,6 +70,7 @@ export class AppComponent {
 				this.startTabActive = url == "/"
 				this.toysTabActive = url == "/toys" || url.startsWith("/toy/")
 				this.jewelryTabActive = url == "/jewelry"
+				this.eventsTabActive = url == "/events"
 				this.drawingTabActive = url == "/drawing" || url == "/drawings"
 				this.userButtonSelected = url == "/user" || url.startsWith("/user/")
 			}
@@ -114,6 +118,10 @@ export class AppComponent {
 
 	navigateToJewelryPage() {
 		this.routingService.navigateToJewelryPage()
+	}
+
+	navigateToEventsPage() {
+		this.routingService.navigateToEventsPage()
 	}
 
 	navigateToDrawingPage() {

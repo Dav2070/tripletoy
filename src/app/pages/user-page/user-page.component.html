@@ -82,6 +82,12 @@
 			{{ locale.editProfile }}
 		</dav-button>
 
+		@if (profile?.isAdmin) {
+		<dav-button tonal (click)="navigateToManageEventsPage()">
+			{{ locale.manageEvents }}
+		</dav-button>
+		}
+
 		<dav-button color="secondary" tonal (click)="logout()">
 			{{ locale.logout }}
 		</dav-button>

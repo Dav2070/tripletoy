@@ -26,3 +26,21 @@ export function parsePriceToCents(value: string): number | null {
 
 	return Math.round(price * 100)
 }
+
+/** Converts an ISO date and time to the value of a datetime-local input, in the local time zone */
+export function toDateTimeLocal(iso: string | null): string {
+	if (iso == null) return ""
+
+	const date = new Date(iso)
+	if (isNaN(date.getTime())) return ""
+
+	const pad = (n: number) => n.toString().padStart(2, "0")
+
+	return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
+}
+
+/** Converts the value of a datetime-local input to an ISO date and time, null if empty or invalid */
+export function fromDateTimeLocal(value: string): string | null {
+	const date = new Date(value)
+	return value.trim() == "" || isNaN(date.getTime()) ? null : date.toISOString()
+}

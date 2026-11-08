@@ -5,6 +5,8 @@ import { firstValueFrom } from "rxjs"
 import { Dav } from "dav-js"
 import {
 	Address,
+	KidsEvent,
+	KidsEventInput,
 	Drawing,
 	List,
 	Position,
@@ -30,6 +32,21 @@ const toyFields = `
 	distance
 	createdAt
 	updatedAt
+`
+
+const eventFields = `
+	uuid
+	title
+	description
+	startsAt
+	endsAt
+	venue
+	line1
+	postalCode
+	city
+	country
+	url
+	distance
 `
 
 @Injectable({ providedIn: "root" })
@@ -426,6 +443,96 @@ export class ApiService {
 		return url
 	}
 
+	/** Lists the upcoming events within the radius in km (default 50) around the position */
+	async listEvents(position: Position, radius?: number): Promise<KidsEvent[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listEvents: KidsEvent[] }>({
+				query: gql`
+					query ListEvents($latitude: Float!, $longitude: Float!, $radius: Float) {
+						listEvents(latitude: $latitude, longitude: $longitude, radius: $radius) {
+							${eventFields}
+						}
+					}
+				`,
+				variables: { ...position, radius },
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listEvents ?? []
+	}
+
+	/** Lists all events including the past ones, only for admins */
+	async listAllEvents(): Promise<KidsEvent[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listAllEvents: KidsEvent[] }>({
+				query: gql`
+					query ListAllEvents {
+						listAllEvents {
+							${eventFields}
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listAllEvents ?? []
+	}
+
+	/** Creates an event, only for admins */
+	async createEvent(input: KidsEventInput): Promise<KidsEvent | null> {
+		const result = await firstValueFrom(
+			this.apollo.mutate<{ createEvent: KidsEvent }>({
+				mutation: gql`
+					mutation CreateEvent($input: EventInput!) {
+						createEvent(input: $input) {
+							${eventFields}
+						}
+					}
+				`,
+				variables: { input }
+			})
+		)
+
+		return result.data?.createEvent ?? null
+	}
+
+	/** Updates an event, only for admins */
+	async updateEvent(
+		uuid: string,
+		input: KidsEventInput
+	): Promise<KidsEvent | null> {
+		const result = await firstValueFrom(
+			this.apollo.mutate<{ updateEvent: KidsEvent }>({
+				mutation: gql`
+					mutation UpdateEvent($uuid: String!, $input: EventInput!) {
+						updateEvent(uuid: $uuid, input: $input) {
+							${eventFields}
+						}
+					}
+				`,
+				variables: { uuid, input }
+			})
+		)
+
+		return result.data?.updateEvent ?? null
+	}
+
+	/** Deletes an event, only for admins */
+	async deleteEvent(uuid: string): Promise<void> {
+		await firstValueFrom(
+			this.apollo.mutate<{ deleteEvent: boolean }>({
+				mutation: gql`
+					mutation DeleteEvent($uuid: String!) {
+						deleteEvent(uuid: $uuid)
+					}
+				`,
+				variables: { uuid }
+			})
+		)
+	}
+
 	/** Retrieves the profile of the logged in user */
 	async retrieveMyProfile(): Promise<Profile> {
 		const result = await firstValueFrom(
@@ -437,6 +544,7 @@ export class ApiService {
 							birthDate
 							description
 							phone
+							isAdmin
 							address {
 								name
 								line1
@@ -454,6 +562,7 @@ export class ApiService {
 
 		return (
 			result.data?.retrieveMyProfile ?? {
+				isAdmin: false,
 				age: null,
 				birthDate: null,
 				description: null,
