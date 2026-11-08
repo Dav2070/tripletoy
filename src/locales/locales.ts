@@ -21,7 +21,7 @@ export const enUS = {
 			"Take a few photos, write a short description and set your price. Your toy is visible to everyone right away.",
 		step2Title: "Discover & buy",
 		step2Text:
-			"Browse the toys and pay conveniently and securely with the Stripe checkout.",
+			"Browse the toys and pay conveniently and securely online.",
 		step3Title: "Ship & enjoy",
 		step3Text:
 			"The delivery address comes straight from the checkout. The seller ships the toy and a child is happy.",
@@ -59,7 +59,7 @@ export const enUS = {
 		subhead:
 			"Turn a drawing into a one-of-a-kind figure that you can hold in your hands. Handmade, painted by hand and made from the original drawing.",
 		upload: "Upload a drawing",
-		priceInfo: "{0} per figure, paid securely with Stripe",
+		priceInfo: "{0} per figure, paid securely online",
 		myDrawings: "Your drawings",
 		loginHint: "You need to log in with your dav account first.",
 		examplesTitle: "Drawing becomes toy",
@@ -238,7 +238,7 @@ export const deDE: typeof enUS = {
 			"Mach ein paar Fotos, schreibe eine kurze Beschreibung und lege deinen Preis fest. Dein Spielzeug ist sofort für alle sichtbar.",
 		step2Title: "Entdecken & kaufen",
 		step2Text:
-			"Stöbere durch die Spielzeuge und bezahle bequem und sicher über den Stripe-Checkout.",
+			"Stöbere durch die Spielzeuge und bezahle bequem und sicher online.",
 		step3Title: "Verschicken & freuen",
 		step3Text:
 			"Die Lieferadresse kommt direkt aus dem Checkout. Der Verkäufer verschickt das Spielzeug, und ein Kind freut sich.",
@@ -276,7 +276,7 @@ export const deDE: typeof enUS = {
 		subhead:
 			"Verwandle eine Zeichnung in eine einzigartige Figur, die du in den Händen halten kannst. Handgemacht, von Hand bemalt und nach dem Original gestaltet.",
 		upload: "Zeichnung hochladen",
-		priceInfo: "{0} pro Figur, sicher bezahlt mit Stripe",
+		priceInfo: "{0} pro Figur, sicher online bezahlt",
 		myDrawings: "Deine Zeichnungen",
 		loginHint: "Du musst dich zuerst mit deinem dav-Account anmelden.",
 		examplesTitle: "Aus Zeichnung wird Spielzeug",
