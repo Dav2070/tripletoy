@@ -11,9 +11,13 @@ import {
 	faStar,
 	faTruckFast
 } from "@fortawesome/free-solid-svg-icons"
+import { Dav } from "dav-js"
+import { DataService } from "src/app/services/data-service"
+import { RoutingService } from "src/app/services/routing-service"
+import { environment } from "src/environments/environment"
 import { LocalizationService } from "src/app/services/localization-service"
 
-/** Landing page for turning the drawing of a child into a real toy, without function yet */
+/** Landing page for turning the drawing of a child into a real toy */
 @Component({
 	templateUrl: "./drawing-page.component.html",
 	styleUrl: "./drawing-page.component.scss",
@@ -47,5 +51,24 @@ export class DrawingPageComponent {
 		}
 	]
 
-	constructor(private localizationService: LocalizationService) {}
+	constructor(
+		public dataService: DataService,
+		private localizationService: LocalizationService,
+		private routingService: RoutingService
+	) {}
+
+	/** Uploading needs a login, so the login page is shown first */
+	async upload() {
+		await this.dataService.userPromiseHolder.AwaitResult()
+
+		if (this.dataService.dav.isLoggedIn) {
+			this.navigateToDrawingsPage()
+		} else {
+			Dav.ShowLoginPage(environment.apiKey, window.location.origin + "/drawings")
+		}
+	}
+
+	navigateToDrawingsPage() {
+		this.routingService.navigateToDrawingsPage()
+	}
 }

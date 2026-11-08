@@ -57,7 +57,7 @@ export class AppComponent {
 				// The toy pages belong to the toys tab
 				this.startTabActive = url == "/"
 				this.toysTabActive = url == "/toys" || url.startsWith("/toy/")
-				this.drawingTabActive = url == "/drawing"
+				this.drawingTabActive = url == "/drawing" || url == "/drawings"
 				this.userButtonSelected = url == "/user" || url.startsWith("/user/")
 			}
 		})

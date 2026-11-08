@@ -57,7 +57,9 @@ export const enUS = {
 		headline: "Your child's drawing as a real toy",
 		subhead:
 			"Turn a drawing into a one-of-a-kind figure that you can hold in your hands. Handmade, painted by hand and made from the original drawing.",
-		comingSoon: "Coming soon",
+		upload: "Upload a drawing",
+		myDrawings: "Your drawings",
+		loginHint: "You need to log in with your dav account first.",
 		examplesTitle: "Drawing becomes toy",
 		examplesSubtitle: "Three examples of what we can make",
 		example1Alt: "Drawing of a girl in a striped shirt next to the finished figure",
@@ -70,8 +72,29 @@ export const enUS = {
 		step2Text: "From the drawing we model and paint a figure with every detail.",
 		step3Title: "Delivered to your home",
 		step3Text: "The figure is shipped to you and the drawing comes to life.",
-		ctaTitle: "Soon your child's drawing can come to life",
-		ctaText: "We are still working on this. Stay tuned!"
+		ctaTitle: "Let your child's drawing come to life",
+		ctaText: "Upload a drawing and follow the status here."
+	},
+	drawingsPage: {
+		title: "Your drawings",
+		subtitle: "All drawings you have uploaded and how far we are",
+		loginRequired: "Log in with your dav account to upload drawings",
+		upload: "Upload drawings",
+		uploading: "Uploading …",
+		back: "Back to the info page",
+		none: "You have not uploaded any drawings yet",
+		uploadedOn: "Uploaded on {0}",
+		drawingAlt: "Uploaded drawing",
+		invalidFile: "Only JPEG, PNG and WebP images up to 10 MB are allowed",
+		tooMany: "You can upload at most 20 drawings",
+		uploadError: "The drawing could not be uploaded. Please try again.",
+		loadError: "The drawings could not be loaded. Please try again.",
+		status: {
+			RECEIVED: "Received",
+			IN_PROGRESS: "In progress",
+			COMPLETED: "Completed",
+			REJECTED: "Not possible"
+		}
 	},
 	toysPage: {
 		title: "All toys",
@@ -147,8 +170,11 @@ export const enUS = {
 		statsActive: "Active",
 		statsSold: "Sold",
 		statsBought: "Bought",
+		statsDrawings: "Drawings",
 		yourToys: "Your toys",
 		yourPurchases: "Your purchases",
+		yourDrawings: "Your drawings",
+		uploadDrawings: "Upload more drawings",
 		noToys: "You have not listed any toys yet",
 		loadMore: "Load more"
 	},
@@ -239,7 +265,9 @@ export const deDE: typeof enUS = {
 		headline: "Die Zeichnung deines Kindes als echtes Spielzeug",
 		subhead:
 			"Verwandle eine Zeichnung in eine einzigartige Figur, die du in den Händen halten kannst. Handgemacht, von Hand bemalt und nach dem Original gestaltet.",
-		comingSoon: "Demnächst verfügbar",
+		upload: "Zeichnung hochladen",
+		myDrawings: "Deine Zeichnungen",
+		loginHint: "Du musst dich zuerst mit deinem dav-Account anmelden.",
 		examplesTitle: "Aus Zeichnung wird Spielzeug",
 		examplesSubtitle: "Drei Beispiele, was wir anfertigen können",
 		example1Alt: "Zeichnung eines Mädchens im Streifenshirt neben der fertigen Figur",
@@ -252,8 +280,29 @@ export const deDE: typeof enUS = {
 		step2Text: "Aus der Zeichnung modellieren und bemalen wir eine Figur mit allen Details.",
 		step3Title: "Geliefert zu dir nach Hause",
 		step3Text: "Die Figur wird dir zugeschickt und die Zeichnung wird lebendig.",
-		ctaTitle: "Bald erwacht die Zeichnung deines Kindes zum Leben",
-		ctaText: "Wir arbeiten noch daran. Bleib gespannt!"
+		ctaTitle: "Lass die Zeichnung deines Kindes zum Leben erwachen",
+		ctaText: "Lade eine Zeichnung hoch und verfolge den Status hier."
+	},
+	drawingsPage: {
+		title: "Deine Zeichnungen",
+		subtitle: "Alle Zeichnungen, die du hochgeladen hast, und wie weit wir sind",
+		loginRequired: "Melde dich mit deinem dav-Account an, um Zeichnungen hochzuladen",
+		upload: "Zeichnungen hochladen",
+		uploading: "Wird hochgeladen …",
+		back: "Zurück zur Infoseite",
+		none: "Du hast noch keine Zeichnungen hochgeladen",
+		uploadedOn: "Hochgeladen am {0}",
+		drawingAlt: "Hochgeladene Zeichnung",
+		invalidFile: "Es sind nur JPEG-, PNG- und WebP-Bilder bis 10 MB erlaubt",
+		tooMany: "Du kannst höchstens 20 Zeichnungen hochladen",
+		uploadError: "Die Zeichnung konnte nicht hochgeladen werden. Bitte versuche es erneut.",
+		loadError: "Die Zeichnungen konnten nicht geladen werden. Bitte versuche es erneut.",
+		status: {
+			RECEIVED: "Eingegangen",
+			IN_PROGRESS: "In Arbeit",
+			COMPLETED: "Fertig",
+			REJECTED: "Nicht umsetzbar"
+		}
 	},
 	toysPage: {
 		title: "Alle Spielzeuge",
@@ -329,8 +378,11 @@ export const deDE: typeof enUS = {
 		statsActive: "Aktiv",
 		statsSold: "Verkauft",
 		statsBought: "Gekauft",
+		statsDrawings: "Zeichnungen",
 		yourToys: "Deine Spielzeuge",
 		yourPurchases: "Deine Käufe",
+		yourDrawings: "Deine Zeichnungen",
+		uploadDrawings: "Weitere Zeichnungen hochladen",
 		noToys: "Du hast noch keine Spielzeuge eingestellt",
 		loadMore: "Mehr laden"
 	},

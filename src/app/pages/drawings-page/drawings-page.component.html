@@ -1,0 +1,54 @@
+<div class="container slide-up-in">
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
+
+	@if (!dataService.dav.isLoggedIn) {
+	@if (!loading) {
+	<p class="info">{{ locale.loginRequired }}</p>
+
+	<div class="buttons-container">
+		<dav-button tonal (click)="showLoginPage()">
+			{{ userLocale.login }}
+		</dav-button>
+
+		<dav-button color="secondary" tonal (click)="showSignupPage()">
+			{{ userLocale.signup }}
+		</dav-button>
+	</div>
+	}
+	} @else {
+	<p class="subtitle">{{ locale.subtitle }}</p>
+
+	<div class="actions">
+		<input
+			#fileInput
+			type="file"
+			hidden
+			multiple
+			[accept]="fileTypes"
+			(change)="filesSelected($event)"
+		/>
+
+		<dav-button [disabled]="uploading" (click)="fileInput.click()">
+			{{ uploading ? locale.uploading : locale.upload }}
+		</dav-button>
+
+		<dav-button tonal (click)="navigateToDrawingPage()">
+			{{ locale.back }}
+		</dav-button>
+	</div>
+
+	@if (error) {
+	<p class="error">{{ error }}</p>
+	}
+
+	@if (drawings.length > 0) {
+	<div class="drawings">
+		@for (drawing of drawings; track drawing.uuid) {
+		<app-drawing-card [drawing]="drawing"></app-drawing-card>
+		}
+	</div>
+	} @else if (!loading && !error) {
+	<p class="info">{{ locale.none }}</p>
+	}
+	}
+</div>

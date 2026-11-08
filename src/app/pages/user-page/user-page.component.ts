@@ -4,17 +4,19 @@ import {
 	ChangeDetectionStrategy
 } from "@angular/core"
 import { Dav } from "dav-js"
+import { DrawingCardComponent } from "src/app/components/drawing-card/drawing-card.component"
 import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import {
 	faBagShopping,
 	faBoxOpen,
 	faCoins,
+	faPalette,
 	faTag
 } from "@fortawesome/free-solid-svg-icons"
 import { ApiService } from "src/app/services/api-service"
-import { Profile, Toy, ToyStats } from "src/app/misc/types"
-import { toysPageSize } from "src/constants/constants"
+import { Drawing, Profile, Toy, ToyStats } from "src/app/misc/types"
+import { drawingMaxCount, toysPageSize } from "src/constants/constants"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
@@ -24,7 +26,7 @@ import { environment } from "src/environments/environment"
 	templateUrl: "./user-page.component.html",
 	styleUrl: "./user-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [ToyCardComponent, FaIconComponent],
+	imports: [DrawingCardComponent, ToyCardComponent, FaIconComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UserPageComponent {
@@ -33,6 +35,8 @@ export class UserPageComponent {
 	total: number = 0
 	loadingToys: boolean = false
 	toysLoaded: boolean = false
+	drawings: Drawing[] = []
+	drawingsTotal: number = 0
 	purchases: Toy[] = []
 	purchasesTotal: number = 0
 	loadingPurchases: boolean = false
@@ -41,6 +45,7 @@ export class UserPageComponent {
 	faBoxOpen = faBoxOpen
 	faTag = faTag
 	faCoins = faCoins
+	faPalette = faPalette
 	faBagShopping = faBagShopping
 
 	constructor(
@@ -58,9 +63,25 @@ export class UserPageComponent {
 				this.loadProfile(),
 				this.loadStats(),
 				this.loadToys(),
-				this.loadPurchases()
+				this.loadPurchases(),
+				this.loadDrawings()
 			])
 		}
+	}
+
+	async loadDrawings() {
+		try {
+			// The API allows at most this many drawings per user
+			const list = await this.apiService.listMyDrawings(drawingMaxCount, 0)
+			this.drawings = list.items
+			this.drawingsTotal = list.total
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	navigateToDrawingsPage() {
+		this.routingService.navigateToDrawingsPage()
 	}
 
 	async loadPurchases() {

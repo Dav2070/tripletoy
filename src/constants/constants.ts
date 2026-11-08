@@ -8,6 +8,7 @@ export const toyPriceMin = 50
 export const toyPriceMax = 100_000
 export const profileAddressFieldMaxLength = 100
 export const profilePhoneRegex = /^[0-9+()/.\- ]{3,30}$/
+export const drawingMaxCount = 20
 export const toyPhotoMaxCount = 10
 export const toyPhotoMaxBytes = 10 * 1024 * 1024
 export const toyPhotoTypes = ["image/jpeg", "image/png", "image/webp"]

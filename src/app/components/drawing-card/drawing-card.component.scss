@@ -1,0 +1,67 @@
+:host {
+	display: block;
+}
+
+.drawing {
+	--accent: var(--toy-blue);
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 10px 10px 16px;
+}
+
+.drawing[data-status="IN_PROGRESS"] {
+	--accent: var(--toy-yellow);
+}
+
+.drawing[data-status="COMPLETED"] {
+	--accent: var(--toy-green);
+}
+
+.drawing[data-status="REJECTED"] {
+	--accent: var(--toy-red);
+}
+
+.drawing img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+	background-color: var(--dav-color-surface-container);
+	border-radius: 18px;
+}
+
+.drawing-info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	padding: 0 6px;
+}
+
+.status {
+	padding: 4px 12px;
+	font-size: 14px;
+	font-weight: 700;
+	color: #2a2140;
+	background-color: var(--toy-blue);
+	border-radius: 999px;
+}
+
+.status[data-status="IN_PROGRESS"] {
+	background-color: var(--toy-yellow);
+}
+
+.status[data-status="COMPLETED"] {
+	background-color: var(--toy-green);
+}
+
+.status[data-status="REJECTED"] {
+	color: white;
+	background-color: var(--toy-red);
+}
+
+.date {
+	font-size: 14px;
+	color: var(--dav-color-on-surface-variant);
+}

@@ -8,7 +8,19 @@
 			<h1 class="hero-title">{{ locale.headline }}</h1>
 			<p class="hero-subhead">{{ locale.subhead }}</p>
 
-			<dav-button disabled>{{ locale.comingSoon }}</dav-button>
+			<div class="hero-buttons">
+				<dav-button (click)="upload()">{{ locale.upload }}</dav-button>
+
+				@if (dataService.dav.isLoggedIn) {
+				<dav-button color="secondary" tonal (click)="navigateToDrawingsPage()">
+					{{ locale.myDrawings }}
+				</dav-button>
+				}
+			</div>
+
+			@if (!dataService.dav.isLoggedIn) {
+			<p class="login-hint">{{ locale.loginHint }}</p>
+			}
 		</div>
 
 		<div class="hero-art">
@@ -68,6 +80,6 @@
 		<h2>{{ locale.ctaTitle }}</h2>
 		<p>{{ locale.ctaText }}</p>
 
-		<dav-button disabled>{{ locale.comingSoon }}</dav-button>
+		<dav-button (click)="upload()">{{ locale.upload }}</dav-button>
 	</section>
 </div>

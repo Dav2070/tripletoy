@@ -64,6 +64,12 @@
 			<span class="stat-number">{{ stats.bought }}</span>
 			<span class="stat-label">{{ locale.statsBought }}</span>
 		</div>
+
+		<div class="stat stat-drawings">
+			<span class="stat-icon"><fa-icon [icon]="faPalette"></fa-icon></span>
+			<span class="stat-number">{{ drawingsTotal }}</span>
+			<span class="stat-label">{{ locale.statsDrawings }}</span>
+		</div>
 	</section>
 	}
 
@@ -98,6 +104,24 @@
 	</div>
 	} } @else if (toysLoaded) {
 	<p class="info">{{ locale.noToys }}</p>
+	}
+
+	@if (drawings.length > 0) {
+	<dav-header class="section-header" size="md" alignment="start">
+		{{ locale.yourDrawings }}
+	</dav-header>
+
+	<div class="drawings-grid">
+		@for (drawing of drawings; track drawing.uuid) {
+		<app-drawing-card [drawing]="drawing"></app-drawing-card>
+		}
+	</div>
+
+	<div class="load-more-container">
+		<dav-button tonal (click)="navigateToDrawingsPage()">
+			{{ locale.uploadDrawings }}
+		</dav-button>
+	</div>
 	}
 
 	@if (purchases.length > 0) {

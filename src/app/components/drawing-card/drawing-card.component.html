@@ -1,0 +1,10 @@
+<article class="drawing toy-box" [attr.data-status]="drawing.status">
+	<img [src]="url" [alt]="locale.drawingAlt" loading="lazy" />
+
+	<div class="drawing-info">
+		<span class="status" [attr.data-status]="drawing.status">
+			{{ locale.status[drawing.status] }}
+		</span>
+		<span class="date">{{ dateText }}</span>
+	</div>
+</article>

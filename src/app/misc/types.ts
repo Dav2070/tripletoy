@@ -83,3 +83,15 @@ export interface ToyLocation {
 	longitude: number
 	photo: ToyPhoto | null
 }
+
+export type DrawingStatus = "RECEIVED" | "IN_PROGRESS" | "COMPLETED" | "REJECTED"
+
+/** The drawing of a child that is turned into a real toy */
+export interface Drawing {
+	uuid: string
+	/** Path on the API server, e.g. /photos/<file>.jpg */
+	url: string
+	status: DrawingStatus
+	createdAt: string
+	updatedAt: string
+}

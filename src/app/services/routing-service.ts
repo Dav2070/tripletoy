@@ -17,6 +17,10 @@ export class RoutingService {
 		this.router.navigate(["drawing"])
 	}
 
+	navigateToDrawingsPage() {
+		this.router.navigate(["drawings"])
+	}
+
 	navigateToUserPage() {
 		this.router.navigate(["user"])
 	}

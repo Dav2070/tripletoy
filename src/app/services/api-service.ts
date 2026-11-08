@@ -5,6 +5,7 @@ import { firstValueFrom } from "rxjs"
 import { Dav } from "dav-js"
 import {
 	Address,
+	Drawing,
 	List,
 	Position,
 	Profile,
@@ -121,6 +122,44 @@ export class ApiService {
 		)
 
 		return result.data?.listToyLocations ?? []
+	}
+
+	/** Lists the drawings of the logged in user, the latest first */
+	async listMyDrawings(limit: number, offset: number): Promise<List<Drawing>> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listMyDrawings: List<Drawing> }>({
+				query: gql`
+					query ListMyDrawings($limit: Int, $offset: Int) {
+						listMyDrawings(limit: $limit, offset: $offset) {
+							total
+							items {
+								uuid
+								url
+								status
+								createdAt
+								updatedAt
+							}
+						}
+					}
+				`,
+				variables: { limit, offset },
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listMyDrawings ?? { total: 0, items: [] }
+	}
+
+	/** Uploads a drawing of the logged in user */
+	async uploadDrawing(file: File): Promise<Drawing> {
+		return await firstValueFrom(
+			this.http.post<Drawing>(`${environment.tripletoyApiUrl}/drawings`, file, {
+				headers: {
+					"Content-Type": file.type,
+					Authorization: Dav.accessToken ?? ""
+				}
+			})
+		)
 	}
 
 	/** Lists the toys of the logged in user */

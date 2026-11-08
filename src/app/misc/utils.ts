@@ -14,6 +14,11 @@ export function getToyPhotoUrl(photo: ToyPhoto): string {
 	return environment.tripletoyApiUrl + photo.url
 }
 
+/** Returns the absolute url of a drawing stored on the API server */
+export function getDrawingUrl(drawing: { url: string }): string {
+	return environment.tripletoyApiUrl + drawing.url
+}
+
 /** Converts a price input like "12,50" to cents, returns null if invalid */
 export function parsePriceToCents(value: string): number | null {
 	const price = Number(value.trim().replace(",", "."))
