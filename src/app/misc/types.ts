@@ -54,7 +54,7 @@ export interface ToyStats {
 	active: number
 	sold: number
 	bought: number
-	/** Collected coins: 15 per purchase and 10 per sale */
+	/** Collected coins: 15 per purchase, 10 per sale and 100 per paid drawing */
 	coins: number
 }
 
