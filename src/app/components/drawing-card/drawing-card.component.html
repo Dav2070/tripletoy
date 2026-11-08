@@ -6,5 +6,11 @@
 			{{ locale.status[drawing.status] }}
 		</span>
 		<span class="date">{{ dateText }}</span>
+
+		@if (payable && drawing.status == "PENDING_PAYMENT") {
+		<dav-button [disabled]="paying" (click)="pay.emit(drawing)">
+			{{ locale.payNow }}
+		</dav-button>
+		}
 	</div>
 </article>

@@ -84,7 +84,7 @@ export interface ToyLocation {
 	photo: ToyPhoto | null
 }
 
-export type DrawingStatus = "RECEIVED" | "IN_PROGRESS" | "COMPLETED" | "REJECTED"
+export type DrawingStatus = "PENDING_PAYMENT" | "RECEIVED" | "IN_PROGRESS" | "COMPLETED" | "REJECTED"
 
 /** The drawing of a child that is turned into a real toy */
 export interface Drawing {

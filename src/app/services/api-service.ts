@@ -339,6 +339,42 @@ export class ApiService {
 		)
 	}
 
+	/** Creates the Stripe checkout session for paying a drawing and returns its url */
+	async createDrawingCheckoutSession(params: {
+		uuid: string
+		productName: string
+		successUrl: string
+		cancelUrl: string
+	}): Promise<string> {
+		const result = await firstValueFrom(
+			this.apollo.mutate<{ createDrawingCheckoutSession: { url: string } }>({
+				mutation: gql`
+					mutation CreateDrawingCheckoutSession(
+						$uuid: String!
+						$productName: String
+						$successUrl: String!
+						$cancelUrl: String!
+					) {
+						createDrawingCheckoutSession(
+							uuid: $uuid
+							productName: $productName
+							successUrl: $successUrl
+							cancelUrl: $cancelUrl
+						) {
+							url
+						}
+					}
+				`,
+				variables: params
+			})
+		)
+
+		const url = result.data?.createDrawingCheckoutSession?.url
+		if (!url) throw new Error("No checkout url returned")
+
+		return url
+	}
+
 	/** Creates the Stripe checkout session for buying a toy and returns its url */
 	async createToyCheckoutSession(params: {
 		uuid: string

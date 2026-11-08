@@ -10,6 +10,10 @@
 	padding: 10px 10px 16px;
 }
 
+.drawing[data-status="PENDING_PAYMENT"] {
+	--accent: var(--toy-purple);
+}
+
 .drawing[data-status="IN_PROGRESS"] {
 	--accent: var(--toy-yellow);
 }
@@ -46,6 +50,11 @@
 	color: #2a2140;
 	background-color: var(--toy-blue);
 	border-radius: 999px;
+}
+
+.status[data-status="PENDING_PAYMENT"] {
+	color: white;
+	background-color: var(--toy-purple);
 }
 
 .status[data-status="IN_PROGRESS"] {

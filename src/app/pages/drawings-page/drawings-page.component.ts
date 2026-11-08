@@ -3,6 +3,7 @@ import {
 	CUSTOM_ELEMENTS_SCHEMA,
 	ChangeDetectionStrategy
 } from "@angular/core"
+import { ActivatedRoute } from "@angular/router"
 import { Dav } from "dav-js"
 import { DrawingCardComponent } from "src/app/components/drawing-card/drawing-card.component"
 import { ApiService } from "src/app/services/api-service"
@@ -12,9 +13,11 @@ import { RoutingService } from "src/app/services/routing-service"
 import { Drawing } from "src/app/misc/types"
 import {
 	drawingMaxCount,
+	drawingPrice,
 	toyPhotoMaxBytes,
 	toyPhotoTypes
 } from "src/constants/constants"
+import { formatPrice } from "src/app/misc/utils"
 import { environment } from "src/environments/environment"
 
 /** The uploaded drawings of the user with their status */
@@ -32,16 +35,37 @@ export class DrawingsPageComponent {
 	fileTypes = toyPhotoTypes.join(",")
 	loading: boolean = true
 	uploading: boolean = false
+	paying: boolean = false
+	// The drawing Stripe redirected back for after a successful payment
+	private paidDrawingUuid: string = null
+	paymentResult: "success" | "cancel" | null = null
 	error: string = ""
 
 	constructor(
 		public dataService: DataService,
+		private activatedRoute: ActivatedRoute,
 		private apiService: ApiService,
 		private localizationService: LocalizationService,
 		private routingService: RoutingService
 	) {}
 
+	get priceText(): string {
+		return formatPrice(drawingPrice, this.localizationService.language)
+	}
+
+	get uploadText(): string {
+		return this.locale.uploadAndPay.replace("{0}", this.priceText)
+	}
+
 	async ngOnInit() {
+		const payment = this.activatedRoute.snapshot.queryParamMap.get("payment")
+		this.paymentResult =
+			payment == "success" || payment == "cancel" ? payment : null
+		this.paidDrawingUuid =
+			payment == "success"
+				? this.activatedRoute.snapshot.queryParamMap.get("drawing")
+				: null
+
 		await this.dataService.userPromiseHolder.AwaitResult()
 
 		if (this.dataService.dav.isLoggedIn) {
@@ -55,53 +79,79 @@ export class DrawingsPageComponent {
 		try {
 			// The API returns at most 20 drawings per user
 			const list = await this.apiService.listMyDrawings(drawingMaxCount, 0)
-			this.drawings = list.items
+			this.drawings = list.items.map(drawing =>
+				// The API only knows about the payment after the webhook of dav, so the
+				// drawing Stripe redirected for is shown as paid right away
+				drawing.uuid == this.paidDrawingUuid &&
+				drawing.status == "PENDING_PAYMENT"
+					? { ...drawing, status: "RECEIVED" }
+					: drawing
+			)
 		} catch (error) {
 			console.error(error)
 			this.error = this.locale.loadError
 		}
 	}
 
-	async filesSelected(event: Event) {
+	/** Uploads the drawing and goes directly to the checkout */
+	async fileSelected(event: Event) {
 		const input = event.target as HTMLInputElement
-		const files = Array.from(input.files ?? [])
+		const file = input.files?.[0]
 
 		// Allow selecting the same file again
 		input.value = ""
 
 		this.error = ""
+		this.paymentResult = null
 
-		if (files.length == 0) return
+		if (file == null) return
 
-		if (this.drawings.length + files.length > drawingMaxCount) {
+		if (this.drawings.length >= drawingMaxCount) {
 			this.error = this.locale.tooMany
 			return
 		}
 
-		if (
-			files.some(
-				file => !toyPhotoTypes.includes(file.type) || file.size > toyPhotoMaxBytes
-			)
-		) {
+		if (!toyPhotoTypes.includes(file.type) || file.size > toyPhotoMaxBytes) {
 			this.error = this.locale.invalidFile
 			return
 		}
 
 		this.uploading = true
 
-		// One by one, so the drawings that are uploaded stay if a later one fails
-		for (const file of files) {
-			try {
-				const drawing = await this.apiService.uploadDrawing(file)
-				this.drawings = [drawing, ...this.drawings]
-			} catch (error) {
-				console.error(error)
-				this.error = this.locale.uploadError
-				break
-			}
+		try {
+			const drawing = await this.apiService.uploadDrawing(file)
+			this.drawings = [drawing, ...this.drawings]
+			this.uploading = false
+
+			await this.pay(drawing)
+		} catch (error) {
+			console.error(error)
+			this.error = this.locale.uploadError
+			this.uploading = false
+		}
+	}
+
+	/** Redirects to the Stripe checkout, Stripe redirects back after the payment */
+	async pay(drawing: Drawing) {
+		this.error = ""
+		this.paying = true
+
+		try {
+			const url = window.location.origin + "/drawings"
+
+			window.location.href = await this.apiService.createDrawingCheckoutSession({
+				uuid: drawing.uuid,
+				productName: this.locale.productName,
+				successUrl: `${url}?payment=success&drawing=${drawing.uuid}`,
+				cancelUrl: url + "?payment=cancel"
+			})
+			return
+		} catch (error) {
+			console.error(error)
+			this.error = this.locale.checkoutError
 		}
 
-		this.uploading = false
+		this.paying = false
 	}
 
 	showLoginPage() {

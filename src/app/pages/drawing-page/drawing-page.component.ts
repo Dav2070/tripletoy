@@ -14,6 +14,8 @@ import {
 import { Dav } from "dav-js"
 import { DataService } from "src/app/services/data-service"
 import { RoutingService } from "src/app/services/routing-service"
+import { formatPrice } from "src/app/misc/utils"
+import { drawingPrice } from "src/constants/constants"
 import { environment } from "src/environments/environment"
 import { LocalizationService } from "src/app/services/localization-service"
 
@@ -66,6 +68,13 @@ export class DrawingPageComponent {
 		} else {
 			Dav.ShowLoginPage(environment.apiKey, window.location.origin + "/drawings")
 		}
+	}
+
+	get priceText(): string {
+		return this.locale.priceInfo.replace(
+			"{0}",
+			formatPrice(drawingPrice, this.localizationService.language)
+		)
 	}
 
 	navigateToDrawingsPage() {

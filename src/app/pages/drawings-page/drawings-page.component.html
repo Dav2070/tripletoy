@@ -23,19 +23,24 @@
 			#fileInput
 			type="file"
 			hidden
-			multiple
 			[accept]="fileTypes"
-			(change)="filesSelected($event)"
+			(change)="fileSelected($event)"
 		/>
 
-		<dav-button [disabled]="uploading" (click)="fileInput.click()">
-			{{ uploading ? locale.uploading : locale.upload }}
+		<dav-button [disabled]="uploading || paying" (click)="fileInput.click()">
+			{{ uploading ? locale.uploading : paying ? locale.redirecting : uploadText }}
 		</dav-button>
 
 		<dav-button tonal (click)="navigateToDrawingPage()">
 			{{ locale.back }}
 		</dav-button>
 	</div>
+
+	@if (paymentResult == "success") {
+	<p class="notice success">{{ locale.paymentSuccess }}</p>
+	} @else if (paymentResult == "cancel") {
+	<p class="notice">{{ locale.paymentCancelled }}</p>
+	}
 
 	@if (error) {
 	<p class="error">{{ error }}</p>
@@ -44,7 +49,12 @@
 	@if (drawings.length > 0) {
 	<div class="drawings">
 		@for (drawing of drawings; track drawing.uuid) {
-		<app-drawing-card [drawing]="drawing"></app-drawing-card>
+		<app-drawing-card
+			[drawing]="drawing"
+			[payable]="true"
+			[paying]="paying"
+			(pay)="pay($event)"
+		></app-drawing-card>
 		}
 	</div>
 	} @else if (!loading && !error) {
