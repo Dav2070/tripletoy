@@ -108,6 +108,27 @@
 	padding-top: calc(env(safe-area-inset-top) + 76px);
 }
 
+.content-padding-bottom {
+	padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+.bottom-navbar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	padding-bottom: env(safe-area-inset-bottom);
+	background-color: color-mix(in srgb, var(--dav-color-surface) 88%, transparent);
+	backdrop-filter: blur(10px);
+	// Same stitched seam as below the top bar
+	border-top: 4px dashed var(--toy-stitch);
+}
+
+dav-navigation-bar {
+	background-color: transparent;
+}
+
 .profile-image {
 	border-radius: 50%;
 	border: 2px solid var(--toy-yellow);

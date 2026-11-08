@@ -9,6 +9,7 @@
 		</span>
 	</a>
 
+	@if (!dataService.isMobile) {
 	<div class="navbar-tab-bar-container">
 		<dav-tab-bar>
 			<dav-tab-bar-item
@@ -33,6 +34,7 @@
 			</dav-tab-bar-item>
 		</dav-tab-bar>
 	</div>
+	}
 
 	<div class="navbar-spacer"></div>
 
@@ -58,6 +60,39 @@
 	</div>
 </div>
 
-<div class="content-container">
+<div
+	class="content-container"
+	[class.content-padding-bottom]="dataService.isMobile"
+>
 	<router-outlet></router-outlet>
 </div>
+
+@if (dataService.isMobile) {
+<div class="bottom-navbar">
+	<dav-navigation-bar>
+		<dav-navigation-bar-item
+			[active]="startTabActive"
+			(click)="navigateToStartPage()"
+		>
+			<fa-icon slot="icon" [icon]="faHouse"></fa-icon>
+			<p slot="label">{{ locale.home }}</p>
+		</dav-navigation-bar-item>
+
+		<dav-navigation-bar-item
+			[active]="toysTabActive"
+			(click)="navigateToToysPage()"
+		>
+			<fa-icon slot="icon" [icon]="faCubes"></fa-icon>
+			<p slot="label">{{ locale.toys }}</p>
+		</dav-navigation-bar-item>
+
+		<dav-navigation-bar-item
+			[active]="drawingTabActive"
+			(click)="navigateToDrawingPage()"
+		>
+			<fa-icon slot="icon" [icon]="faPalette"></fa-icon>
+			<p slot="label">{{ locale.drawingShort }}</p>
+		</dav-navigation-bar-item>
+	</dav-navigation-bar>
+</div>
+}

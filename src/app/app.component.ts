@@ -12,6 +12,9 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { faCircleUser as faCircleUserRegular } from "@fortawesome/free-regular-svg-icons"
 import {
 	faCircleUser as faCircleUserSolid,
+	faCubes,
+	faHouse,
+	faPalette,
 	faPuzzlePiece
 } from "@fortawesome/free-solid-svg-icons"
 import { Dav, Environment } from "dav-js"
@@ -36,6 +39,9 @@ export class AppComponent {
 	faCircleUserRegular = faCircleUserRegular
 	faCircleUserSolid = faCircleUserSolid
 	faPuzzlePiece = faPuzzlePiece
+	faHouse = faHouse
+	faCubes = faCubes
+	faPalette = faPalette
 	startTabActive: boolean = false
 	toysTabActive: boolean = false
 	drawingTabActive: boolean = false

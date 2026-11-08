@@ -4,6 +4,7 @@ export const enUS = {
 		home: "Home",
 		toys: "Toys",
 		drawing: "Drawing to toy",
+		drawingShort: "Drawing",
 		sell: "Sell a toy",
 		account: "Account"
 	},
@@ -220,6 +221,7 @@ export const deDE: typeof enUS = {
 		home: "Start",
 		toys: "Spielzeuge",
 		drawing: "Zeichnung zu Spielzeug",
+		drawingShort: "Zeichnung",
 		sell: "Spielzeug verkaufen",
 		account: "Konto"
 	},
