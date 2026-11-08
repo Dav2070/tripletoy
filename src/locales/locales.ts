@@ -3,6 +3,7 @@ export const enUS = {
 		appName: "3pletoy",
 		home: "Home",
 		toys: "Toys",
+		jewelry: "Jewelry",
 		drawing: "Drawing to toy",
 		drawingShort: "Drawing",
 		sell: "Sell a toy",
@@ -104,6 +105,11 @@ export const enUS = {
 			COMPLETED: "Completed",
 			REJECTED: "Not possible"
 		}
+	},
+	jewelryPage: {
+		title: "Handmade jewelry for kids",
+		subtitle: "Lovingly handmade, just the right size for little ones",
+		empty: "There is no jewelry yet, please check back soon."
 	},
 	toysPage: {
 		title: "All toys",
@@ -220,6 +226,7 @@ export const deDE: typeof enUS = {
 		appName: "3pletoy",
 		home: "Start",
 		toys: "Spielzeuge",
+		jewelry: "Schmuck",
 		drawing: "Zeichnung zu Spielzeug",
 		drawingShort: "Zeichnung",
 		sell: "Spielzeug verkaufen",
@@ -321,6 +328,11 @@ export const deDE: typeof enUS = {
 			COMPLETED: "Fertig",
 			REJECTED: "Nicht umsetzbar"
 		}
+	},
+	jewelryPage: {
+		title: "Handgemachter Schmuck für Kinder",
+		subtitle: "Liebevoll von Hand gemacht, genau richtig für die Kleinen",
+		empty: "Hier gibt es noch keinen Schmuck, schau bald wieder vorbei."
 	},
 	toysPage: {
 		title: "Alle Spielzeuge",

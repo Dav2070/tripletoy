@@ -27,6 +27,13 @@
 			</dav-tab-bar-item>
 
 			<dav-tab-bar-item
+				[active]="jewelryTabActive"
+				(click)="navigateToJewelryPage()"
+			>
+				{{ locale.jewelry }}
+			</dav-tab-bar-item>
+
+			<dav-tab-bar-item
 				[active]="drawingTabActive"
 				(click)="navigateToDrawingPage()"
 			>
@@ -84,6 +91,14 @@
 		>
 			<fa-icon slot="icon" [icon]="faCubes"></fa-icon>
 			<p slot="label">{{ locale.toys }}</p>
+		</dav-navigation-bar-item>
+
+		<dav-navigation-bar-item
+			[active]="jewelryTabActive"
+			(click)="navigateToJewelryPage()"
+		>
+			<fa-icon slot="icon" [icon]="faGem"></fa-icon>
+			<p slot="label">{{ locale.jewelry }}</p>
 		</dav-navigation-bar-item>
 
 		<dav-navigation-bar-item

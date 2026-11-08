@@ -13,6 +13,10 @@ export class RoutingService {
 		this.router.navigate(["toys"])
 	}
 
+	navigateToJewelryPage() {
+		this.router.navigate(["jewelry"])
+	}
+
 	navigateToDrawingPage() {
 		this.router.navigate(["drawing"])
 	}

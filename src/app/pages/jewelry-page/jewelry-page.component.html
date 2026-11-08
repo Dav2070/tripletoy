@@ -1,0 +1,14 @@
+<div class="container slide-up-in">
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
+	<p class="subtitle">{{ locale.subtitle }}</p>
+
+	@if (!loading && jewelry.length == 0) {
+	<p class="empty">{{ locale.empty }}</p>
+	} @else {
+	<div class="jewelry-grid">
+		@for (toy of jewelry; track toy.uuid) {
+		<app-toy-card [toy]="toy"></app-toy-card>
+		}
+	</div>
+	}
+</div>

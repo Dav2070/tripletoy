@@ -80,6 +80,24 @@ export class ApiService {
 		return result.data?.listToys ?? { total: 0, items: [] }
 	}
 
+	/** Lists the handmade jewelry for kids */
+	async listJewelry(): Promise<Toy[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listJewelry: Toy[] }>({
+				query: gql`
+					query ListJewelry {
+						listJewelry {
+							${toyFields}
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listJewelry ?? []
+	}
+
 	/** Lists the fixed products, which are shown separately from the other toys */
 	async listFixedToys(): Promise<Toy[]> {
 		const result = await firstValueFrom(

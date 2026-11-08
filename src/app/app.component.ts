@@ -13,6 +13,7 @@ import { faCircleUser as faCircleUserRegular } from "@fortawesome/free-regular-s
 import {
 	faCircleUser as faCircleUserSolid,
 	faCubes,
+	faGem,
 	faHouse,
 	faPalette,
 	faPuzzlePiece
@@ -41,9 +42,11 @@ export class AppComponent {
 	faPuzzlePiece = faPuzzlePiece
 	faHouse = faHouse
 	faCubes = faCubes
+	faGem = faGem
 	faPalette = faPalette
 	startTabActive: boolean = false
 	toysTabActive: boolean = false
+	jewelryTabActive: boolean = false
 	drawingTabActive: boolean = false
 	userButtonSelected: boolean = false
 
@@ -63,6 +66,7 @@ export class AppComponent {
 				// The toy pages belong to the toys tab
 				this.startTabActive = url == "/"
 				this.toysTabActive = url == "/toys" || url.startsWith("/toy/")
+				this.jewelryTabActive = url == "/jewelry"
 				this.drawingTabActive = url == "/drawing" || url == "/drawings"
 				this.userButtonSelected = url == "/user" || url.startsWith("/user/")
 			}
@@ -106,6 +110,10 @@ export class AppComponent {
 
 	navigateToToysPage() {
 		this.routingService.navigateToToysPage()
+	}
+
+	navigateToJewelryPage() {
+		this.routingService.navigateToJewelryPage()
 	}
 
 	navigateToDrawingPage() {
