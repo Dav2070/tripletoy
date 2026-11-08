@@ -1,0 +1,73 @@
+<div class="landing slide-up-in">
+	<!-- Hero -->
+	<section class="hero">
+		<span class="shape shape-circle" aria-hidden="true"></span>
+		<span class="shape shape-ring" aria-hidden="true"></span>
+
+		<div class="hero-text">
+			<h1 class="hero-title">{{ locale.headline }}</h1>
+			<p class="hero-subhead">{{ locale.subhead }}</p>
+
+			<dav-button disabled>{{ locale.comingSoon }}</dav-button>
+		</div>
+
+		<div class="hero-art">
+			<div class="art-card">
+				<img [src]="examples[1].src" [alt]="examples[1].alt" />
+				<span class="art-sticker"><fa-icon [icon]="faHeart"></fa-icon></span>
+			</div>
+		</div>
+	</section>
+
+	<!-- Examples -->
+	<section class="section">
+		<h2 class="section-title">{{ locale.examplesTitle }}</h2>
+		<p class="section-subtitle">{{ locale.examplesSubtitle }}</p>
+
+		<div class="examples">
+			@for (example of examples; track example.src) {
+			<figure class="example toy-box" [class]="'example example-' + example.color">
+				<img [src]="example.src" [alt]="example.alt" loading="lazy" />
+			</figure>
+			}
+		</div>
+	</section>
+
+	<!-- How it works -->
+	<section class="section">
+		<h2 class="section-title">{{ locale.howTitle }}</h2>
+
+		<div class="steps">
+			<article class="step toy-box step-blue">
+				<span class="step-number">1</span>
+				<span class="step-icon"><fa-icon [icon]="faCamera"></fa-icon></span>
+				<h3>{{ locale.step1Title }}</h3>
+				<p>{{ locale.step1Text }}</p>
+			</article>
+
+			<article class="step toy-box step-red">
+				<span class="step-number">2</span>
+				<span class="step-icon"><fa-icon [icon]="faPalette"></fa-icon></span>
+				<h3>{{ locale.step2Title }}</h3>
+				<p>{{ locale.step2Text }}</p>
+			</article>
+
+			<article class="step toy-box step-green">
+				<span class="step-number">3</span>
+				<span class="step-icon"><fa-icon [icon]="faTruckFast"></fa-icon></span>
+				<h3>{{ locale.step3Title }}</h3>
+				<p>{{ locale.step3Text }}</p>
+			</article>
+		</div>
+	</section>
+
+	<!-- Call to action -->
+	<section class="cta">
+		<span class="shape shape-star" aria-hidden="true"></span>
+
+		<h2>{{ locale.ctaTitle }}</h2>
+		<p>{{ locale.ctaText }}</p>
+
+		<dav-button disabled>{{ locale.comingSoon }}</dav-button>
+	</section>
+</div>

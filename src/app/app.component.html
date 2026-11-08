@@ -24,6 +24,13 @@
 			>
 				{{ locale.toys }}
 			</dav-tab-bar-item>
+
+			<dav-tab-bar-item
+				[active]="drawingTabActive"
+				(click)="navigateToDrawingPage()"
+			>
+				{{ locale.drawing }}
+			</dav-tab-bar-item>
 		</dav-tab-bar>
 	</div>
 

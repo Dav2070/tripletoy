@@ -3,6 +3,7 @@ export const enUS = {
 		appName: "3pletoy",
 		home: "Home",
 		toys: "Toys",
+		drawing: "Drawing to toy",
 		sell: "Sell a toy",
 		account: "Account"
 	},
@@ -51,6 +52,26 @@ export const enUS = {
 		loadMore: "Load more",
 		allToys: "View all toys",
 		sellFirst: "List the first toy"
+	},
+	drawingPage: {
+		headline: "Your child's drawing as a real toy",
+		subhead:
+			"Turn a drawing into a one-of-a-kind figure that you can hold in your hands. Handmade, painted by hand and made from the original drawing.",
+		comingSoon: "Coming soon",
+		examplesTitle: "Drawing becomes toy",
+		examplesSubtitle: "Three examples of what we can make",
+		example1Alt: "Drawing of a girl in a striped shirt next to the finished figure",
+		example2Alt: "Drawing of two hugging sloths next to the finished figure",
+		example3Alt: "Drawing of a smiling girl in dungarees next to the finished figure",
+		howTitle: "How it works",
+		step1Title: "Upload the drawing",
+		step1Text: "Take a photo of the drawing and send it to us.",
+		step2Title: "We create the figure",
+		step2Text: "From the drawing we model and paint a figure with every detail.",
+		step3Title: "Delivered to your home",
+		step3Text: "The figure is shipped to you and the drawing comes to life.",
+		ctaTitle: "Soon your child's drawing can come to life",
+		ctaText: "We are still working on this. Stay tuned!"
 	},
 	toysPage: {
 		title: "All toys",
@@ -164,6 +185,7 @@ export const deDE: typeof enUS = {
 		appName: "3pletoy",
 		home: "Start",
 		toys: "Spielzeuge",
+		drawing: "Zeichnung zu Spielzeug",
 		sell: "Spielzeug verkaufen",
 		account: "Konto"
 	},
@@ -212,6 +234,26 @@ export const deDE: typeof enUS = {
 		loadMore: "Mehr laden",
 		allToys: "Alle Spielzeuge ansehen",
 		sellFirst: "Erstes Spielzeug einstellen"
+	},
+	drawingPage: {
+		headline: "Die Zeichnung deines Kindes als echtes Spielzeug",
+		subhead:
+			"Verwandle eine Zeichnung in eine einzigartige Figur, die du in den Händen halten kannst. Handgemacht, von Hand bemalt und nach dem Original gestaltet.",
+		comingSoon: "Demnächst verfügbar",
+		examplesTitle: "Aus Zeichnung wird Spielzeug",
+		examplesSubtitle: "Drei Beispiele, was wir anfertigen können",
+		example1Alt: "Zeichnung eines Mädchens im Streifenshirt neben der fertigen Figur",
+		example2Alt: "Zeichnung von zwei kuschelnden Faultieren neben der fertigen Figur",
+		example3Alt: "Zeichnung eines lachenden Mädchens in Latzhose neben der fertigen Figur",
+		howTitle: "So funktioniert's",
+		step1Title: "Zeichnung hochladen",
+		step1Text: "Fotografiere die Zeichnung und schicke sie uns.",
+		step2Title: "Wir erstellen die Figur",
+		step2Text: "Aus der Zeichnung modellieren und bemalen wir eine Figur mit allen Details.",
+		step3Title: "Geliefert zu dir nach Hause",
+		step3Text: "Die Figur wird dir zugeschickt und die Zeichnung wird lebendig.",
+		ctaTitle: "Bald erwacht die Zeichnung deines Kindes zum Leben",
+		ctaText: "Wir arbeiten noch daran. Bleib gespannt!"
 	},
 	toysPage: {
 		title: "Alle Spielzeuge",

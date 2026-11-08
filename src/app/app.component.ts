@@ -38,6 +38,7 @@ export class AppComponent {
 	faPuzzlePiece = faPuzzlePiece
 	startTabActive: boolean = false
 	toysTabActive: boolean = false
+	drawingTabActive: boolean = false
 	userButtonSelected: boolean = false
 
 	constructor(
@@ -56,6 +57,7 @@ export class AppComponent {
 				// The toy pages belong to the toys tab
 				this.startTabActive = url == "/"
 				this.toysTabActive = url == "/toys" || url.startsWith("/toy/")
+				this.drawingTabActive = url == "/drawing"
 				this.userButtonSelected = url == "/user" || url.startsWith("/user/")
 			}
 		})
@@ -98,6 +100,10 @@ export class AppComponent {
 
 	navigateToToysPage() {
 		this.routingService.navigateToToysPage()
+	}
+
+	navigateToDrawingPage() {
+		this.routingService.navigateToDrawingPage()
 	}
 
 	navigateToStartPage() {
