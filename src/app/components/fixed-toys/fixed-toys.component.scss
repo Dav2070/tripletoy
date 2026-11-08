@@ -1,0 +1,16 @@
+.fixed-toys {
+	margin-bottom: 48px;
+}
+
+.section-title {
+	margin: 0;
+	text-align: center;
+}
+
+.toys-grid {
+	display: grid;
+	padding: 0 6px 6px 0;
+	margin-top: 32px;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	gap: 16px;
+}

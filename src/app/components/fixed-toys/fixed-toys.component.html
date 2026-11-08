@@ -1,0 +1,11 @@
+@if (toys.length > 0) {
+<section class="fixed-toys">
+	<h2 class="section-title">{{ locale.fixedProductsTitle }}</h2>
+
+	<div class="toys-grid">
+		@for (toy of toys; track toy.uuid) {
+		<app-toy-card [toy]="toy"></app-toy-card>
+		}
+	</div>
+</section>
+}

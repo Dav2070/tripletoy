@@ -18,6 +18,7 @@ import {
 	faTruckFast
 } from "@fortawesome/free-solid-svg-icons"
 import { ToyMapComponent } from "src/app/components/toy-map/toy-map.component"
+import { FixedToysComponent } from "src/app/components/fixed-toys/fixed-toys.component"
 import { ToyListComponent } from "src/app/components/toy-list/toy-list.component"
 import { ApiService } from "src/app/services/api-service"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -29,7 +30,7 @@ import { ToyLocation } from "src/app/misc/types"
 	templateUrl: "./start-page.component.html",
 	styleUrl: "./start-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [ToyListComponent, ToyMapComponent, FaIconComponent],
+	imports: [FixedToysComponent, ToyListComponent, ToyMapComponent, FaIconComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StartPageComponent {

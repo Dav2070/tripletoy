@@ -79,6 +79,24 @@ export class ApiService {
 		return result.data?.listToys ?? { total: 0, items: [] }
 	}
 
+	/** Lists the fixed products, which are shown separately from the other toys */
+	async listFixedToys(): Promise<Toy[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listFixedToys: Toy[] }>({
+				query: gql`
+					query ListFixedToys {
+						listFixedToys {
+							${toyFields}
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listFixedToys ?? []
+	}
+
 	/** Lists the approximate positions of the toys that are for sale */
 	async listToyLocations(): Promise<ToyLocation[]> {
 		const result = await firstValueFrom(

@@ -3,6 +3,7 @@ import {
 	CUSTOM_ELEMENTS_SCHEMA,
 	ChangeDetectionStrategy
 } from "@angular/core"
+import { FixedToysComponent } from "src/app/components/fixed-toys/fixed-toys.component"
 import { ToyListComponent } from "src/app/components/toy-list/toy-list.component"
 import { LocalizationService } from "src/app/services/localization-service"
 
@@ -11,7 +12,7 @@ import { LocalizationService } from "src/app/services/localization-service"
 	templateUrl: "./toys-page.component.html",
 	styleUrl: "./toys-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [ToyListComponent],
+	imports: [FixedToysComponent, ToyListComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ToysPageComponent {
