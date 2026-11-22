@@ -5,18 +5,6 @@ import {
 	ElementRef,
 	ViewChild
 } from "@angular/core"
-import { FaIconComponent } from "@fortawesome/angular-fontawesome"
-import {
-	faCamera,
-	faCartShopping,
-	faHeart,
-	faPiggyBank,
-	faPuzzlePiece,
-	faRecycle,
-	faSeedling,
-	faStar,
-	faTruckFast
-} from "@fortawesome/free-solid-svg-icons"
 import { ToyMapComponent } from "src/app/components/toy-map/toy-map.component"
 import { FixedToysComponent } from "src/app/components/fixed-toys/fixed-toys.component"
 import { ToyListComponent } from "src/app/components/toy-list/toy-list.component"
@@ -30,21 +18,12 @@ import { ToyLocation } from "src/app/misc/types"
 	templateUrl: "./start-page.component.html",
 	styleUrl: "./start-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [FixedToysComponent, ToyListComponent, ToyMapComponent, FaIconComponent],
+	imports: [FixedToysComponent, ToyListComponent, ToyMapComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StartPageComponent {
 	locale = this.localizationService.locale.startPage
 	locations: ToyLocation[] = []
-	faCamera = faCamera
-	faCartShopping = faCartShopping
-	faTruckFast = faTruckFast
-	faSeedling = faSeedling
-	faPiggyBank = faPiggyBank
-	faRecycle = faRecycle
-	faHeart = faHeart
-	faStar = faStar
-	faPuzzlePiece = faPuzzlePiece
 
 	@ViewChild("toysSection") toysSection: ElementRef<HTMLElement>
 
