@@ -1,0 +1,50 @@
+<div class="container slide-up-in">
+	<dav-header size="lg" alignment="start">{{ locale.title }}</dav-header>
+
+	@if (!dataService.dav.isLoggedIn) {
+		<p class="info">{{ locale.loginRequired }}</p>
+		<dav-button tonal (click)="showLoginPage()">
+			{{ locale.login }}
+		</dav-button>
+	} @else {
+		<p class="info">{{ locale.info }}</p>
+
+		@if (error) {
+			<p class="info error">{{ locale.error }}</p>
+		} @else if (loaded && chats.length == 0) {
+			<p class="info">{{ locale.noChats }}</p>
+		}
+
+		<ul class="chat-list">
+			@for (chat of chats; track chat.uuid) {
+				<li>
+					<a
+						class="chat-item toy-box"
+						[class.unread]="chat.unreadCount > 0"
+						[routerLink]="['/chats', chat.uuid]"
+					>
+						<img
+							class="chat-image"
+							[src]="getProfileImage(chat)"
+							width="48"
+							height="48"
+							alt=""
+						/>
+
+						<span class="chat-text">
+							<span class="chat-header">
+								<span class="chat-name">{{ getPartnerName(chat) }}</span>
+								<span class="chat-time">{{ getTime(chat) }}</span>
+							</span>
+							<span class="chat-preview">{{ getPreview(chat) }}</span>
+						</span>
+
+						@if (chat.unreadCount > 0) {
+							<span class="chat-badge">{{ chat.unreadCount }}</span>
+						}
+					</a>
+				</li>
+			}
+		</ul>
+	}
+</div>

@@ -10,6 +10,8 @@ import { ToyPageComponent } from "./pages/toy-page/toy-page.component"
 import { NewToyPageComponent } from "./pages/new-toy-page/new-toy-page.component"
 import { ProfileEditPageComponent } from "./pages/profile-edit-page/profile-edit-page.component"
 import { UserPageComponent } from "./pages/user-page/user-page.component"
+import { ChatsPageComponent } from "./pages/chats-page/chats-page.component"
+import { ChatPageComponent } from "./pages/chat-page/chat-page.component"
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component"
 
 export const routes: Routes = [
@@ -25,5 +27,7 @@ export const routes: Routes = [
 	{ path: "toy/:uuid", component: ToyPageComponent },
 	{ path: "user", component: UserPageComponent },
 	{ path: "user/edit", component: ProfileEditPageComponent },
+	{ path: "chats", component: ChatsPageComponent },
+	{ path: "chats/:uuid", component: ChatPageComponent },
 	{ path: "**", component: NotFoundPageComponent }
 ]

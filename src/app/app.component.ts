@@ -13,6 +13,7 @@ import { faCircleUser as faCircleUserRegular } from "@fortawesome/free-regular-s
 import {
 	faCircleUser as faCircleUserSolid,
 	faCalendarDays,
+	faComments,
 	faCubes,
 	faGem,
 	faHouse,
@@ -24,8 +25,12 @@ import * as DavUIComponents from "dav-ui-components"
 import { DataService } from "./services/data-service"
 import { LocalizationService } from "./services/localization-service"
 import { RoutingService } from "./services/routing-service"
+import { ChatService } from "./services/chat-service"
 import { smallWindowMaxSize } from "src/constants/constants"
 import { environment } from "src/environments/environment"
+
+// How often the number of unread chats is updated
+const unreadChatsInterval = 60_000
 
 @Component({
 	selector: "app-root",
@@ -46,17 +51,20 @@ export class AppComponent {
 	faGem = faGem
 	faCalendarDays = faCalendarDays
 	faPalette = faPalette
+	faComments = faComments
 	startTabActive: boolean = false
 	toysTabActive: boolean = false
 	jewelryTabActive: boolean = false
 	eventsTabActive: boolean = false
 	drawingTabActive: boolean = false
 	userButtonSelected: boolean = false
+	chatsButtonSelected: boolean = false
 
 	constructor(
 		public dataService: DataService,
 		private localizationService: LocalizationService,
 		private routingService: RoutingService,
+		private chatService: ChatService,
 		private router: Router,
 		@Inject(PLATFORM_ID) private platformId: object
 	) {
@@ -73,6 +81,12 @@ export class AppComponent {
 				this.eventsTabActive = url == "/events"
 				this.drawingTabActive = url == "/drawing" || url == "/drawings"
 				this.userButtonSelected = url == "/user" || url.startsWith("/user/")
+				this.chatsButtonSelected = url == "/chats" || url.startsWith("/chats/")
+
+				// Check for new messages on every navigation
+				if (isPlatformBrowser(this.platformId)) {
+					this.chatService.refreshUnreadCount()
+				}
 			}
 		})
 	}
@@ -90,6 +104,15 @@ export class AppComponent {
 			callbacks: {
 				UserLoaded: () => this.dataService.userPromiseHolder.Resolve()
 			}
+		})
+
+		// Check for new messages regularly, but not while the page is in the background
+		this.dataService.userPromiseHolder.AwaitResult().then(() => {
+			this.chatService.refreshUnreadCount()
+
+			setInterval(() => {
+				if (!document.hidden) this.chatService.refreshUnreadCount()
+			}, unreadChatsInterval)
 		})
 
 		// Log the user in if there is an access token in the url
@@ -134,5 +157,9 @@ export class AppComponent {
 
 	navigateToUserPage() {
 		this.routingService.navigateToUserPage()
+	}
+
+	navigateToChatsPage() {
+		this.routingService.navigateToChatsPage()
 	}
 }

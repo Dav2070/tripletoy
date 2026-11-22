@@ -10,6 +10,8 @@ export class DataService {
 	isMobile: boolean = false
 	darkTheme: boolean = false
 	userPromiseHolder = new PromiseHolder()
+	/** The number of chats with unread messages, shown in the navbar */
+	unreadChatsCount: number = 0
 
 	get profileImageUrl(): string {
 		return this.dav.user?.ProfileImage || defaultProfileImageUrl

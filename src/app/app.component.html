@@ -53,6 +53,22 @@
 	<div class="navbar-spacer"></div>
 
 	<div class="navbar-icon-buttons-container">
+		@if (dataService.dav.isLoggedIn) {
+			<dav-icon-button
+				class="chats-button"
+				[selected]="chatsButtonSelected"
+				[attr.aria-label]="locale.messages"
+				[attr.title]="locale.messages"
+				(click)="navigateToChatsPage()"
+			>
+				<fa-icon [icon]="faComments"></fa-icon>
+
+				@if (dataService.unreadChatsCount > 0) {
+					<span class="unread-badge">{{ dataService.unreadChatsCount }}</span>
+				}
+			</dav-icon-button>
+		}
+
 		<dav-icon-button
 			[selected]="userButtonSelected"
 			(click)="navigateToUserPage()"

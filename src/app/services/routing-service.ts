@@ -56,4 +56,12 @@ export class RoutingService {
 	navigateToToyPage(uuid: string) {
 		this.router.navigate(["toy", uuid])
 	}
+
+	navigateToChatsPage() {
+		this.router.navigate(["chats"])
+	}
+
+	navigateToChatPage(uuid: string) {
+		this.router.navigate(["chats", uuid])
+	}
 }

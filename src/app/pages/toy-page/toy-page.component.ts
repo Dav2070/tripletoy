@@ -135,6 +135,10 @@ export class ToyPageComponent {
 		this.categoryLoading = false
 	}
 
+	navigateToChatPage() {
+		this.routingService.navigateToChatPage(this.toy.chatUuid)
+	}
+
 	navigateToEditPage() {
 		this.routingService.navigateToEditToyPage(this.toy.uuid)
 	}

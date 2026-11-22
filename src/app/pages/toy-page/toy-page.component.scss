@@ -195,3 +195,18 @@
 	font-size: 14px;
 	color: var(--dav-color-on-surface-variant);
 }
+
+.chat-box {
+	margin-top: 24px;
+	padding: 16px 20px;
+	background-color: color-mix(in srgb, var(--toy-blue) 16%, transparent);
+	border-radius: 20px;
+}
+
+.chat-box h3 {
+	margin: 0 0 8px;
+}
+
+.chat-box p {
+	margin: 0 0 12px;
+}

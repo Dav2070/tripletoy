@@ -4,16 +4,17 @@ export interface ToyPhoto {
 	url: string
 }
 
+/** The order of a toy, there is no address if the toy is handed over in person (toys of normal users) */
 export interface ToyOrder {
-	name: string
-	email: string
+	name: string | null
+	email: string | null
 	phone: string | null
-	line1: string
+	line1: string | null
 	line2: string | null
-	postalCode: string
-	city: string
+	postalCode: string | null
+	city: string | null
 	state: string | null
-	country: string
+	country: string | null
 	createdAt: string
 }
 
@@ -35,6 +36,8 @@ export interface Toy {
 	category: ToyCategory
 	photos: ToyPhoto[]
 	sold: boolean
+	/** Whether the toy is handed over in person (toys of normal users), otherwise it is shipped */
+	handover: boolean
 	/** Distance in km to the seller, only set when the list is sorted by distance */
 	distance?: number | null
 	/** Whether the logged in user is the seller */
@@ -43,6 +46,8 @@ export interface Toy {
 	bought?: boolean
 	/** The order of the toy, only returned to the seller */
 	order?: ToyOrder | null
+	/** The chat between the seller and the buyer, only for them and the sold toys of normal users */
+	chatUuid?: string | null
 	createdAt: string
 	updatedAt: string
 }
@@ -127,4 +132,36 @@ export interface Drawing {
 	status: DrawingStatus
 	createdAt: string
 	updatedAt: string
+}
+
+/** The other user of a chat */
+export interface ChatPartner {
+	firstName: string
+	profileImage: string | null
+}
+
+export interface ChatMessage {
+	uuid: string
+	text: string
+	/** Whether the logged in user has sent the message */
+	mine: boolean
+	createdAt: string
+}
+
+/** A chat between two normal users who bought toys from each other */
+export interface Chat {
+	uuid: string
+	partner: ChatPartner
+	/** The toys the users bought from each other, the latest first */
+	toys: Toy[]
+	lastMessage: ChatMessage | null
+	unreadCount: number
+	createdAt: string
+}
+
+export interface ChatMessageList {
+	/** Whether there are older messages than the returned ones */
+	hasMore: boolean
+	/** The messages, the oldest first */
+	items: ChatMessage[]
 }

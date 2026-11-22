@@ -5,6 +5,9 @@ import { firstValueFrom } from "rxjs"
 import { Dav } from "dav-js"
 import {
 	Address,
+	Chat,
+	ChatMessage,
+	ChatMessageList,
 	KidsEvent,
 	KidsEventInput,
 	Drawing,
@@ -30,10 +33,31 @@ const toyFields = `
 		url
 	}
 	sold
+	handover
 	mine
 	distance
 	createdAt
 	updatedAt
+`
+
+const chatMessageFields = `
+	uuid
+	text
+	mine
+	createdAt
+`
+
+const chatFields = `
+	uuid
+	partner {
+		firstName
+		profileImage
+	}
+	lastMessage {
+		${chatMessageFields}
+	}
+	unreadCount
+	createdAt
 `
 
 const eventFields = `
@@ -290,6 +314,7 @@ export class ApiService {
 						retrieveToy(uuid: $uuid) {
 							${toyFields}
 							bought
+							chatUuid
 							order {
 								name
 								email
@@ -684,6 +709,138 @@ export class ApiService {
 				`${environment.tripletoyApiUrl}/toys/${toyUuid}/photos/${photoUuid}`,
 				{ headers: { Authorization: Dav.accessToken ?? "" } }
 			)
+		)
+	}
+
+	/** Lists the chats of the logged in user, the chat with the latest message first */
+	async listMyChats(): Promise<Chat[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listMyChats: Chat[] }>({
+				query: gql`
+					query ListMyChats {
+						listMyChats {
+							${chatFields}
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listMyChats ?? []
+	}
+
+	/** Retrieves a chat of the logged in user including the toys they bought from each other */
+	async retrieveChat(uuid: string): Promise<Chat | null> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ retrieveChat: Chat | null }>({
+				query: gql`
+					query RetrieveChat($uuid: String!) {
+						retrieveChat(uuid: $uuid) {
+							${chatFields}
+							toys {
+								${toyFields}
+							}
+						}
+					}
+				`,
+				variables: { uuid },
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.retrieveChat ?? null
+	}
+
+	/**
+	 * Lists the messages of a chat, the oldest first. Without before and after the latest
+	 * messages are returned, with before the older ones and with after the newer ones.
+	 */
+	async listChatMessages(params: {
+		chatUuid: string
+		limit?: number
+		before?: string
+		after?: string
+	}): Promise<ChatMessageList> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listChatMessages: ChatMessageList }>({
+				query: gql`
+					query ListChatMessages(
+						$chatUuid: String!
+						$limit: Int
+						$before: String
+						$after: String
+					) {
+						listChatMessages(
+							chatUuid: $chatUuid
+							limit: $limit
+							before: $before
+							after: $after
+						) {
+							hasMore
+							items {
+								${chatMessageFields}
+							}
+						}
+					}
+				`,
+				variables: params,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listChatMessages ?? { hasMore: false, items: [] }
+	}
+
+	/** Counts the chats with messages the logged in user has not read yet */
+	async retrieveMyUnreadChatsCount(): Promise<number> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ retrieveMyUnreadChatsCount: number }>({
+				query: gql`
+					query RetrieveMyUnreadChatsCount {
+						retrieveMyUnreadChatsCount
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.retrieveMyUnreadChatsCount ?? 0
+	}
+
+	async sendChatMessage(chatUuid: string, text: string): Promise<ChatMessage> {
+		const result = await firstValueFrom(
+			this.apollo.mutate<{ sendChatMessage: ChatMessage }>({
+				mutation: gql`
+					mutation SendChatMessage($chatUuid: String!, $text: String!) {
+						sendChatMessage(chatUuid: $chatUuid, text: $text) {
+							${chatMessageFields}
+						}
+					}
+				`,
+				variables: { chatUuid, text }
+			})
+		)
+
+		const message = result.data?.sendChatMessage
+		if (message == null) throw new Error("No message returned")
+
+		return message
+	}
+
+	/** Saves that the logged in user has read all messages of the chat */
+	async markChatAsRead(chatUuid: string): Promise<void> {
+		await firstValueFrom(
+			this.apollo.mutate<{ markChatAsRead: { uuid: string } }>({
+				mutation: gql`
+					mutation MarkChatAsRead($chatUuid: String!) {
+						markChatAsRead(chatUuid: $chatUuid) {
+							uuid
+						}
+					}
+				`,
+				variables: { chatUuid }
+			})
 		)
 	}
 }

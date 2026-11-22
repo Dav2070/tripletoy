@@ -175,6 +175,10 @@ export class UserPageComponent {
 		this.routingService.navigateToManageEventsPage()
 	}
 
+	navigateToChatsPage() {
+		this.routingService.navigateToChatsPage()
+	}
+
 	navigateToEditProfilePage() {
 		this.routingService.navigateToEditProfilePage()
 	}

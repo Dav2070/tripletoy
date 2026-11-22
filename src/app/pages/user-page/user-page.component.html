@@ -78,6 +78,13 @@
 			{{ locale.sellToy }}
 		</dav-button>
 
+		<dav-button tonal (click)="navigateToChatsPage()">
+			{{ locale.messages }}
+			@if (dataService.unreadChatsCount > 0) {
+				({{ dataService.unreadChatsCount }})
+			}
+		</dav-button>
+
 		<dav-button tonal (click)="navigateToEditProfilePage()">
 			{{ locale.editProfile }}
 		</dav-button>

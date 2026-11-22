@@ -53,7 +53,9 @@
 				}
 
 				@if (purchased) {
-					<p class="notice success">{{ locale.purchased }}</p>
+					<p class="notice success">
+						{{ toy.handover ? locale.purchasedHandover : locale.purchased }}
+					</p>
 				}
 
 				@if (toy.sold) {
@@ -92,7 +94,26 @@
 						<p class="notice error">{{ checkoutError }}</p>
 					}
 				}
+				@if (toy.chatUuid) {
+					<div class="chat-box">
+						<h3>{{ locale.chatTitle }}</h3>
+						<p>{{ locale.chatInfo }}</p>
+						<dav-button (click)="navigateToChatPage()">
+							{{ locale.openChat }}
+						</dav-button>
+					</div>
+				}
+
 				@if (toy.order; as order) {
+					@if (!order.line1) {
+						<!-- The toys of normal users are handed over in person -->
+						<div class="order-box">
+							<h3>
+								{{ order.name ? locale.soldTo + " " + order.name : locale.soldHandover }}
+							</h3>
+							<p>{{ locale.soldHandoverInfo }}</p>
+						</div>
+					} @else {
 					<div class="order-box">
 						<h3>{{ locale.soldTo }} {{ order.name }}</h3>
 						<p>{{ locale.soldToInfo }}</p>
@@ -110,6 +131,7 @@
 							}
 						</address>
 					</div>
+					}
 				}
 			</div>
 		</div>

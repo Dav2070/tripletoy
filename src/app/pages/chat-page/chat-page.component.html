@@ -1,0 +1,97 @@
+<div class="container slide-up-in">
+	<a class="back-link" routerLink="/chats">← {{ locale.back }}</a>
+
+	@if (!dataService.dav.isLoggedIn) {
+		<p class="info">{{ locale.loginRequired }}</p>
+		<dav-button tonal (click)="showLoginPage()">
+			{{ chatsLocale.login }}
+		</dav-button>
+	} @else if (chat != null) {
+		<div class="chat-header">
+			<img
+				class="partner-image"
+				[src]="partnerImage"
+				width="48"
+				height="48"
+				alt=""
+			/>
+			<dav-header size="md" alignment="start">{{ partnerName }}</dav-header>
+		</div>
+
+		@if (chat.toys.length > 0) {
+			<section class="toys" [attr.aria-label]="locale.toysTitle">
+				@for (toy of chat.toys; track toy.uuid) {
+					<a class="toy toy-box" [routerLink]="['/toy', toy.uuid]">
+						<img
+							class="toy-image"
+							[src]="getToyImage(toy)"
+							width="48"
+							height="48"
+							alt=""
+						/>
+						<span class="toy-text">
+							<span class="toy-label">
+								{{ toy.mine ? locale.sold : locale.bought }}
+							</span>
+							<span class="toy-title">{{ toy.title }}</span>
+						</span>
+						<span class="toy-price">{{ getToyPrice(toy) }}</span>
+					</a>
+				}
+			</section>
+		}
+
+		<p class="handover-info">{{ locale.handoverInfo }}</p>
+
+		<div class="messages toy-box" #messagesContainer>
+			@if (hasMore) {
+				<div class="load-older">
+					<dav-button tonal [disabled]="loadingOlder" (click)="loadOlder()">
+						{{ locale.loadOlder }}
+					</dav-button>
+				</div>
+			}
+
+			@for (group of messageGroups; track group.day) {
+				<div class="day">{{ group.day }}</div>
+
+				@for (message of group.messages; track message.uuid) {
+					<div class="message" [class.mine]="message.mine">
+						<!-- prettier-ignore -->
+						<p class="message-text">{{ message.text }}</p>
+						<span class="message-time">{{ getTime(message) }}</span>
+					</div>
+				}
+			} @empty {
+				<p class="no-messages">{{ locale.noMessages }}</p>
+			}
+		</div>
+
+		@if (sendError) {
+			<p class="send-error">{{ locale.sendError }}</p>
+		}
+
+		<form class="composer" (submit)="$event.preventDefault(); send()">
+			<textarea
+				class="composer-input"
+				rows="2"
+				[attr.aria-label]="locale.placeholder"
+				[placeholder]="locale.placeholder"
+				[maxLength]="messageMaxLength"
+				[value]="text"
+				[disabled]="sending"
+				(input)="textInput($event)"
+				(keydown)="textKeydown($event)"
+			></textarea>
+
+			<dav-button
+				[disabled]="sending || text.trim().length == 0"
+				(click)="send()"
+			>
+				{{ locale.send }}
+			</dav-button>
+		</form>
+	} @else if (loaded) {
+		<p class="info">{{ locale.notFound }}</p>
+	}
+</div>
