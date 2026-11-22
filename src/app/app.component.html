@@ -95,7 +95,45 @@
 	[class.content-padding-bottom]="dataService.isMobile"
 >
 	<router-outlet></router-outlet>
+
+	<footer class="footer">
+		<dav-link-button url="#" target="_self" (click)="showLanguageDialog($event)">
+			<fa-icon class="footer-icon" [icon]="faGlobe"></fa-icon>
+			{{ locale.language }}: {{ currentLanguageName }}
+		</dav-link-button>
+	</footer>
 </div>
+
+<dav-dialog
+	[headline]="locale.language"
+	[primaryButtonText]="locale.save"
+	[defaultButtonText]="locale.cancel"
+	[visible]="languageDialogVisible"
+	(dismiss)="languageDialogVisible = false"
+	(defaultButtonClick)="languageDialogVisible = false"
+	(primaryButtonClick)="saveLanguage()"
+>
+	<dav-radio-group class="language-options">
+		<dav-radio-button
+			name="language"
+			value=""
+			[label]="locale.browserLanguage"
+			[checked]="languageDialogSelection == null"
+			(change)="languageDialogSelection = null"
+		></dav-radio-button>
+
+		@for (option of languageOptions; track option.language) {
+			<dav-radio-button
+				name="language"
+				[value]="option.language"
+				[label]="option.name"
+				[attr.lang]="option.language"
+				[checked]="languageDialogSelection == option.language"
+				(change)="languageDialogSelection = option.language"
+			></dav-radio-button>
+		}
+	</dav-radio-group>
+</dav-dialog>
 
 @if (dataService.isMobile) {
 <div class="bottom-navbar acrylic">

@@ -16,6 +16,7 @@ import {
 	faComments,
 	faCubes,
 	faGem,
+	faGlobe,
 	faHouse,
 	faPalette,
 	faPuzzlePiece
@@ -26,8 +27,16 @@ import { DataService } from "./services/data-service"
 import { LocalizationService } from "./services/localization-service"
 import { RoutingService } from "./services/routing-service"
 import { ChatService } from "./services/chat-service"
+import { Language } from "./misc/types"
 import { smallWindowMaxSize } from "src/constants/constants"
 import { environment } from "src/environments/environment"
+
+/** The languages to choose from, each written in its own language */
+const languageOptions: { language: Language; name: string }[] = [
+	{ language: Language.de, name: "Deutsch" },
+	{ language: Language.en, name: "English" },
+	{ language: Language.fa, name: "فارسی" }
+]
 
 // How often the number of unread chats is updated
 const unreadChatsInterval = 60_000
@@ -52,6 +61,15 @@ export class AppComponent {
 	faCalendarDays = faCalendarDays
 	faPalette = faPalette
 	faComments = faComments
+	faGlobe = faGlobe
+	languageOptions = languageOptions
+	currentLanguageName =
+		languageOptions.find(
+			option => option.language == this.localizationService.language
+		)?.name ?? ""
+	languageDialogVisible: boolean = false
+	/** The language selected in the dialog, null for the browser language */
+	languageDialogSelection: Language | null = null
 	startTabActive: boolean = false
 	toysTabActive: boolean = false
 	jewelryTabActive: boolean = false
@@ -133,6 +151,25 @@ export class AppComponent {
 		if (!isPlatformBrowser(this.platformId)) return
 
 		this.dataService.isMobile = window.innerWidth <= smallWindowMaxSize
+	}
+
+	showLanguageDialog(event: Event) {
+		// The link button would otherwise open its url
+		event.preventDefault()
+
+		this.languageDialogSelection = this.localizationService.selectedLanguage
+		this.languageDialogVisible = true
+	}
+
+	saveLanguage() {
+		this.languageDialogVisible = false
+
+		if (
+			this.languageDialogSelection !=
+			this.localizationService.selectedLanguage
+		) {
+			this.localizationService.selectLanguage(this.languageDialogSelection)
+		}
 	}
 
 	navigateToToysPage() {

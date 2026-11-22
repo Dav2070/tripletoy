@@ -12,6 +12,7 @@ import { isPlatformBrowser } from "@angular/common"
 import { Meta } from "@angular/platform-browser"
 import * as locales from "src/locales/locales"
 import { Language } from "../misc/types"
+import { keys } from "src/constants/keys"
 
 const renderedLanguage = makeStateKey<string>("tripletoy.language")
 
@@ -26,6 +27,9 @@ export class LocalizationService {
 	locale = locales.deDE
 	/** The language the interface is displayed in */
 	language: Language = Language.de
+	/** The language chosen by the user, null if the browser language is used */
+	selectedLanguage: Language | null = null
+	private browser = false
 
 	constructor(
 		@Inject(PLATFORM_ID) platformId: object,
@@ -35,14 +39,19 @@ export class LocalizationService {
 		meta: Meta
 	) {
 		const browser = isPlatformBrowser(platformId)
+		this.browser = browser
+		if (browser) this.selectedLanguage = loadSelectedLanguage()
+
 		const preferred = browser
 			? preferredLanguageTag(navigator.languages?.join(",") ?? navigator.language)
 			: preferredLanguageTag(request?.headers.get("accept-language") ?? null)
 
-		// Hydrate with the exact locale used for the server markup,
-		// otherwise the texts would switch after loading the page
+		// Hydrate with the exact locale used for the server markup, otherwise the
+		// texts would switch after loading the page. The language chosen by the
+		// user is only known in the browser, so it replaces the server texts.
 		const tag = browser
-			? transferState.get(renderedLanguage, preferred ?? defaultLanguageTag)
+			? (selectedLanguageTag(this.selectedLanguage, preferred) ??
+				transferState.get(renderedLanguage, preferred ?? defaultLanguageTag))
 			: (preferred ?? defaultLanguageTag)
 		if (!browser) transferState.set(renderedLanguage, tag)
 
@@ -56,6 +65,27 @@ export class LocalizationService {
 			name: "description",
 			content: this.locale.misc.metaDescription
 		})
+	}
+
+	/**
+	 * Saves the language chosen by the user in the browser, or removes it to use
+	 * the browser language again, and reloads the page to show the new texts
+	 */
+	selectLanguage(language: Language | null) {
+		if (!this.browser) return
+
+		try {
+			if (language == null) {
+				localStorage.removeItem(keys.languageKey)
+			} else {
+				localStorage.setItem(keys.languageKey, language)
+			}
+		} catch {
+			// Storage can be blocked, e.g. in private windows
+			return
+		}
+
+		window.location.reload()
 	}
 
 	/** If the interface is written from right to left */
@@ -79,6 +109,27 @@ export class LocalizationService {
 
 		return locales.enUS
 	}
+}
+
+/** Reads the language chosen by the user, null if none or an unknown one is saved */
+function loadSelectedLanguage(): Language | null {
+	try {
+		const language = localStorage.getItem(keys.languageKey)
+		return language != null && supportedLanguages.includes(language)
+			? (language as Language)
+			: null
+	} catch {
+		return null
+	}
+}
+
+/** Keeps the region of the browser language (e.g. de-AT) if the user chose the same language */
+function selectedLanguageTag(
+	selected: Language | null,
+	preferred: string | null
+): string | null {
+	if (selected == null) return null
+	return preferred?.startsWith(selected) ? preferred : selected
 }
 
 function getLanguage(tag: string): Language {

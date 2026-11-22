@@ -163,3 +163,19 @@ dav-navigation-bar {
 	border-radius: 999px;
 	pointer-events: none;
 }
+
+.footer {
+	display: flex;
+	justify-content: center;
+	padding: 24px 16px 32px;
+}
+
+.footer-icon {
+	margin-inline-end: 4px;
+}
+
+.language-options {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}

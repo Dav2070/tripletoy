@@ -13,6 +13,10 @@ const enDefaults = {
 		account: "Account",
 		messages: "Messages",
 		categoryLabel: "Category",
+		language: "Language",
+		browserLanguage: "Browser language",
+		save: "Save",
+		cancel: "Cancel",
 		toyCategories: {
 			NORMAL: "Normal toy",
 			PRODUCT: "Our product",
@@ -344,6 +348,10 @@ const deDefaults: typeof enDefaults = {
 		account: "Konto",
 		messages: "Nachrichten",
 		categoryLabel: "Kategorie",
+		language: "Sprache",
+		browserLanguage: "Sprache des Browsers",
+		save: "Speichern",
+		cancel: "Abbrechen",
 		toyCategories: {
 			NORMAL: "Normales Spielzeug",
 			PRODUCT: "Unser Produkt",
@@ -678,6 +686,10 @@ const faDefaults: typeof enDefaults = {
 		account: "حساب کاربری",
 		messages: "پیام‌ها",
 		categoryLabel: "دسته‌بندی",
+		language: "زبان",
+		browserLanguage: "زبان مرورگر",
+		save: "ذخیره",
+		cancel: "انصراف",
 		toyCategories: {
 			NORMAL: "اسباب‌بازی معمولی",
 			PRODUCT: "محصول ما",
