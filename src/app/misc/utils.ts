@@ -26,10 +26,19 @@ export function getDrawingUrl(drawing: { url: string }): string {
 
 /** Converts a price input like "12,50" to cents, returns null if invalid */
 export function parsePriceToCents(value: string): number | null {
-	const price = Number(value.trim().replace(",", "."))
+	const price = Number(normalizeDigits(value.trim()).replace(",", "."))
 	if (value.trim() == "" || !Number.isFinite(price) || price < 0) return null
 
 	return Math.round(price * 100)
+}
+
+/** Replaces Persian and Arabic digits and decimal separators, as typed on a Persian keyboard */
+export function normalizeDigits(value: string): string {
+	return value
+		.replace(/[۰-۹]/g, digit => String(digit.charCodeAt(0) - 0x06f0))
+		.replace(/[٠-٩]/g, digit => String(digit.charCodeAt(0) - 0x0660))
+		.replace(/[٫/]/g, ".")
+		.replace(/٬/g, "")
 }
 
 /** Converts an ISO date and time to the value of a datetime-local input, in the local time zone */

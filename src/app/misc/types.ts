@@ -165,3 +165,10 @@ export interface ChatMessageList {
 	/** The messages, the oldest first */
 	items: ChatMessage[]
 }
+
+/** The languages the interface can be displayed in */
+export enum Language {
+	en = "en",
+	de = "de",
+	fa = "fa"
+}

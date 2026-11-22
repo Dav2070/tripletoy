@@ -53,7 +53,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
-	padding-left: 6px;
+	padding-inline-start: 6px;
 }
 
 .toy-thumbnail {
@@ -209,4 +209,8 @@
 
 .chat-box p {
 	margin: 0 0 12px;
+}
+
+:host-context([dir="rtl"]) .back-link:hover {
+	transform: translateX(4px);
 }

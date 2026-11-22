@@ -58,3 +58,7 @@
 	grid-template-columns: 1fr 2fr;
 	gap: 16px;
 }
+
+:host-context([dir="rtl"]) .back-link:hover {
+	transform: translateX(4px);
+}

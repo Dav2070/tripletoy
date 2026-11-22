@@ -1,5 +1,5 @@
 <div class="container slide-up-in">
-	<a class="back-link" routerLink="/chats">← {{ locale.back }}</a>
+	<a class="back-link" routerLink="/chats"><span class="back-arrow">←</span> {{ locale.back }}</a>
 
 	@if (!dataService.dav.isLoggedIn) {
 		<p class="info">{{ locale.loginRequired }}</p>

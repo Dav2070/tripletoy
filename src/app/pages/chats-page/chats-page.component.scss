@@ -94,3 +94,7 @@
 	background-color: var(--toy-red);
 	border-radius: 999px;
 }
+
+:host-context([dir="rtl"]) .chat-item:hover {
+	transform: translateX(-4px);
+}

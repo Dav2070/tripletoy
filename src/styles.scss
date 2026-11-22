@@ -423,7 +423,7 @@ body[theme="dark"] {
 body {
 	height: 100vh;
 	margin: 0;
-	font-family: Nunito, Roboto, Arial, sans-serif;
+	font-family: Nunito, Vazirmatn, Roboto, Arial, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	background-color: var(--toy-bg);
@@ -433,8 +433,8 @@ body {
 	background-size: 44px 44px;
 	background-position: 0 0, 22px 22px;
 	overflow: hidden;
-	--dav-font: Nunito, Roboto, Arial, sans-serif;
-	--toy-font-display: Nunito, Roboto, Arial, sans-serif;
+	--dav-font: Nunito, Vazirmatn, Roboto, Arial, sans-serif;
+	--toy-font-display: Nunito, Vazirmatn, Roboto, Arial, sans-serif;
 }
 
 .cursor {
@@ -685,4 +685,10 @@ dav-header {
 		animation: none !important;
 		transition: none !important;
 	}
+}
+
+// Arrows in the texts point the other way in right-to-left languages
+[dir="rtl"] .back-arrow {
+	display: inline-block;
+	transform: scaleX(-1);
 }

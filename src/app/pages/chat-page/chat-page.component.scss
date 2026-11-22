@@ -190,3 +190,7 @@
 	outline: 2px solid var(--dav-color-primary);
 	outline-offset: -1px;
 }
+
+:host-context([dir="rtl"]) .back-link:hover {
+	transform: translateX(4px);
+}

@@ -56,7 +56,7 @@
 	display: block;
 	margin-top: 44px;
 	margin-bottom: 16px;
-	text-align: left;
+	text-align: start;
 }
 
 .toys-grid {
@@ -69,7 +69,7 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: 20px;
-	margin-right: 6px;
+	margin-inline-end: 6px;
 }
 
 .load-more-container {

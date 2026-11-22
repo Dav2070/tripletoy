@@ -29,6 +29,10 @@ app.use(
 
 // Handle all other requests by rendering the Angular application
 app.use((req, res, next) => {
+	// The rendered markup depends on the requested language, so caches in front
+	// of this server have to keep the variants apart
+	res.vary("Accept-Language")
+
 	angularApp
 		.handle(req)
 		.then(response =>
