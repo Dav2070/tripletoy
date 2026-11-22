@@ -9,14 +9,19 @@ export function formatPrice(cents: number, language: string = "de"): string {
 	}).format(cents / 100)
 }
 
-/** Returns the absolute url of a photo stored on the API server */
-export function getToyPhotoUrl(photo: ToyPhoto): string {
-	return environment.tripletoyApiUrl + photo.url
+/** The API returns absolute urls for photos in DigitalOcean Spaces and paths for local photos */
+function getAbsoluteApiUrl(url: string): string {
+	return /^https?:\/\//.test(url) ? url : environment.tripletoyApiUrl + url
 }
 
-/** Returns the absolute url of a drawing stored on the API server */
+/** Returns the absolute url of a photo of a toy */
+export function getToyPhotoUrl(photo: ToyPhoto): string {
+	return getAbsoluteApiUrl(photo.url)
+}
+
+/** Returns the absolute url of a drawing */
 export function getDrawingUrl(drawing: { url: string }): string {
-	return environment.tripletoyApiUrl + drawing.url
+	return getAbsoluteApiUrl(drawing.url)
 }
 
 /** Converts a price input like "12,50" to cents, returns null if invalid */

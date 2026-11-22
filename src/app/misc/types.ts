@@ -1,6 +1,6 @@
 export interface ToyPhoto {
 	uuid: string
-	/** Path on the API server, e.g. /photos/<file>.jpg */
+	/** Absolute url in DigitalOcean Spaces, or a path on the API server for local photos, e.g. /photos/<file>.jpg */
 	url: string
 }
 
@@ -111,7 +111,7 @@ export type DrawingStatus = "PENDING_PAYMENT" | "RECEIVED" | "IN_PROGRESS" | "CO
 /** The drawing of a child that is turned into a real toy */
 export interface Drawing {
 	uuid: string
-	/** Path on the API server, e.g. /photos/<file>.jpg */
+	/** Absolute url in DigitalOcean Spaces, or a path on the API server for local photos, e.g. /photos/<file>.jpg */
 	url: string
 	status: DrawingStatus
 	createdAt: string
