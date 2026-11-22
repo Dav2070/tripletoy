@@ -6,11 +6,18 @@ import {
 } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { CombinedGraphQLErrors } from "@apollo/client/errors"
+import { DropdownOption, DropdownOptionType } from "dav-ui-components"
 import { ApiService } from "src/app/services/api-service"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
 import { RoutingService } from "src/app/services/routing-service"
-import { Address, Toy, ToyPhoto } from "src/app/misc/types"
+import {
+	Address,
+	Toy,
+	ToyCategory,
+	toyCategories,
+	ToyPhoto
+} from "src/app/misc/types"
 import { getToyPhotoUrl, parsePriceToCents } from "src/app/misc/utils"
 import {
 	toyPriceMax,
@@ -35,6 +42,17 @@ export class NewToyPageComponent implements OnDestroy {
 	locale = this.localizationService.locale.newToyPage
 	profileLocale = this.localizationService.locale.profileEditPage
 	userLocale = this.localizationService.locale.userPage
+	miscLocale = this.localizationService.locale.misc
+	// Only admins can choose the category, it can be preselected with ?category=
+	isAdmin: boolean = false
+	category: ToyCategory = "NORMAL"
+	// The category of the edited toy, it is only changed if the admin selects another one
+	originalCategory: ToyCategory = "NORMAL"
+	categoryOptions: DropdownOption[] = toyCategories.map(category => ({
+		key: category,
+		value: this.localizationService.locale.misc.toyCategories[category],
+		type: DropdownOptionType.option
+	}))
 	title: string = ""
 	titleError: string = ""
 	description: string = ""
@@ -76,6 +94,11 @@ export class NewToyPageComponent implements OnDestroy {
 		return this.editUuid != null
 	}
 
+	get pageTitle(): string {
+		if (this.isEdit) return this.locale.editTitle
+		return this.category == "NORMAL" ? this.locale.title : this.locale.newProductTitle
+	}
+
 	get photoCount(): number {
 		return this.existingPhotos.length + this.photos.length
 	}
@@ -87,10 +110,16 @@ export class NewToyPageComponent implements OnDestroy {
 
 		if (!this.dataService.dav.isLoggedIn) return
 
+		await this.loadProfile()
+
 		if (this.isEdit) {
 			await this.loadToy()
-		} else {
-			await this.loadProfile()
+		} else if (this.isAdmin) {
+			const category = this.activatedRoute.snapshot.queryParamMap.get(
+				"category"
+			) as ToyCategory
+
+			if (toyCategories.includes(category)) this.category = category
 		}
 	}
 
@@ -98,13 +127,19 @@ export class NewToyPageComponent implements OnDestroy {
 		try {
 			const profile = await this.apiService.retrieveMyProfile()
 
-			this.needsAddress = !this.isAddressComplete(profile.address)
+			this.isAdmin = profile.isAdmin
+			this.needsAddress =
+				!this.isEdit && !this.isAddressComplete(profile.address)
 		} catch (error) {
 			console.error(error)
 
 			// The API ignores the address if the profile already has one
-			this.needsAddress = true
+			this.needsAddress = !this.isEdit
 		}
+	}
+
+	categoryChange(event: Event) {
+		this.category = (event as CustomEvent).detail.key as ToyCategory
 	}
 
 	/** A shipping address needs everything except the second address line */
@@ -136,6 +171,8 @@ export class NewToyPageComponent implements OnDestroy {
 			this.description = toy.description ?? ""
 			this.price = (toy.price / 100).toString().replace(".", ",")
 			this.existingPhotos = toy.photos
+			this.category = toy.category
+			this.originalCategory = toy.category
 		}
 
 		this.loading = false
@@ -273,12 +310,23 @@ export class NewToyPageComponent implements OnDestroy {
 				})
 
 				if (this.createdToy == null) throw new Error("No toy returned")
+
+				if (this.isAdmin && this.category != this.originalCategory) {
+					this.createdToy = await this.apiService.updateToyCategory(
+						this.editUuid,
+						this.category
+					)
+					this.originalCategory = this.category
+				}
+
+				if (this.createdToy == null) throw new Error("No toy returned")
 			} else if (this.createdToy == null) {
 				this.createdToy = await this.apiService.createToy({
 					title,
 					description: this.description.trim() || undefined,
 					price,
-					address: this.needsAddress ? this.address : undefined
+					address: this.needsAddress ? this.address : undefined,
+					category: this.isAdmin ? this.category : undefined
 				})
 
 				if (this.createdToy == null) throw new Error("No toy returned")

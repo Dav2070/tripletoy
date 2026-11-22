@@ -6,11 +6,12 @@ import {
 import { ActivatedRoute, RouterLink } from "@angular/router"
 import { CombinedGraphQLErrors } from "@apollo/client/errors"
 import { Dav } from "dav-js"
+import { DropdownOption, DropdownOptionType } from "dav-ui-components"
 import { RoutingService } from "src/app/services/routing-service"
 import { DataService } from "src/app/services/data-service"
 import { ApiService } from "src/app/services/api-service"
 import { LocalizationService } from "src/app/services/localization-service"
-import { Toy } from "src/app/misc/types"
+import { Toy, ToyCategory, toyCategories } from "src/app/misc/types"
 import { formatPrice, getToyPhotoUrl } from "src/app/misc/utils"
 import { defaultToyImageUrl } from "src/constants/constants"
 import { environment } from "src/environments/environment"
@@ -36,6 +37,16 @@ export class ToyPageComponent {
 	deleteDialogVisible: boolean = false
 	deleteLoading: boolean = false
 	deleteError: string = ""
+	// Admins can change the category of every toy
+	isAdmin: boolean = false
+	categoryLabel = this.localizationService.locale.misc.categoryLabel
+	categoryOptions: DropdownOption[] = toyCategories.map(category => ({
+		key: category,
+		value: this.localizationService.locale.misc.toyCategories[category],
+		type: DropdownOptionType.option
+	}))
+	categoryLoading: boolean = false
+	categoryError: string = ""
 
 	constructor(
 		public dataService: DataService,
@@ -69,6 +80,12 @@ export class ToyPageComponent {
 		if (this.dataService.dav.isLoggedIn) {
 			await this.loadToy()
 
+			try {
+				this.isAdmin = (await this.apiService.retrieveMyProfile()).isAdmin
+			} catch (error) {
+				console.error(error)
+			}
+
 			if (params.get("redirectToCheckout") == "true") {
 				await this.buy()
 			}
@@ -93,6 +110,29 @@ export class ToyPageComponent {
 				new Date(this.toy.createdAt).toLocaleDateString(language)
 			)
 		}
+	}
+
+	async categoryChange(event: Event) {
+		const category = (event as CustomEvent).detail.key as ToyCategory
+		if (this.toy == null || category == this.toy.category) return
+
+		this.categoryLoading = true
+		this.categoryError = ""
+
+		try {
+			const toy = await this.apiService.updateToyCategory(
+				this.toy.uuid,
+				category
+			)
+			if (toy == null) throw new Error("No toy returned")
+
+			this.toy = { ...this.toy, category: toy.category }
+		} catch (error) {
+			console.error(error)
+			this.categoryError = this.locale.categoryError
+		}
+
+		this.categoryLoading = false
 	}
 
 	navigateToEditPage() {

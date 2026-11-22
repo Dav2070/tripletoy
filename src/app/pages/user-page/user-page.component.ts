@@ -15,7 +15,13 @@ import {
 	faTag
 } from "@fortawesome/free-solid-svg-icons"
 import { ApiService } from "src/app/services/api-service"
-import { Drawing, Profile, Toy, ToyStats } from "src/app/misc/types"
+import {
+	Drawing,
+	Profile,
+	Toy,
+	ToyCategory,
+	ToyStats
+} from "src/app/misc/types"
 import { drawingMaxCount, toysPageSize } from "src/constants/constants"
 import { DataService } from "src/app/services/data-service"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -161,8 +167,8 @@ export class UserPageComponent {
 		this.dataService.dav.Logout().then(() => (window.location.href = "/user"))
 	}
 
-	navigateToNewToyPage() {
-		this.routingService.navigateToNewToyPage()
+	navigateToNewToyPage(category?: ToyCategory) {
+		this.routingService.navigateToNewToyPage(category)
 	}
 
 	navigateToManageEventsPage() {

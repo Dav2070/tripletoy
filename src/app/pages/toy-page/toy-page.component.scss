@@ -182,3 +182,16 @@
 .delete-error {
 	color: var(--dav-color-error);
 }
+
+.admin-box {
+	margin-top: 20px;
+	padding: 16px;
+	border: 2px dashed var(--dav-color-outline-variant, currentColor);
+	border-radius: 16px;
+}
+
+.admin-info {
+	margin: 8px 0 0;
+	font-size: 14px;
+	color: var(--dav-color-on-surface-variant);
+}

@@ -12,6 +12,7 @@ import {
 	Position,
 	Profile,
 	Toy,
+	ToyCategory,
 	ToyLocation,
 	ToyPhoto,
 	ToyStats
@@ -23,6 +24,7 @@ const toyFields = `
 	title
 	description
 	price
+	category
 	photos {
 		uuid
 		url
@@ -113,6 +115,24 @@ export class ApiService {
 		)
 
 		return result.data?.listJewelry ?? []
+	}
+
+	/** Lists the products made from drawings, which are shown on the drawing page */
+	async listDrawingToys(): Promise<Toy[]> {
+		const result = await firstValueFrom(
+			this.apollo.query<{ listDrawingToys: Toy[] }>({
+				query: gql`
+					query ListDrawingToys {
+						listDrawingToys {
+							${toyFields}
+						}
+					}
+				`,
+				fetchPolicy: "no-cache"
+			})
+		)
+
+		return result.data?.listDrawingToys ?? []
 	}
 
 	/** Lists the fixed products, which are shown separately from the other toys */
@@ -300,6 +320,8 @@ export class ApiService {
 		price: number
 		/** Needed if the profile has no address yet, it is saved to the profile */
 		address?: Address
+		/** Only admins can choose another category than NORMAL */
+		category?: ToyCategory
 	}): Promise<Toy | null> {
 		const result = await firstValueFrom(
 			this.apollo.mutate<{ createToy: Toy }>({
@@ -309,12 +331,14 @@ export class ApiService {
 						$description: String
 						$price: Int!
 						$address: AddressInput
+						$category: ToyCategory
 					) {
 						createToy(
 							title: $title
 							description: $description
 							price: $price
 							address: $address
+							category: $category
 						) {
 							${toyFields}
 						}
@@ -358,6 +382,30 @@ export class ApiService {
 		)
 
 		return result.data?.updateToy ?? null
+	}
+
+	/** Changes the category of any toy, only for admins */
+	async updateToyCategory(
+		uuid: string,
+		category: ToyCategory
+	): Promise<Toy | null> {
+		const result = await firstValueFrom(
+			this.apollo.mutate<{ updateToyCategory: Toy }>({
+				mutation: gql`
+					mutation UpdateToyCategory(
+						$uuid: String!
+						$category: ToyCategory!
+					) {
+						updateToyCategory(uuid: $uuid, category: $category) {
+							${toyFields}
+						}
+					}
+				`,
+				variables: { uuid, category }
+			})
+		)
+
+		return result.data?.updateToyCategory ?? null
 	}
 
 	/** Deletes a toy of the logged in user that has not been sold yet */

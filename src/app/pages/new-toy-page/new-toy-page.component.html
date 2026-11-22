@@ -1,6 +1,6 @@
 <div class="container slide-up-in">
 	<dav-header size="lg" alignment="start">
-		{{ isEdit ? locale.editTitle : locale.title }}
+		{{ pageTitle }}
 	</dav-header>
 
 	@if (!dataService.dav.isLoggedIn) {
@@ -62,6 +62,16 @@
 	}
 
 	<div class="form toy-box">
+		@if (isAdmin) {
+		<dav-dropdown
+			[label]="miscLocale.categoryLabel"
+			[options]="categoryOptions"
+			[selectedKey]="category"
+			[width]="260"
+			(change)="categoryChange($event)"
+		></dav-dropdown>
+		}
+
 		<dav-textfield
 			[label]="locale.titleLabel"
 			[value]="title"

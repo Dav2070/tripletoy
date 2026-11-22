@@ -82,16 +82,34 @@
 			{{ locale.editProfile }}
 		</dav-button>
 
-		@if (profile?.isAdmin) {
-		<dav-button tonal (click)="navigateToManageEventsPage()">
-			{{ locale.manageEvents }}
-		</dav-button>
-		}
-
 		<dav-button color="secondary" tonal (click)="logout()">
 			{{ locale.logout }}
 		</dav-button>
 	</div>
+
+	@if (profile?.isAdmin) {
+	<dav-header class="section-header" size="md" alignment="start">
+		{{ locale.adminTitle }}
+	</dav-header>
+
+	<div class="buttons-container">
+		<dav-button tonal (click)="navigateToNewToyPage('PRODUCT')">
+			{{ locale.addProduct }}
+		</dav-button>
+
+		<dav-button tonal (click)="navigateToNewToyPage('JEWELRY')">
+			{{ locale.addJewelry }}
+		</dav-button>
+
+		<dav-button tonal (click)="navigateToNewToyPage('DRAWING')">
+			{{ locale.addDrawingToy }}
+		</dav-button>
+
+		<dav-button tonal (click)="navigateToManageEventsPage()">
+			{{ locale.manageEvents }}
+		</dav-button>
+	</div>
+	}
 
 	<dav-header class="section-header" size="md" alignment="start">{{ locale.yourToys }}</dav-header>
 

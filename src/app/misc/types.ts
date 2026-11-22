@@ -17,11 +17,22 @@ export interface ToyOrder {
 	createdAt: string
 }
 
+/** Decides where a toy is shown, only admins can choose another one than NORMAL */
+export type ToyCategory = "NORMAL" | "PRODUCT" | "JEWELRY" | "DRAWING"
+
+export const toyCategories: ToyCategory[] = [
+	"NORMAL",
+	"PRODUCT",
+	"JEWELRY",
+	"DRAWING"
+]
+
 export interface Toy {
 	uuid: string
 	title: string
 	description: string | null
 	price: number
+	category: ToyCategory
 	photos: ToyPhoto[]
 	sold: boolean
 	/** Distance in km to the seller, only set when the list is sorted by distance */

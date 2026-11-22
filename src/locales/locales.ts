@@ -8,7 +8,14 @@ export const enUS = {
 		drawing: "Drawing to toy",
 		drawingShort: "Drawing",
 		sell: "Sell a toy",
-		account: "Account"
+		account: "Account",
+		categoryLabel: "Category",
+		toyCategories: {
+			NORMAL: "Normal toy",
+			PRODUCT: "Our product",
+			JEWELRY: "Jewelry",
+			DRAWING: "Toy from a drawing"
+		}
 	},
 	startPage: {
 		headline: "Toys that make kids happy twice",
@@ -66,6 +73,7 @@ export const enUS = {
 		loginHint: "You need to log in with your dav account first.",
 		examplesTitle: "Drawing becomes toy",
 		examplesSubtitle: "Three examples of what we can make",
+		productsTitle: "Toys from drawings",
 		example1Alt: "Drawing of a girl in a striped shirt next to the finished figure",
 		example2Alt: "Drawing of two hugging sloths next to the finished figure",
 		example3Alt: "Drawing of a smiling girl in dungarees next to the finished figure",
@@ -189,7 +197,9 @@ export const enUS = {
 		deleteTitle: "Delete toy?",
 		deleteText: "The toy and its photos will be deleted permanently.",
 		cancel: "Cancel",
-		deleteError: "The toy could not be deleted. Please try again."
+		deleteError: "The toy could not be deleted. Please try again.",
+		categoryInfo: "Only visible to admins",
+		categoryError: "The category could not be changed. Please try again."
 	},
 	newToyPage: {
 		title: "Sell a toy",
@@ -217,7 +227,8 @@ export const enUS = {
 		titleInvalid: "The title must be between 1 and 100 characters",
 		descriptionTooLong: "The description must not exceed 5000 characters",
 		error: "The toy could not be listed. Please try again.",
-		loginRequired: "Log in to sell your toys"
+		loginRequired: "Log in to sell your toys",
+		newProductTitle: "Add a product"
 	},
 	userPage: {
 		title: "Your profile",
@@ -228,6 +239,10 @@ export const enUS = {
 		sellToy: "Sell a toy",
 		editProfile: "Edit profile",
 		manageEvents: "Manage events",
+		adminTitle: "Admin",
+		addProduct: "Add a product",
+		addJewelry: "Add jewelry",
+		addDrawingToy: "Add a toy from a drawing",
 		ageYears: "{0} years old",
 		coins: "{0} coins",
 		coinsOne: "1 coin",
@@ -282,7 +297,14 @@ export const deDE: typeof enUS = {
 		drawing: "Zeichnung zu Spielzeug",
 		drawingShort: "Zeichnung",
 		sell: "Spielzeug verkaufen",
-		account: "Konto"
+		account: "Konto",
+		categoryLabel: "Kategorie",
+		toyCategories: {
+			NORMAL: "Normales Spielzeug",
+			PRODUCT: "Unser Produkt",
+			JEWELRY: "Schmuck",
+			DRAWING: "Spielzeug aus Zeichnung"
+		}
 	},
 	startPage: {
 		headline: "Spielzeug, das zweimal Freude macht",
@@ -340,6 +362,7 @@ export const deDE: typeof enUS = {
 		loginHint: "Du musst dich zuerst mit deinem dav-Account anmelden.",
 		examplesTitle: "Aus Zeichnung wird Spielzeug",
 		examplesSubtitle: "Drei Beispiele, was wir anfertigen können",
+		productsTitle: "Spielzeuge aus Zeichnungen",
 		example1Alt: "Zeichnung eines Mädchens im Streifenshirt neben der fertigen Figur",
 		example2Alt: "Zeichnung von zwei kuschelnden Faultieren neben der fertigen Figur",
 		example3Alt: "Zeichnung eines lachenden Mädchens in Latzhose neben der fertigen Figur",
@@ -464,7 +487,9 @@ export const deDE: typeof enUS = {
 		deleteTitle: "Spielzeug löschen?",
 		deleteText: "Das Spielzeug und seine Fotos werden endgültig gelöscht.",
 		cancel: "Abbrechen",
-		deleteError: "Das Spielzeug konnte nicht gelöscht werden. Bitte versuche es erneut."
+		deleteError: "Das Spielzeug konnte nicht gelöscht werden. Bitte versuche es erneut.",
+		categoryInfo: "Nur für Admins sichtbar",
+		categoryError: "Die Kategorie konnte nicht geändert werden. Bitte versuche es erneut."
 	},
 	newToyPage: {
 		title: "Spielzeug verkaufen",
@@ -492,7 +517,8 @@ export const deDE: typeof enUS = {
 		titleInvalid: "Der Titel muss zwischen 1 und 100 Zeichen lang sein",
 		descriptionTooLong: "Die Beschreibung darf höchstens 5000 Zeichen lang sein",
 		error: "Das Spielzeug konnte nicht eingestellt werden. Bitte versuche es erneut.",
-		loginRequired: "Melde dich an, um deine Spielzeuge zu verkaufen"
+		loginRequired: "Melde dich an, um deine Spielzeuge zu verkaufen",
+		newProductTitle: "Produkt hinzufügen"
 	},
 	userPage: {
 		title: "Dein Profil",
@@ -503,6 +529,10 @@ export const deDE: typeof enUS = {
 		sellToy: "Spielzeug verkaufen",
 		editProfile: "Profil bearbeiten",
 		manageEvents: "Events verwalten",
+		adminTitle: "Admin",
+		addProduct: "Produkt hinzufügen",
+		addJewelry: "Schmuck hinzufügen",
+		addDrawingToy: "Spielzeug aus Zeichnung hinzufügen",
 		ageYears: "{0} Jahre",
 		coins: "{0} Coins",
 		coinsOne: "1 Coin",

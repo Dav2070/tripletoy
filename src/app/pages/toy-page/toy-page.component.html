@@ -34,6 +34,24 @@
 				<p class="toy-description">{{ toy.description || locale.noDescription }}</p>
 				<p class="toy-listed-on">{{ listedOn }}</p>
 
+				@if (isAdmin) {
+					<div class="admin-box">
+						<dav-dropdown
+							[label]="categoryLabel"
+							[options]="categoryOptions"
+							[selectedKey]="toy.category"
+							[width]="260"
+							[disabled]="categoryLoading"
+							(change)="categoryChange($event)"
+						></dav-dropdown>
+						<p class="admin-info">{{ locale.categoryInfo }}</p>
+
+						@if (categoryError) {
+							<p class="notice error">{{ categoryError }}</p>
+						}
+					</div>
+				}
+
 				@if (purchased) {
 					<p class="notice success">{{ locale.purchased }}</p>
 				}

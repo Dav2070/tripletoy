@@ -12,9 +12,12 @@ import {
 	faTruckFast
 } from "@fortawesome/free-solid-svg-icons"
 import { Dav } from "dav-js"
+import { ToyCardComponent } from "src/app/components/toy-card/toy-card.component"
+import { ApiService } from "src/app/services/api-service"
 import { DataService } from "src/app/services/data-service"
 import { RoutingService } from "src/app/services/routing-service"
 import { formatPrice } from "src/app/misc/utils"
+import { Toy } from "src/app/misc/types"
 import { drawingPrice } from "src/constants/constants"
 import { environment } from "src/environments/environment"
 import { LocalizationService } from "src/app/services/localization-service"
@@ -24,7 +27,7 @@ import { LocalizationService } from "src/app/services/localization-service"
 	templateUrl: "./drawing-page.component.html",
 	styleUrl: "./drawing-page.component.scss",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [FaIconComponent],
+	imports: [FaIconComponent, ToyCardComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DrawingPageComponent {
@@ -34,6 +37,8 @@ export class DrawingPageComponent {
 	faTruckFast = faTruckFast
 	faHeart = faHeart
 	faStar = faStar
+	// The products made from drawings that can be bought directly
+	products: Toy[] = []
 
 	examples = [
 		{
@@ -55,9 +60,18 @@ export class DrawingPageComponent {
 
 	constructor(
 		public dataService: DataService,
+		private apiService: ApiService,
 		private localizationService: LocalizationService,
 		private routingService: RoutingService
 	) {}
+
+	async ngOnInit() {
+		try {
+			this.products = await this.apiService.listDrawingToys()
+		} catch (error) {
+			console.error(error)
+		}
+	}
 
 	/** Uploading needs a login, so the login page is shown first */
 	async upload() {

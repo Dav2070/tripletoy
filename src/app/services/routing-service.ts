@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Router } from "@angular/router"
+import { ToyCategory } from "src/app/misc/types"
 
 @Injectable({ providedIn: "root" })
 export class RoutingService {
@@ -41,8 +42,11 @@ export class RoutingService {
 		this.router.navigate(["user", "edit"])
 	}
 
-	navigateToNewToyPage() {
-		this.router.navigate(["toy", "new"])
+	/** The category is preselected for admins */
+	navigateToNewToyPage(category?: ToyCategory) {
+		this.router.navigate(["toy", "new"], {
+			queryParams: category != null ? { category } : {}
+		})
 	}
 
 	navigateToEditToyPage(uuid: string) {
