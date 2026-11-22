@@ -105,8 +105,8 @@
 				}
 
 				@if (toy.order; as order) {
-					@if (!order.line1) {
-						<!-- The toys of normal users are handed over in person -->
+					@if (toy.handover) {
+						<!-- The toys of normal users are handed over in person, there is no shipping address -->
 						<div class="order-box">
 							<h3>
 								{{ order.name ? locale.soldTo + " " + order.name : locale.soldHandover }}
