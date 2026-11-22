@@ -1,6 +1,6 @@
 <div class="navbar acrylic">
-	<!-- Logo + name -->
-	<a class="navbar-header" routerLink="/">
+	<!-- Logo + name, left-to-right in every language so it always looks the same -->
+	<a class="navbar-header" routerLink="/" dir="ltr">
 		<span class="logo-badge"><fa-icon [icon]="faPuzzlePiece"></fa-icon></span>
 		<span class="logo-name" [attr.aria-label]="locale.appName">
 			@for (letter of appNameLetters; track $index) {
